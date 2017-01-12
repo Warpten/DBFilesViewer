@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBFilesViewer", "DBFilesViewer\DBFilesViewer.csproj", "{60969AFB-5D26-4CFE-B1DC-E5D1A2CCCCD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectListView2010", "GenericObjectListView\ObjectListView2010.csproj", "{9095DE40-0025-4DC2-8E2F-9F6F1B376713}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBFilesClient.NET", "DBFilesClient.NET\DBFilesClient.NET.csproj", "{9DD24326-77E6-47F5-BA54-345981C16289}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Nuget|Any CPU = Nuget|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{60969AFB-5D26-4CFE-B1DC-E5D1A2CCCCD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60969AFB-5D26-4CFE-B1DC-E5D1A2CCCCD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60969AFB-5D26-4CFE-B1DC-E5D1A2CCCCD6}.Nuget|Any CPU.ActiveCfg = Release|Any CPU
+		{60969AFB-5D26-4CFE-B1DC-E5D1A2CCCCD6}.Nuget|Any CPU.Build.0 = Release|Any CPU
+		{60969AFB-5D26-4CFE-B1DC-E5D1A2CCCCD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60969AFB-5D26-4CFE-B1DC-E5D1A2CCCCD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9095DE40-0025-4DC2-8E2F-9F6F1B376713}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9095DE40-0025-4DC2-8E2F-9F6F1B376713}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9095DE40-0025-4DC2-8E2F-9F6F1B376713}.Nuget|Any CPU.ActiveCfg = Release|Any CPU
+		{9095DE40-0025-4DC2-8E2F-9F6F1B376713}.Nuget|Any CPU.Build.0 = Release|Any CPU
+		{9095DE40-0025-4DC2-8E2F-9F6F1B376713}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9095DE40-0025-4DC2-8E2F-9F6F1B376713}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DD24326-77E6-47F5-BA54-345981C16289}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DD24326-77E6-47F5-BA54-345981C16289}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DD24326-77E6-47F5-BA54-345981C16289}.Nuget|Any CPU.ActiveCfg = Nuget|Any CPU
+		{9DD24326-77E6-47F5-BA54-345981C16289}.Nuget|Any CPU.Build.0 = Nuget|Any CPU
+		{9DD24326-77E6-47F5-BA54-345981C16289}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DD24326-77E6-47F5-BA54-345981C16289}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

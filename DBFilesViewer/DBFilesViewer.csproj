@@ -1,0 +1,621 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{60969AFB-5D26-4CFE-B1DC-E5D1A2CCCCD6}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DBFilesViewer</RootNamespace>
+    <AssemblyName>DBFilesViewer</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Be.Windows.Forms.HexBox, Version=1.6.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Be.Windows.Forms.HexBox.1.6.1\lib\net40\Be.Windows.Forms.HexBox.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAPICodePack.Core.1.1.0\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAPICodePack.Shell.1.1.0\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NAudio, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.7.3\lib\net35\NAudio.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NAudio.Vorbis, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Vorbis.1.0.0.0\lib\net35\NAudio.Vorbis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLayer, Version=1.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rev-NLayer.0.0.2\lib\NLayer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLayer.NAudioSupport, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rev-NLayer.0.0.2\lib\NLayer.NAudioSupport.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NVorbis, Version=0.8.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NVorbis.0.8.5.0\lib\NVorbis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX, Version=3.1.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.3.1.1\lib\net45\SharpDX.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.D3DCompiler, Version=3.1.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.D3DCompiler.3.1.1\lib\net45\SharpDX.D3DCompiler.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.Desktop, Version=3.1.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.Desktop.3.1.1\lib\net45\SharpDX.Desktop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.Direct2D1, Version=3.1.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.Direct2D1.3.1.1\lib\net45\SharpDX.Direct2D1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D11, Version=3.1.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.Direct3D11.3.1.1\lib\net45\SharpDX.Direct3D11.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.DXGI, Version=3.1.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.DXGI.3.1.1\lib\net45\SharpDX.DXGI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.Mathematics, Version=3.1.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.Mathematics.3.1.1\lib\net45\SharpDX.Mathematics.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\IO\Files\ModelFileDataInfo.cs" />
+    <Compile Include="Data\IO\Files\Models\ChunkReader.cs" />
+    <Compile Include="Data\Structures\AnimationDataEntry.cs" />
+    <Compile Include="Data\Structures\CharacterFacialHairStylesEntry.cs" />
+    <Compile Include="Data\Structures\CharComponentTextureLayoutsEntry.cs" />
+    <Compile Include="Data\Structures\CharComponentTextureSectionsEntry.cs" />
+    <Compile Include="Data\Structures\CharHairGeosetsEntry.cs" />
+    <Compile Include="Data\Structures\CharSectionsEntry.cs" />
+    <Compile Include="Data\Structures\ItemAppearanceEntry.cs" />
+    <Compile Include="Data\Structures\ItemModifiedAppearanceEntry.cs" />
+    <Compile Include="Data\Structures\NpcModelItemSlotDisplayInfoEntry.cs" />
+    <Compile Include="Data\Structures\TaxiNodesEntry.cs" />
+    <Compile Include="Data\Structures\Types\Attributes.cs" />
+    <Compile Include="Data\Structures\Types\MultiForeignKey.cs" />
+    <Compile Include="Graphics\BlendState.cs" />
+    <Compile Include="Graphics\Buffer.cs" />
+    <Compile Include="Graphics\ConstantBuffer.cs" />
+    <Compile Include="Graphics\DepthState.cs" />
+    <Compile Include="Graphics\Files\Models\Animations\AnimatedTexture.cs" />
+    <Compile Include="Graphics\Files\Models\Animations\AnimationBlock.cs" />
+    <Compile Include="Graphics\Files\Models\Animations\AnimatedBone.cs" />
+    <Compile Include="Graphics\Files\Models\Animations\AnimatedColor.cs" />
+    <Compile Include="Graphics\Files\Models\Animations\AnimationInterpolation.cs" />
+    <Compile Include="Graphics\Files\Models\Animations\ModelAnimator.cs" />
+    <Compile Include="Graphics\Files\Models\Attachments\ModelAttachment.cs" />
+    <Compile Include="Graphics\Files\Models\M2.cs" />
+    <Compile Include="Graphics\Files\Models\ModelRenderPass.cs" />
+    <Compile Include="Graphics\Files\Models\ModelShaders.cs" />
+    <Compile Include="Graphics\Files\Models\ModelSubMeshInfo.cs" />
+    <Compile Include="Graphics\Files\Models\ModelTypes.cs" />
+    <Compile Include="Graphics\GraphicDispatcher.cs" />
+    <Compile Include="Graphics\GxContext.cs" />
+    <Compile Include="Graphics\IndexBuffer.cs" />
+    <Compile Include="Graphics\Mesh.cs" />
+    <Compile Include="Graphics\RasterState.cs" />
+    <Compile Include="Graphics\RenderTarget.cs" />
+    <Compile Include="Graphics\Sampler.cs" />
+    <Compile Include="Graphics\Scene\Camera.cs" />
+    <Compile Include="Graphics\Scene\CameraControl.cs" />
+    <Compile Include="Graphics\Scene\ModelRenderer.cs" />
+    <Compile Include="Graphics\ShaderProgram.cs" />
+    <Compile Include="Graphics\Texture.cs" />
+    <Compile Include="Graphics\VertexBuffer.cs" />
+    <Compile Include="Graphics\VertexElement.cs" />
+    <Compile Include="Graphics\ViewFrustrum.cs" />
+    <Compile Include="UI\Controls\BitEnumEditor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\EnumConverter.cs" />
+    <Compile Include="UI\Controls\HexConverter.cs" />
+    <Compile Include="UI\Controls\ModelRenderControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\ModelRenderControl.Designer.cs">
+      <DependentUpon>ModelRenderControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\CreatureModelViewerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\ItemModelViewerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\ModelRenderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\ModelRenderForm.Designer.cs">
+      <DependentUpon>ModelRenderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controls\TypeSafeColumn.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Data\IO\CASC\BLTE.cs" />
+    <Compile Include="Data\IO\CASC\Encoding.cs" />
+    <Compile Include="Data\IO\CASC\Manager.cs" />
+    <Compile Include="Data\IO\CASC\IndexStore.cs" />
+    <Compile Include="Data\IO\CASC\Root.cs" />
+    <Compile Include="Data\IO\CASC\JenkinsHash.cs" />
+    <Compile Include="Data\IO\CASC\TokenConfig.cs" />
+    <Compile Include="Data\IO\CASC\KeyValueConfig.cs" />
+    <Compile Include="Resources\Shaders.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Shaders.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Graphics\Scene\DxtHelper.cs" />
+    <Compile Include="Graphics\Scene\TextureLoader.cs" />
+    <Compile Include="Graphics\Scene\TextureManager.cs" />
+    <Compile Include="Data\Structures\CombatConditionEntry.cs" />
+    <Compile Include="Data\Structures\ItemBonusTreeNodeEntry.cs" />
+    <Compile Include="Data\Structures\ItemXBonusTreeEntry.cs" />
+    <Compile Include="Data\Structures\ModifierTreeEntry.cs" />
+    <Compile Include="Data\Structures\SoundEntriesEntry.cs" />
+    <Compile Include="Data\Structures\SoundKitEntry.cs" />
+    <Compile Include="Data\Structures\Types\AudioFile.cs" />
+    <Compile Include="Data\Structures\Types\BinaryFile.cs" />
+    <Compile Include="Data\Structures\Types\ComplexForeignKeys.cs" />
+    <Compile Include="Data\Structures\Types\ModelFile.cs" />
+    <Compile Include="Data\Structures\UnitConditionEntry.cs" />
+    <Compile Include="Data\Structures\ZoneMusicEntry.cs" />
+    <Compile Include="UI\Forms\AudioPlayerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\AudioPlayerForm.Designer.cs">
+      <DependentUpon>AudioPlayerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\FindFileDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\FindFileDialog.Designer.cs">
+      <DependentUpon>FindFileDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\HexViewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\HexViewForm.Designer.cs">
+      <DependentUpon>HexViewForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\ReferenceFinderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\ReferenceFinderForm.Designer.cs">
+      <DependentUpon>ReferenceFinderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\StructureExportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\StructureExportForm.Designer.cs">
+      <DependentUpon>StructureExportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyGridProxy.cs" />
+    <Compile Include="Data\Structures\AnimKitEntry.cs" />
+    <Compile Include="Data\Structures\AreaTriggerEntry.cs" />
+    <Compile Include="Data\Structures\ArtifactAppearanceSetEntry.cs" />
+    <Compile Include="Data\Structures\ArtifactAppearenceEntry.cs" />
+    <Compile Include="Data\Structures\ArtifactEntry.cs" />
+    <Compile Include="Data\Structures\CreatureDisplayInfoEntry.cs" />
+    <Compile Include="Data\Structures\CreatureDisplayInfoExtraEntry.cs" />
+    <Compile Include="Data\Structures\CreatureModelDataEntry.cs" />
+    <Compile Include="Data\Structures\FileDataEntry.cs" />
+    <Compile Include="Data\Structures\ItemBonusEntry.cs" />
+    <Compile Include="Data\Structures\ItemDisplayInfoEntry.cs" />
+    <Compile Include="Data\Structures\ItemDisplayInfoMaterialResEntry.cs" />
+    <Compile Include="Data\Structures\ItemExtendedCostEntry.cs" />
+    <Compile Include="Data\Structures\ItemNameDescriptionEntry.cs" />
+    <Compile Include="Data\Structures\ItemRandomPropertiesEntry.cs" />
+    <Compile Include="Data\Structures\ItemRandomSuffixEntry.cs" />
+    <Compile Include="Data\Structures\ItemRandPropPointsEntry.cs" />
+    <Compile Include="Data\Structures\LoadingScreensEntry.cs" />
+    <Compile Include="Data\Structures\PvPRewardEntry.cs" />
+    <Compile Include="Data\Structures\RewardPackEntry.cs" />
+    <Compile Include="Data\Structures\WorldMapAreaEntry.cs" />
+    <Compile Include="UI\Forms\TexturePreviewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\TexturePreviewForm.Designer.cs">
+      <DependentUpon>TexturePreviewForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Streams\BigEndianBitConverter.cs" />
+    <Compile Include="Utils\ByteArrayComparer.cs" />
+    <Compile Include="Utils\Streams\EndianBinaryReader.cs" />
+    <Compile Include="Utils\Streams\EndianBitConverter.cs" />
+    <Compile Include="Data\Structures\Types\TextureFile.cs" />
+    <Compile Include="Utils\Extensions\IOExtensions.cs" />
+    <Compile Include="Utils\Extensions\MiscExtensions.cs" />
+    <Compile Include="Data\Structures\Types\Flags.cs" />
+    <Compile Include="UI\FolderSelectionDialog.cs" />
+    <Compile Include="Data\Structures\Types\ForeignKey.cs" />
+    <Compile Include="UI\Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Data\IO\Files\DBC.cs" />
+    <Compile Include="UI\Controls\StorageViewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\StorageViewControl.Designer.cs">
+      <DependentUpon>StorageViewControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Streams\LittleEndianBitConverter.cs" />
+    <Compile Include="Data\Structures\Types\Money.cs" />
+    <Compile Include="Data\Structures\Types\PackedColor.cs" />
+    <Compile Include="Utils\SizeCache.cs" />
+    <Compile Include="Data\Structures\Types\StoredDate.cs" />
+    <Compile Include="Data\Structures\AreaGroupMemberEntry.cs" />
+    <Compile Include="Data\Structures\AreaTableEntry.cs" />
+    <Compile Include="Data\Structures\ChrSpecializationEntry.cs" />
+    <Compile Include="Data\Structures\CurrencyTypesEntry.cs" />
+    <Compile Include="Data\Structures\HolidayDescriptionsEntry.cs" />
+    <Compile Include="Data\Structures\HolidayNames.cs" />
+    <Compile Include="Data\Structures\HolidaysEntry.cs" />
+    <Compile Include="Data\Structures\ItemSparseEntry.cs" />
+    <Compile Include="Data\Structures\LiquidTypeEntry.cs" />
+    <Compile Include="Data\Structures\MapEntry.cs" />
+    <Compile Include="Data\Structures\PlayerConditionEntry.cs" />
+    <Compile Include="Utils\SharedEnums.cs" />
+    <Compile Include="Data\Structures\SpecializationSpellsEntry.cs" />
+    <Compile Include="Data\Structures\SpellDescriptionVariablesEntry.cs" />
+    <Compile Include="Data\Structures\SpellEntry.cs" />
+    <Compile Include="Data\Structures\SpellMiscEntry.cs" />
+    <Compile Include="Data\Structures\TalentEntry.cs" />
+    <Compile Include="Utils\UnsafeNativeMethods.cs" />
+    <EmbeddedResource Include="Resources\Shaders.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Shaders.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Controls\ModelRenderControl.resx">
+      <DependentUpon>ModelRenderControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\AudioPlayerForm.resx">
+      <DependentUpon>AudioPlayerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\CreatureModelViewerForm.resx">
+      <DependentUpon>CreatureModelViewerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\ModelRenderForm.resx">
+      <DependentUpon>ModelRenderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\FindFileDialog.resx">
+      <DependentUpon>FindFileDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\HexViewForm.resx">
+      <DependentUpon>HexViewForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\ReferenceFinderForm.resx">
+      <DependentUpon>ReferenceFinderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\StructureExportForm.resx">
+      <DependentUpon>StructureExportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="UI\Controls\StorageViewControl.resx">
+      <DependentUpon>StorageViewControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\TexturePreviewForm.resx">
+      <DependentUpon>TexturePreviewForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Data\Structures\WorldSafeLocsEntry.cs" />
+    <None Include="Resources\Shaders\BoundingBoxPixel1.dxc" />
+    <None Include="Resources\Shaders\BoundingBoxVertex1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel2PassOld1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel3PassOld1.dxc" />
+    <None Include="Resources\Shaders\M2PixelBlendAlphaOld1.dxc" />
+    <None Include="Resources\Shaders\M2PixelBlendOld1.dxc" />
+    <None Include="Resources\Shaders\M2PixelOld1.dxc" />
+    <None Include="Resources\Shaders\M2PixelPortrait1.dxc" />
+    <None Include="Resources\Shaders\M2PixelPortrait2Pass1.dxc" />
+    <None Include="Resources\Shaders\M2PixelPortrait3Pass1.dxc" />
+    <None Include="Resources\Shaders\M2PixelPortraitBlend1.dxc" />
+    <None Include="Resources\Shaders\M2PixelPortraitBlendAlpha1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod_Add1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod_AddAlpha1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod_AddAlpha_Alpha1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod_AddNA1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod_Add_Alpha1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod_Dual_Crossfade1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod_Masked_Dual_Crossfade1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod_Mod1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod_Mod2x1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod_Mod2xNA1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod_Opaque1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque_AddAlpha1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque_AddAlpha_Alpha1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque_AddAlpha_Wgt1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque_Alpha1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque_Alpha_Alpha1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque_Mod1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque_Mod2x1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque_Mod2xNA1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque_Mod2xNA_Alpha1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque_ModNA_Alpha1.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque_Opaque1.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstancedOld1.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_EdgeFade_Env1.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_EdgeFade_T11.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_EdgeFade_T1_T21.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_Env1.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_Env_Env1.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_Env_T11.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_T11.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_T1_Env1.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_T1_Env_T11.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_T1_Env_T21.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_T1_T11.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_T1_T1_T11.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_T1_T1_T1_T21.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_T1_T21.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_T1_T2_T11.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_T21.dxc" />
+    <None Include="Resources\Shaders\M2VertexPortrait1.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingleOld1.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_EdgeFade_Env1.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_EdgeFade_T11.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_EdgeFade_T1_T21.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_Env1.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_Env_Env1.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_Env_T11.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_T11.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_T1_Env1.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_T1_Env_T11.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_T1_Env_T21.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_T1_T11.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_T1_T1_T11.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_T1_T1_T1_T21.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_T1_T21.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_T1_T2_T11.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_T21.dxc" />
+    <None Include="Resources\Shaders\MapLowPixel1.dxc" />
+    <None Include="Resources\Shaders\MapLowVertex1.dxc" />
+    <None Include="Resources\Shaders\SkyPixel1.dxc" />
+    <None Include="Resources\Shaders\SkyVertex1.dxc" />
+    <None Include="Resources\Shaders\TerrainPixel1.dxc" />
+    <None Include="Resources\Shaders\TerrainPixelNew1.dxc" />
+    <None Include="Resources\Shaders\TerrainVertex1.dxc" />
+    <None Include="Resources\Shaders\TexturedQuadPixel1.dxc" />
+    <None Include="Resources\Shaders\TexturedQuadVertex1.dxc" />
+    <None Include="Resources\Shaders\WmoPixel1.dxc" />
+    <None Include="Resources\Shaders\WmoPixelBlend1.dxc" />
+    <None Include="Resources\Shaders\WmoPixelBlendIndoor1.dxc" />
+    <None Include="Resources\Shaders\WmoPixelIndoor1.dxc" />
+    <None Include="Resources\Shaders\WmoVertex1.dxc" />
+    <None Include="Resources\Shaders\WorldTextPixel1.dxc" />
+    <None Include="Resources\Shaders\WorldTextVertex1.dxc" />
+    <None Include="Resources\Shaders\WorldTextVertexOrtho.dxc" />
+    <None Include="Resources\Shaders\WorldTextVertexOrtho1.dxc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shaders\BoundingBoxPixel.dxc" />
+    <None Include="Resources\Shaders\BoundingBoxPixel.hlsl" />
+    <None Include="Resources\Shaders\BoundingBoxVertex.dxc" />
+    <None Include="Resources\Shaders\BoundingBoxVertex.hlsl" />
+    <None Include="Resources\Shaders\M2Pixel2PassOld.dxc" />
+    <None Include="Resources\Shaders\M2Pixel3PassOld.dxc" />
+    <None Include="Resources\Shaders\M2PixelBlendAlphaOld.dxc" />
+    <None Include="Resources\Shaders\M2PixelBlendOld.dxc" />
+    <None Include="Resources\Shaders\M2PixelOld.dxc" />
+    <None Include="Resources\Shaders\M2PixelOld.hlsl" />
+    <None Include="Resources\Shaders\M2PixelPortrait.dxc" />
+    <None Include="Resources\Shaders\M2PixelPortrait.hlsl" />
+    <None Include="Resources\Shaders\M2PixelPortrait2Pass.dxc" />
+    <None Include="Resources\Shaders\M2PixelPortrait3Pass.dxc" />
+    <None Include="Resources\Shaders\M2PixelPortraitBlend.dxc" />
+    <None Include="Resources\Shaders\M2PixelPortraitBlendAlpha.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod_Add.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod_AddAlpha.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod_AddAlpha_Alpha.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod_AddNA.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod_Add_Alpha.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod_Dual_Crossfade.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod_Masked_Dual_Crossfade.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod_Mod.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod_Mod2x.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod_Mod2xNA.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Mod_Opaque.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque_AddAlpha.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque_AddAlpha_Alpha.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque_AddAlpha_Wgt.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque_Alpha.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque_Alpha_Alpha.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque_Mod.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque_Mod2x.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque_Mod2xNA.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque_Mod2xNA_Alpha.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque_ModNA_Alpha.dxc" />
+    <None Include="Resources\Shaders\M2Pixel_PS_Combiners_Opaque_Opaque.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced.hlsl" />
+    <None Include="Resources\Shaders\M2VertexInstancedOld.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstancedOld.hlsl" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_EdgeFade_Env.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_EdgeFade_T1.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_EdgeFade_T1_T2.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_Env.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_Env_Env.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_Env_T1.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_T1.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_T1_Env.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_T1_Env_T1.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_T1_Env_T2.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_T1_T1.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_T1_T1_T1.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_T1_T1_T1_T2.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_T1_T2.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_T1_T2_T1.dxc" />
+    <None Include="Resources\Shaders\M2VertexInstanced_VS_Diffuse_T2.dxc" />
+    <None Include="Resources\Shaders\M2VertexPortrait.dxc" />
+    <None Include="Resources\Shaders\M2VertexPortrait.hlsl" />
+    <None Include="Resources\Shaders\M2VertexSingle.hlsl" />
+    <None Include="Resources\Shaders\M2VertexSingleOld.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingleOld.hlsl" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_EdgeFade_Env.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_EdgeFade_T1.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_EdgeFade_T1_T2.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_Env.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_Env_Env.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_Env_T1.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_T1.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_T1_Env.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_T1_Env_T1.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_T1_Env_T2.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_T1_T1.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_T1_T1_T1.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_T1_T1_T1_T2.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_T1_T2.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_T1_T2_T1.dxc" />
+    <None Include="Resources\Shaders\M2VertexSingle_VS_Diffuse_T2.dxc" />
+    <None Include="Resources\Shaders\MapLowPixel.dxc" />
+    <None Include="Resources\Shaders\MapLowPixel.hlsl" />
+    <None Include="Resources\Shaders\MapLowVertex.dxc" />
+    <None Include="Resources\Shaders\MapLowVertex.hlsl" />
+    <None Include="Resources\Shaders\SkyPixel.dxc" />
+    <None Include="Resources\Shaders\SkyPixel.hlsl" />
+    <None Include="Resources\Shaders\SkyVertex.dxc" />
+    <None Include="Resources\Shaders\SkyVertex.hlsl" />
+    <None Include="Resources\Shaders\TerrainPixel.dxc" />
+    <None Include="Resources\Shaders\TerrainPixel.hlsl" />
+    <None Include="Resources\Shaders\TerrainPixelNew.dxc" />
+    <None Include="Resources\Shaders\TerrainPixelNew.hlsl" />
+    <None Include="Resources\Shaders\TerrainVertex.dxc" />
+    <None Include="Resources\Shaders\TerrainVertex.hlsl" />
+    <None Include="Resources\Shaders\TexturedQuadPixel.dxc" />
+    <None Include="Resources\Shaders\TexturedQuadPixel.hlsl" />
+    <None Include="Resources\Shaders\TexturedQuadVertex.dxc" />
+    <None Include="Resources\Shaders\TexturedQuadVertex.hlsl" />
+    <None Include="Resources\Shaders\WmoPixel.dxc" />
+    <None Include="Resources\Shaders\WmoPixel.hlsl" />
+    <None Include="Resources\Shaders\WmoPixelBlend.dxc" />
+    <None Include="Resources\Shaders\WmoPixelBlendIndoor.dxc" />
+    <None Include="Resources\Shaders\WmoPixelIndoor.dxc" />
+    <None Include="Resources\Shaders\WmoVertex.dxc" />
+    <None Include="Resources\Shaders\WmoVertex.hlsl" />
+    <None Include="Resources\Shaders\WorldTextPixel.dxc" />
+    <None Include="Resources\Shaders\WorldTextPixel.hlsl" />
+    <None Include="Resources\Shaders\WorldTextVertex.dxc" />
+    <None Include="Resources\Shaders\WorldTextVertex.hlsl" />
+    <None Include="Resources\Shaders\ShaderBuildDefinition.xml" />
+    <Content Include="Tools\d3dcompiler_43.dll" />
+    <Content Include="Tools\ShaderCompiler.exe" />
+    <Content Include="Tools\ShaderProcessor.pdb" />
+    <Content Include="UI\Icons\Checkmark.png" />
+    <Content Include="UI\Icons\Code.ico" />
+    <Content Include="UI\Icons\Database.ico" />
+    <Content Include="UI\Icons\Delete.png" />
+    <Content Include="UI\Icons\Image.ico" />
+    <Content Include="UI\Icons\Musical.ico" />
+    <Content Include="UI\Icons\Musical.png" />
+    <Content Include="UI\Icons\Pause.png" />
+    <Content Include="UI\Icons\Play.png" />
+    <Content Include="UI\Icons\Search.ico" />
+    <Content Include="UI\Icons\Search.png" />
+    <Content Include="UI\Icons\Stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DBFilesClient.NET\DBFilesClient.NET.csproj">
+      <Project>{9dd24326-77e6-47f5-ba54-345981c16289}</Project>
+      <Name>DBFilesClient.NET</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GenericObjectListView\ObjectListView2010.csproj">
+      <Project>{9095de40-0025-4dc2-8e2f-9f6f1b376713}</Project>
+      <Name>ObjectListView2010</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="ShaderCompiler" BeforeTargets="PrepareForBuild" Label="Shader Compilation">
+    <Exec Command="&quot;$(ProjectDir)\tools\ShaderCompiler.exe&quot; &quot;$(ProjectDir)\Resources\Shaders\ShaderBuildDefinition.xml&quot; &quot;$(ProjectDir)\&quot; &quot;$(Configuration)&quot;">
+    </Exec>
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
