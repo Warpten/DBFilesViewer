@@ -346,13 +346,13 @@ namespace BrightIdeasSoftware {
             if (!ListView.PossibleFinishCellEditing())
                 return;
 
-            OLVListItem<T> olvi = ItemBeingEdited;
-            int subItemIndex = SubItemIndexBeingEdited;
-            bool isGoingUp = behaviour == CellEditCharacterBehaviour.ChangeRowUp;
+            var olvi = ItemBeingEdited;
+            var subItemIndex = SubItemIndexBeingEdited;
+            var isGoingUp = behaviour == CellEditCharacterBehaviour.ChangeRowUp;
 
             // Try to find a row above (or below) the currently edited cell
             // If we find one, start editing it and we're done.
-            OLVListItem<T> adjacentOlvi = GetAdjacentItemOrNull(olvi, isGoingUp);
+            var adjacentOlvi = GetAdjacentItemOrNull(olvi, isGoingUp);
             if (adjacentOlvi != null) {
                 StartCellEditIfDifferent(adjacentOlvi, subItemIndex);
                 return;
@@ -374,8 +374,8 @@ namespace BrightIdeasSoftware {
                 break;
             case CellEditAtEdgeBehaviour.ChangeColumn:
                 // Figure out the next editable column
-                List<OLVColumn<T>> editableColumnsInDisplayOrder = EditableColumnsInDisplayOrder;
-                int displayIndex = Math.Max(0, editableColumnsInDisplayOrder.IndexOf(ListView.GetColumn(subItemIndex)));
+                var editableColumnsInDisplayOrder = EditableColumnsInDisplayOrder;
+                var displayIndex = Math.Max(0, editableColumnsInDisplayOrder.IndexOf(ListView.GetColumn(subItemIndex)));
                 if (isGoingUp)
                     displayIndex = (editableColumnsInDisplayOrder.Count + displayIndex - 1) % editableColumnsInDisplayOrder.Count;
                 else
@@ -404,11 +404,11 @@ namespace BrightIdeasSoftware {
             if (ListView.View != View.Details)
                 return;
 
-            List<OLVColumn<T>> editableColumns = EditableColumnsInDisplayOrder;
-            OLVListItem<T> olvi = ItemBeingEdited;
-            int displayIndex = Math.Max(0,
+            var editableColumns = EditableColumnsInDisplayOrder;
+            var olvi = ItemBeingEdited;
+            var displayIndex = Math.Max(0,
                 editableColumns.IndexOf(ListView.GetColumn(SubItemIndexBeingEdited)));
-            bool isGoingLeft = behaviour == CellEditCharacterBehaviour.ChangeColumnLeft;
+            var isGoingLeft = behaviour == CellEditCharacterBehaviour.ChangeColumnLeft;
 
             // Are we trying to continue past one of the edges?
             if ((isGoingLeft && displayIndex == 0) ||
@@ -444,7 +444,7 @@ namespace BrightIdeasSoftware {
                     displayIndex += 1;
             }
 
-            int subItemIndex = editableColumns[displayIndex].Index;
+            var subItemIndex = editableColumns[displayIndex].Index;
             StartCellEditIfDifferent(olvi, subItemIndex);
         }
 
@@ -473,7 +473,7 @@ namespace BrightIdeasSoftware {
         /// <param name="up">The direction of the adjacentness</param>
         /// <returns>An OLVListView adjacent to the given item, or null if there are no more enabled items in that direction.</returns>
         protected OLVListItem<T> GetAdjacentItemOrNull(OLVListItem<T> olvi, bool up) {
-            OLVListItem<T> item = up ? ListView.GetPreviousItem(olvi) : ListView.GetNextItem(olvi);
+            var item = up ? ListView.GetPreviousItem(olvi) : ListView.GetNextItem(olvi);
             while (item != null && !item.Enabled)
                 item = up ? ListView.GetPreviousItem(item) : ListView.GetNextItem(item);
             return item;
@@ -494,8 +494,8 @@ namespace BrightIdeasSoftware {
         /// </summary>
         protected List<OLVColumn<T>> EditableColumnsInDisplayOrder {
             get {
-                List<OLVColumn<T>> editableColumnsInDisplayOrder = new List<OLVColumn<T>>();
-                foreach (OLVColumn<T> x in ListView.ColumnsInDisplayOrder)
+                var editableColumnsInDisplayOrder = new List<OLVColumn<T>>();
+                foreach (var x in ListView.ColumnsInDisplayOrder)
                     if (x.IsEditable)
                         editableColumnsInDisplayOrder.Add(x);
                 return editableColumnsInDisplayOrder;

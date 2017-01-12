@@ -25,9 +25,6 @@
  * If you wish to use this code in a closed source application, please contact phillip.piper@gmail.com.
  */
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
 
@@ -132,7 +129,7 @@ namespace BrightIdeasSoftware {
         /// Check all the items in the control
         /// </summary>
         public void CheckAll() {
-            for (int i = 0; i < this.Items.Count; i++)
+            for (var i = 0; i < this.Items.Count; i++)
                 this.CheckedListBoxControl.SetItemChecked(i, true);
         }
 
@@ -140,7 +137,7 @@ namespace BrightIdeasSoftware {
         /// Unchecked all the items in the control
         /// </summary>
         public void UncheckAll() {
-            for (int i = 0; i < this.Items.Count; i++)
+            for (var i = 0; i < this.Items.Count; i++)
                 this.CheckedListBoxControl.SetItemChecked(i, false);
         }
 
@@ -153,7 +150,7 @@ namespace BrightIdeasSoftware {
         protected override void OnSubscribeControlEvents(Control c) {
             base.OnSubscribeControlEvents(c);
 
-            CheckedListBox control = (CheckedListBox)c;
+            var control = (CheckedListBox)c;
             control.ItemCheck += new ItemCheckEventHandler(OnItemCheck);
         }
 
@@ -164,7 +161,7 @@ namespace BrightIdeasSoftware {
         protected override void OnUnsubscribeControlEvents(Control c) {
             base.OnUnsubscribeControlEvents(c);
 
-            CheckedListBox control = (CheckedListBox)c;
+            var control = (CheckedListBox)c;
             control.ItemCheck -= new ItemCheckEventHandler(OnItemCheck);
         }
 

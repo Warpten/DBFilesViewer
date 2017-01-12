@@ -41,7 +41,6 @@
  */
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -56,39 +55,39 @@ namespace BrightIdeasSoftware
     /// <summary>
     /// An object that implements the IGenerator interface provides the ability 
     /// to dynamically create columns
-    /// for an ObjectListView<T> based on the characteristics of a given collection
+    /// for an ObjectListView{T} based on the characteristics of a given collection
     /// of model objects.
     /// </summary>
     public interface IGenerator<T> {
         /// <summary>
-        /// Generate columns into the given ObjectListView<T> that come from the given 
+        /// Generate columns into the given ObjectListView{T} that come from the given 
         /// model object type. 
         /// </summary>
-        /// <param name="olv">The ObjectListView<T> to modify</param>
+        /// <param name="olv">The ObjectListView{T} to modify</param>
         /// <param name="type">The model type whose attributes will be considered.</param>
-        /// <param name="allProperties">Will columns be generated for properties that are not marked with [OLVColumn<T>].</param>
+        /// <param name="allProperties">Will columns be generated for properties that are not marked with [OLVColumn{T}].</param>
         void GenerateAndReplaceColumns(ObjectListView<T> olv, bool allProperties);
 
         /// <summary>
-        /// Generate a list of OLVColumn<T>s based on the attributes of the given type
+        /// Generate a list of OLVColumn{T}s based on the attributes of the given type
         /// If allProperties to true, all public properties will have a matching column generated.
-        /// If allProperties is false, only properties that have a OLVColumn<T> attribute will have a column generated.
+        /// If allProperties is false, only properties that have a OLVColumn{T} attribute will have a column generated.
         /// </summary>
         /// <param name="type"></param>
-        /// <param name="allProperties">Will columns be generated for properties that are not marked with [OLVColumn<T>].</param>
-        /// <returns>A collection of OLVColumn<T>s matching the attributes of Type that have OLVColumn<T>Attributes.</returns>
+        /// <param name="allProperties">Will columns be generated for properties that are not marked with [OLVColumn{T}].</param>
+        /// <returns>A collection of OLVColumn<T>s matching the attributes of Type that have OLVColumn{T}Attributes.</returns>
         IList<OLVColumn<T>> GenerateColumns(bool allProperties);
     }
 
     /// <summary>
     /// The Generator class provides methods to dynamically create columns
-    /// for an ObjectListView<T> based on the characteristics of a given collection
+    /// for an ObjectListView{T} based on the characteristics of a given collection
     /// of model objects.
     /// </summary>
     /// <remarks>
     /// <para>For a given type, a Generator can create columns to match the public properties
     /// of that type. The generator can consider all public properties or only those public properties marked with
-    /// [OLVColumn<T>] attribute.</para>
+    /// [OLVColumn{T}] attribute.</para>
     /// </remarks>
     public class Generator<T> : IGenerator<T> {
         #region Static convenience methods
@@ -105,13 +104,13 @@ namespace BrightIdeasSoftware
         private static IGenerator<T> instance;
 
         /// <summary>
-        /// Replace all columns of the given ObjectListView<T> with columns generated
+        /// Replace all columns of the given ObjectListView{T} with columns generated
         /// from the first member of the given enumerable. If the enumerable is 
-        /// empty or null, the ObjectListView<T> will be cleared.
+        /// empty or null, the ObjectListView{T} will be cleared.
         /// </summary>
-        /// <param name="olv">The ObjectListView<T> to modify</param>
+        /// <param name="olv">The ObjectListView{T} to modify</param>
         /// <param name="enumerable">The collection whose first element will be used to generate columns.</param>
-        /// <param name="allProperties">Will columns be generated for properties that are not marked with [OLVColumn<T>].</param>
+        /// <param name="allProperties">Will columns be generated for properties that are not marked with [OLVColumn{T}].</param>
         public static void GenerateColumns(ObjectListView<T> olv, IEnumerable<T> enumerable, bool allProperties = false) {
             // Generate columns based on the type of the first model in the collection and then quit
             if (enumerable != null) {
@@ -127,10 +126,10 @@ namespace BrightIdeasSoftware
         }
 
         /// <summary>
-        /// Generate columns into the given ObjectListView<T> that come from the public properties of the given 
+        /// Generate columns into the given ObjectListView{T} that come from the public properties of the given 
         /// model object type. 
         /// </summary>
-        /// <param name="olv">The ObjectListView<T> to modify</param>
+        /// <param name="olv">The ObjectListView{T} to modify</param>
         /// <param name="type">The model type whose attributes will be considered.</param>
         public static void GenerateColumns(ObjectListView<T> olv) {
             Instance.GenerateAndReplaceColumns(olv, false);
@@ -152,7 +151,7 @@ namespace BrightIdeasSoftware
         /// that have a OLVColumn attribute.
         /// </summary>
         /// <param name="type"></param>
-        /// <returns>A collection of OLVColumn<T>s matching the attributes of Type that have OLVColumnAttributes.</returns>
+        /// <returns>A collection of OLVColumn{T}s matching the attributes of Type that have OLVColumnAttributes.</returns>
         public static IList<OLVColumn<T>> GenerateColumns() {
             return Instance.GenerateColumns(false);
         }
@@ -162,12 +161,12 @@ namespace BrightIdeasSoftware
         #region Public interface
 
         /// <summary>
-        /// Generate columns into the given ObjectListView<T> that come from the given 
+        /// Generate columns into the given ObjectListView{T} that come from the given 
         /// model object type. 
         /// </summary>
-        /// <param name="olv">The ObjectListView<T> to modify</param>
+        /// <param name="olv">The ObjectListView{T} to modify</param>
         /// <param name="type">The model type whose attributes will be considered.</param>
-        /// <param name="allProperties">Will columns be generated for properties that are not marked with [OLVColumn<T>].</param>
+        /// <param name="allProperties">Will columns be generated for properties that are not marked with [OLVColumn{T}].</param>
         public virtual void GenerateAndReplaceColumns(ObjectListView<T> olv, bool allProperties) {
             var columns = GenerateColumns(allProperties);
             var tlv = olv as TreeListView<T>;
@@ -183,12 +182,12 @@ namespace BrightIdeasSoftware
         /// </summary>
         /// <param name="type"></param>
         /// <param name="allProperties">Will columns be generated for properties that are not marked with [OLVColumn].</param>
-        /// <returns>A collection of OLVColumn<T>s matching the attributes of Type that have OLVColumnAttributes.</returns>
+        /// <returns>A collection of OLVColumn{T}s matching the attributes of Type that have OLVColumnAttributes.</returns>
         public virtual IList<OLVColumn<T>> GenerateColumns(bool allProperties) {
             var columns = new List<OLVColumn<T>>();
 
             // Iterate all public properties in the class and build columns from those that have
-            // an OLVColumn<T> attribute and that are not ignored.
+            // an OLVColumn{T} attribute and that are not ignored.
             foreach (var pinfo in typeof(T).GetProperties()) {
                 if (Attribute.GetCustomAttribute(pinfo, typeof(OLVIgnoreAttribute)) != null)
                     continue;
@@ -252,7 +251,7 @@ namespace BrightIdeasSoftware
         }
 
         /// <summary>
-        /// Create a column from the given PropertyInfo and OLVColumn<T> attribute
+        /// Create a column from the given PropertyInfo and OLVColumn{T} attribute
         /// </summary>
         /// <param name="pinfo"></param>
         /// <param name="attr"></param>

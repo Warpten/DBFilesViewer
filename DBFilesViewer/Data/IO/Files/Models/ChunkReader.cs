@@ -51,7 +51,7 @@ namespace DBFilesViewer.Data.IO.Files.Models
     public class Chunk<T> where T : BinaryReader
     {
         public string Name { get; }
-        public uint Size { get; private set; }
+        public uint Size { get; }
         public uint Offset { get; }
 
         public Chunk(string name, uint size, uint offset, T stream)
@@ -66,7 +66,7 @@ namespace DBFilesViewer.Data.IO.Files.Models
             : this(header.Name, header.Size, (uint)stream.BaseStream.Position, stream)
         { }
 
-        public T Reader { get; private set; }
+        public T Reader { get; }
 
         public override string ToString()
         {
@@ -122,8 +122,8 @@ namespace DBFilesViewer.Data.IO.Files.Models
             : this(chunk, chunk.Size, read)
         { }
 
-        public Chunk<T> Chunk { get; private set; }
-        public uint HeaderSize { get; private set; }
+        public Chunk<T> Chunk { get; }
+        public uint HeaderSize { get; }
 
         public abstract void Read();
     }

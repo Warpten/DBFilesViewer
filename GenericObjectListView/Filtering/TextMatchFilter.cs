@@ -155,7 +155,7 @@ namespace BrightIdeasSoftware {
         public bool HasComponents => MatchingStrategies.Count > 0;
 
         /// <summary>
-        /// Gets or set the ObjectListView<T> upon which this filter will work
+        /// Gets or set the ObjectListView{T} upon which this filter will work
         /// </summary>
         /// <remarks>
         /// You cannot really rebase a filter after it is created, so do not change this value.

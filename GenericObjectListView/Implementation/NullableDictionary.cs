@@ -25,9 +25,7 @@
  * If you wish to use this code in a closed source application, please contact phillip.piper@gmail.com.
  */
 
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Collections;
 
 namespace BrightIdeasSoftware {
@@ -68,7 +66,7 @@ namespace BrightIdeasSoftware {
 
         new public IList Keys {
             get {
-                ArrayList list = new ArrayList(base.Keys);
+                var list = new ArrayList(base.Keys);
                 if (this.hasNullKey)
                     list.Add(null);
                 return list;
@@ -77,7 +75,7 @@ namespace BrightIdeasSoftware {
 
         new public IList<TValue> Values {
             get {
-                List<TValue> list = new List<TValue>(base.Values);
+                var list = new List<TValue>(base.Values);
                 if (this.hasNullKey)
                     list.Add(this.nullValue);
                 return list;

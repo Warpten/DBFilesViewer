@@ -94,7 +94,7 @@ namespace BrightIdeasSoftware {
         /// Return the Windows handle behind this control
         /// </summary>
         /// <remarks>
-        /// When an ObjectListView<T> is initialized as part of a UserControl, the
+        /// When an ObjectListView{T} is initialized as part of a UserControl, the
         /// GetHeaderControl() method returns 0 until the UserControl is
         /// completely initialized. So the AssignHandle() call in the constructor
         /// doesn't work. So we override the Handle property so value is always

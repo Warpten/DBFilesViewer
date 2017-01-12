@@ -59,7 +59,7 @@ namespace BrightIdeasSoftware
     public interface IDropSink<T>
     {
         /// <summary>
-        ///     Gets or sets the ObjectListView<T> that is the drop sink
+        ///     Gets or sets the ObjectListView{T} that is the drop sink
         /// </summary>
         ObjectListView<T> ListView { get; set; }
 
@@ -141,7 +141,7 @@ namespace BrightIdeasSoftware
         #region IDropSink Members
 
         /// <summary>
-        ///     Gets or sets the ObjectListView<T> that is the drop sink
+        ///     Gets or sets the ObjectListView{T} that is the drop sink
         /// </summary>
         public virtual ObjectListView<T> ListView { get; set; }
 
@@ -335,7 +335,7 @@ namespace BrightIdeasSoftware
 
         /// <summary>
         ///     Gets or sets whether the ObjectListView
-        ///     <T>
+        ///     {T}
         ///         should scroll when the user drags
         ///         something near to the top or bottom rows. Defaults to true.
         /// </summary>
@@ -1350,7 +1350,7 @@ namespace BrightIdeasSoftware
         public string InfoMessage { get; set; }
 
         /// <summary>
-        ///     Get the ObjectListView<T> that is being dropped on
+        ///     Get the ObjectListView{T} that is being dropped on
         /// </summary>
         public ObjectListView<T> ListView { get; internal set; }
 
@@ -1398,7 +1398,7 @@ namespace BrightIdeasSoftware
         }
 
         /// <summary>
-        ///     Gets the ObjectListView<T> that is the source of the dragged objects.
+        ///     Gets the ObjectListView{T} that is the source of the dragged objects.
         /// </summary>
         public ObjectListView<T> SourceListView { get; internal set; }
 

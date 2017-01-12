@@ -84,7 +84,7 @@ namespace BrightIdeasSoftware {
         public bool IncludeColumnHeaders { get; }
 
         /// <summary>
-        /// Gets the ObjectListView<T> that is being used as the source of the data
+        /// Gets the ObjectListView{T} that is being used as the source of the data
         /// </summary>
         public ObjectListView<T> ListView { get; }
 

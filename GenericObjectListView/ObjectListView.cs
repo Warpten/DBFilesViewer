@@ -25,11 +25,11 @@ using ContentAlignment = System.Drawing.ContentAlignment;
 namespace BrightIdeasSoftware
 {
     /// <summary>
-    /// An ObjectListView<T> is a much easier to use, and much more powerful, version of the ListView.
+    /// An ObjectListView{T} is a much easier to use, and much more powerful, version of the ListView.
     /// </summary>
     /// <remarks>
     /// <para>
-    /// An ObjectListView<T> automatically populates a ListView control with information taken 
+    /// An ObjectListView{T} automatically populates a ListView control with information taken 
     /// from a given collection of objects. It can do this because each column is configured
     /// to know which bit of the model object (the "aspect") it should be displaying. Columns similarly
     /// understand how to sort the list based on their aspect, and how to construct groups
@@ -42,7 +42,7 @@ namespace BrightIdeasSoftware
     /// Aspects can also be extracted by installing a delegate.
     /// </para>
     /// <para>
-    /// An ObjectListView<T> can show a "this list is empty" message when there is nothing to show in the list, 
+    /// An ObjectListView{T} can show a "this list is empty" message when there is nothing to show in the list, 
     /// so that the user knows the control is supposed to be empty.
     /// </para>
     /// <para>
@@ -52,14 +52,14 @@ namespace BrightIdeasSoftware
     /// ShowFilterMenuOnRightClick and SelectColumnsOnRightClick respectively.
     /// </para>
     /// <para>
-    /// The groups created by an ObjectListView<T> can be configured to include other formatting
+    /// The groups created by an ObjectListView{T} can be configured to include other formatting
     /// information, including a group icon, subtitle and task button. Using some undocumented
     /// interfaces, these groups can even on virtual lists.
     /// </para>
     /// <para>
-    /// ObjectListView<T> supports dragging rows to other places, including other application. 
+    /// ObjectListView{T} supports dragging rows to other places, including other application. 
     /// Special support is provide for drops from other ObjectListViews in the same application. 
-    /// In many cases, an ObjectListView<T> becomes a full drag source by setting <see cref="IsSimpleDragSource"/> to 
+    /// In many cases, an ObjectListView{T} becomes a full drag source by setting <see cref="IsSimpleDragSource"/> to 
     /// true. Similarly, to accept drops, it is usually enough to set <see cref="IsSimpleDropSink"/> to true, 
     /// and then handle the <see cref="CanDrop"/>  and <see cref="Dropped"/>  events (or the <see cref="ModelCanDrop"/>  and 
     /// <see cref="ModelDropped"/> events, if you only want to handle drops from other ObjectListViews in your application).
@@ -160,11 +160,11 @@ namespace BrightIdeasSoftware
         /// </summary>
         /// <remarks>
         /// <para>
-        /// By default, if an ObjectListView<T> is asked to display an aspect
+        /// By default, if an ObjectListView{T} is asked to display an aspect
         /// (i.e. a field/property/method)
         /// that does not exist from a model, it displays an error message in that cell, since that 
         /// condition is normally a programming error. There are some use cases where
-        /// this is not an error -- in those cases, set this to true and ObjectListView<T> will
+        /// this is not an error -- in those cases, set this to true and ObjectListView{T} will
         /// simply display an empty cell.
         /// </para>
         /// <para>Be warned: if you set this to true, it can be very difficult to track down
@@ -255,7 +255,7 @@ namespace BrightIdeasSoftware
         public virtual Color AlternateRowBackColorOrDefault => AlternateRowBackColor == Color.Empty ? Color.LemonChiffon : AlternateRowBackColor;
 
         /// <summary>
-        /// This property forces the ObjectListView<T> to always group items by the given column.
+        /// This property forces the ObjectListView{T} to always group items by the given column.
         /// </summary>
         [Browsable(false),
         DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -309,7 +309,7 @@ namespace BrightIdeasSoftware
         /// <para>This is always treated as true when the control is NOT owner drawn.</para>
         /// <para>
         /// When this is false and the control is owner drawn, 
-        /// ObjectListView<T> will try to calculate the width of the cell's
+        /// ObjectListView{T} will try to calculate the width of the cell's
         /// actual contents, and then size the editing control to be just the right width. If this is true,
         /// the whole width of the cell will be used, regardless of the cell's contents.
         /// </para>
@@ -662,7 +662,7 @@ namespace BrightIdeasSoftware
         /// <summary>
         /// Gets or sets the style that will be applied to disabled items.
         /// </summary>
-        /// <remarks>If this is not set explicitly, <see cref="ObjectListView<T>.DefaultDisabledItemStyle"/>  will be used.</remarks>
+        /// <remarks>If this is not set explicitly, <see cref="ObjectListView{T}.DefaultDisabledItemStyle"/>  will be used.</remarks>
         [Category("ObjectListView"),
         Description("The style that will be applied to disabled items"),
         DefaultValue(null)]
@@ -774,7 +774,7 @@ namespace BrightIdeasSoftware
         /// <remarks>
         /// <para>
         /// If the given sink is an instance of SimpleDropSink, then events from the drop sink
-        /// will be automatically forwarded to the ObjectListView<T> (which means that handlers
+        /// will be automatically forwarded to the ObjectListView{T} (which means that handlers
         /// for those event can be configured within the IDE).
         /// </para>
         /// <para>If this is set to null, the control will not accept drops.</para>
@@ -824,7 +824,7 @@ namespace BrightIdeasSoftware
         /// on the type of the value in the cell.
         /// </summary>
         /// <see cref="EditorRegistry"/>
-        /// <remarks>All instances of ObjectListView<T> share the same editor registry.</remarks>
+        /// <remarks>All instances of ObjectListView{T} share the same editor registry.</remarks>
 // ReSharper disable FieldCanBeMadeReadOnly.Global
         public EditorRegistry EditorRegistry = new EditorRegistry();
 // ReSharper restore FieldCanBeMadeReadOnly.Global
@@ -1022,7 +1022,7 @@ namespace BrightIdeasSoftware
         public virtual string GroupWithItemCountSingularFormatOrDefault => string.IsNullOrEmpty(GroupWithItemCountSingularFormat) ? "{0} [{1} item]" : GroupWithItemCountSingularFormat;
 
         /// <summary>
-        /// Gets or sets whether or not the groups in this ObjectListView<T> should be collapsible.
+        /// Gets or sets whether or not the groups in this ObjectListView{T} should be collapsible.
         /// </summary>
         /// <remarks>
         /// This feature only works under Vista and later.
@@ -1096,9 +1096,9 @@ namespace BrightIdeasSoftware
         /// any of ObjectListViews fancy processing -- no images in header, no filter indicators,
         /// no word wrapping, no header styling, no checkboxes.
         /// </para>
-        /// <para>If this is set to false, ObjectListView<T> will render the header as it thinks best.
-        /// If no special features are required, then ObjectListView<T> will delegate rendering to the OS.
-        /// Otherwise, ObjectListView<T> will draw the header according to the configuration settings.
+        /// <para>If this is set to false, ObjectListView{T} will render the header as it thinks best.
+        /// If no special features are required, then ObjectListView{T} will delegate rendering to the OS.
+        /// Otherwise, ObjectListView{T} will draw the header according to the configuration settings.
         /// </para>
         /// <para>
         /// The effect of not being themed will be different from OS to OS. At
@@ -1263,7 +1263,7 @@ namespace BrightIdeasSoftware
         public virtual bool IsCellEditing => CellEditor != null;
 
         /// <summary>
-        /// Return true if the ObjectListView<T> is being used within the development environment.
+        /// Return true if the ObjectListView{T} is being used within the development environment.
         /// </summary>
         [Browsable(false)]
         public virtual bool IsDesignMode => DesignMode;
@@ -1420,7 +1420,7 @@ namespace BrightIdeasSoftware
 
         /// <summary>
         /// Gets or sets whether the user wants to owner draw the header control
-        /// themselves. If this is false (the default), ObjectListView<T> will use
+        /// themselves. If this is false (the default), ObjectListView{T} will use
         /// custom drawing to render the header, if needed.
         /// </summary>
         /// <remarks>
@@ -1530,7 +1530,7 @@ namespace BrightIdeasSoftware
         private readonly List<IOverlay<T>> overlays = new List<IOverlay<T>>();
 
         /// <summary>
-        /// Gets or sets whether the ObjectListView<T> will be owner drawn. Defaults to true.
+        /// Gets or sets whether the ObjectListView{T} will be owner drawn. Defaults to true.
         /// </summary>
         /// <remarks>
         /// <para>
@@ -1883,7 +1883,7 @@ namespace BrightIdeasSoftware
         public virtual bool ShowCommandMenuOnRightClick { get; set; }
 
         /// <summary>
-        /// Gets or sets whether this ObjectListView<T> will show Excel like filtering
+        /// Gets or sets whether this ObjectListView{T} will show Excel like filtering
         /// menus when the header control is right clicked
         /// </summary>
         [Category("ObjectListView"),
@@ -2238,7 +2238,7 @@ namespace BrightIdeasSoftware
         /// can run somewhat faster if it does not trigger a format cell event for every cell
         /// unless it is required. So, by default, it does not raise an event for each cell.
         /// </para>
-        /// <para>ObjectListView<T> *does* raise a FormatRow event every time a row is rebuilt.
+        /// <para>ObjectListView{T} *does* raise a FormatRow event every time a row is rebuilt.
         /// Individual rows can decide whether to raise FormatCell
         /// events for every cell in row.
         /// </para>
@@ -2265,7 +2265,7 @@ namespace BrightIdeasSoftware
         }
 
         /// <summary>
-        /// Gets or sets whether this ObjectListView<T> will use the same hot item and selection 
+        /// Gets or sets whether this ObjectListView{T} will use the same hot item and selection 
         /// mechanism that Vista Explorer does.
         /// </summary>
         /// <remarks>
@@ -2284,7 +2284,7 @@ namespace BrightIdeasSoftware
         /// Do not complain if settings this messes up other things.
         /// </para>
         /// <para>
-        /// When this property is set to true, the ObjectListView<T> will be not owner drawn. This will
+        /// When this property is set to true, the ObjectListView{T} will be not owner drawn. This will
         /// disable many of the pretty drawing-based features of ObjectListView.
         /// </para>
         /// </remarks>
@@ -2421,7 +2421,7 @@ namespace BrightIdeasSoftware
         private bool useSubItemCheckBoxes;
 
         /// <summary>
-        /// Gets or sets if the ObjectListView<T> will use a translucent selection mechanism like Vista.
+        /// Gets or sets if the ObjectListView{T} will use a translucent selection mechanism like Vista.
         /// </summary>
         /// <remarks>
         /// <para>
@@ -2458,7 +2458,7 @@ namespace BrightIdeasSoftware
         private bool useTranslucentSelection;
         
         /// <summary>
-        /// Gets or sets if the ObjectListView<T> will use a translucent hot row highlighting mechanism like Vista.
+        /// Gets or sets if the ObjectListView{T} will use a translucent hot row highlighting mechanism like Vista.
         /// </summary>
         /// <remarks>
         /// <para>
@@ -2583,12 +2583,12 @@ namespace BrightIdeasSoftware
         public virtual bool CanShowGroups { get; } = true;
 
         /// <summary>
-        /// Gets or sets whether ObjectListView<T> can rely on Application.Idle events
+        /// Gets or sets whether ObjectListView{T} can rely on Application.Idle events
         /// being raised.
         /// </summary>
         /// <remarks>In some host environments (e.g. when running as an extension within
         /// VisualStudio and possibly Office), Application.Idle events are never raised.
-        /// Set this to false when Idle events will not be raised, and ObjectListView<T> will
+        /// Set this to false when Idle events will not be raised, and ObjectListView{T} will
         /// raise those events itself.
         /// </remarks>
         [Browsable(false),
@@ -2667,7 +2667,7 @@ namespace BrightIdeasSoftware
         private Munger<T> checkedAspectMunger;
 
         /// <summary>
-        /// This delegate will be called whenever the ObjectListView<T> needs to know the check state
+        /// This delegate will be called whenever the ObjectListView{T} needs to know the check state
         /// of the row associated with a given model object.
         /// </summary>
         /// <remarks>
@@ -2717,17 +2717,17 @@ namespace BrightIdeasSoftware
         /// (which is to not show any tooltip).
         /// </summary>
         /// <remarks>
-        /// Installing a HeaderToolTipGetter takes precedence over any text in OLVColumn<T>.ToolTipText.
+        /// Installing a HeaderToolTipGetter takes precedence over any text in OLVColumn{T}.ToolTipText.
         /// </remarks>
         [Browsable(false),
          DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public virtual HeaderToolTipGetterDelegate<T> HeaderToolTipGetter { get; set; }
 
         /// <summary>
-        /// This delegate can be used to format a OLVListItem<T> before it is added to the control.
+        /// This delegate can be used to format a OLVListItem{T} before it is added to the control.
         /// </summary>
         /// <remarks>
-        /// <para>The model object for the row can be found through the RowObject property of the OLVListItem<T> object.</para>
+        /// <para>The model object for the row can be found through the RowObject property of the OLVListItem{T} object.</para>
         /// <para>All subitems normally have the same style as list item, so setting the forecolor on one
         /// subitem changes the forecolor of all subitems.
         /// To allow subitems to have different attributes, do this:
@@ -2738,7 +2738,7 @@ namespace BrightIdeasSoftware
         /// In general, trying to use a RowFormatter
         /// when UseAlternatingBackColors is true does not work well.</para>
         /// <para>As it says in the summary, this is called <b>before</b> the item is added to the control.
-        /// Many properties of the OLVListItem<T> itself are not available at that point, including:
+        /// Many properties of the OLVListItem{T} itself are not available at that point, including:
         /// Index, Selected, Focused, Bounds, Checked, DisplayIndex.</para>
         /// </remarks>
         [Browsable(false),
@@ -2930,7 +2930,7 @@ namespace BrightIdeasSoftware
         /// </summary>
         public virtual void ClearCachedInfo()
         {
-            // ObjectListView<T> doesn't currently cache information but subclass do (or might)
+            // ObjectListView{T} doesn't currently cache information but subclass do (or might)
         }
 
         /// <summary>
@@ -3865,7 +3865,7 @@ namespace BrightIdeasSoftware
         }
 
         /// <summary>
-        /// Gets or sets whether or not ObjectListView<T> should subscribe to INotifyPropertyChanged
+        /// Gets or sets whether or not ObjectListView{T} should subscribe to INotifyPropertyChanged
         /// events on the model objects that it is given.
         /// </summary>
         /// <remarks>
@@ -3873,7 +3873,7 @@ namespace BrightIdeasSoftware
         /// This should be set before calling SetObjects(). If you set this to false,
         /// ObjectListView will unsubscribe to all current model objects.
         /// </para>
-        /// <para>If you set this to true on a virtual list, the ObjectListView<T> will 
+        /// <para>If you set this to true on a virtual list, the ObjectListView{T} will 
         /// walk all the objects in the list trying to subscribe to change notifications.
         /// If you have 10,000,000 items in your virtual list, this may take some time.</para>
         /// </remarks>
@@ -3948,7 +3948,7 @@ namespace BrightIdeasSoftware
         /// that the state can be restored by RestoreState()
         /// </summary>
         /// <remarks>
-        /// <para>The state of an ObjectListView<T> includes the attributes that the user can modify:
+        /// <para>The state of an ObjectListView{T} includes the attributes that the user can modify:
         /// <list type="bullet">
         /// <item><description>current view (i.e. Details, Tile, Large Icon...)</description></item>
         /// <item><description>sort column and direction</description></item>
@@ -6226,7 +6226,7 @@ namespace BrightIdeasSoftware
         /// Return the column at the given index
         /// </summary>
         /// <param name="index">Index of the column to be returned</param>
-        /// <returns>An OLVColumn<T></returns>
+        /// <returns>An OLVColumn{T}</returns>
         public virtual OLVColumn<T> GetColumn(int index) {
             return (OLVColumn<T>)Columns[index];
         }
@@ -6235,7 +6235,7 @@ namespace BrightIdeasSoftware
         /// Return the column at the given title.
         /// </summary>
         /// <param name="name">Name of the column to be returned</param>
-        /// <returns>An OLVColumn<T></returns>
+        /// <returns>An OLVColumn{T}</returns>
         public virtual OLVColumn<T> GetColumn(string name) {
             foreach (ColumnHeader column in Columns) {
                 if (column.Text == name)
@@ -6875,9 +6875,9 @@ namespace BrightIdeasSoftware
         }
 
         /// <summary>
-        /// Fill in the given OLVListItem<T> with values of the given row
+        /// Fill in the given OLVListItem{T} with values of the given row
         /// </summary>
-        /// <param name="lvi">the OLVListItem<T> that is to be stuff with values</param>
+        /// <param name="lvi">the OLVListItem{T} that is to be stuff with values</param>
         /// <param name="rowObject">the model object from which values will be taken</param>
         protected virtual void FillInValues(OLVListItem<T> lvi, T rowObject) {
             if (Columns.Count == 0)
@@ -7028,10 +7028,10 @@ namespace BrightIdeasSoftware
         }
 
         /// <summary>
-        /// Return the OLVListItem<T> that displays the given model object
+        /// Return the OLVListItem{T} that displays the given model object
         /// </summary>
         /// <param name="modelObject">The modelObject whose item is to be found</param>
-        /// <returns>The OLVListItem<T> that displays the model, or null</returns>
+        /// <returns>The OLVListItem{T} that displays the model, or null</returns>
         /// <remarks>This method has O(n) performance.</remarks>
         public virtual OLVListItem<T> ModelToItem(T modelObject) {
             if (modelObject == null)
@@ -7400,10 +7400,10 @@ namespace BrightIdeasSoftware
         /// This gives the ListView a small image list, if it doesn't already have one.
         /// </para>
         /// <para>
-        /// ObjectListView<T> has to manage checkboxes on subitems separate from the checkboxes on each row.
+        /// ObjectListView{T} has to manage checkboxes on subitems separate from the checkboxes on each row.
         /// The underlying ListView knows about the per-row checkboxes, and to make them work, OLV has to 
         /// correctly configure the StateImageList. However, the ListView cannot do checkboxes in subitems,
-        /// so ObjectListView<T> has to handle them in a differnt fashion. So, per-row checkboxes are controlled
+        /// so ObjectListView{T} has to handle them in a differnt fashion. So, per-row checkboxes are controlled
         /// by images in the StateImageList, but per-cell checkboxes are handled by images in the SmallImageList.
         /// </para>
         /// </remarks>
@@ -7901,7 +7901,7 @@ namespace BrightIdeasSoftware
             c.Bounds = CalculateCellEditorBounds(item, subItemIndex, c.PreferredSize);
 
             // Try to align the control as the column is aligned. Not all controls support this property
-            // Munger<T>.PutProperty(c, "TextAlign", column.TextAlign);
+            // Munger{T}.PutProperty(c, "TextAlign", column.TextAlign);
             //! TODO FIX ME
 
             // Give the control the value from the model
@@ -8872,7 +8872,7 @@ namespace BrightIdeasSoftware
         /// </summary>
         /// <remarks>
         /// This is only a temporary hiding -- the overlays will be shown
-        /// the next time the ObjectListView<T> redraws.
+        /// the next time the ObjectListView{T} redraws.
         /// </remarks>
         public virtual void HideOverlays() {
             foreach (var glassPanel in glassPanels) {
@@ -9058,7 +9058,7 @@ namespace BrightIdeasSoftware
         }
 
         /// <summary>
-        /// Update the filtering of this ObjectListView<T> based on the value filtering
+        /// Update the filtering of this ObjectListView{T} based on the value filtering
         /// defined in each column
         /// </summary>
         public virtual void UpdateColumnFiltering() {
@@ -9140,7 +9140,7 @@ namespace BrightIdeasSoftware
 
         #region Implementation variables
 
-        private bool isOwnerOfObjects; // does this ObjectListView<T> own the Objects collection?
+        private bool isOwnerOfObjects; // does this ObjectListView{T} own the Objects collection?
         private bool hasIdleHandler; // has an Idle handler already been installed?
         private bool hasResizeColumnsHandler; // has an idle handler been installed which will handle column resizing?
         private bool isInWmPaintEvent; // is a WmPaint event currently being handled?

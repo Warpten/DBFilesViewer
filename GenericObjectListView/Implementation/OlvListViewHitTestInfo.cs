@@ -31,7 +31,7 @@ using System.Windows.Forms;
 namespace BrightIdeasSoftware {
 
     /// <summary>
-    /// An indication of where a hit was within ObjectListView<T> cell
+    /// An indication of where a hit was within ObjectListView{T} cell
     /// </summary>
     public enum HitTestLocation {
         /// <summary>
@@ -292,7 +292,7 @@ namespace BrightIdeasSoftware {
         public ListViewHitTestLocations Location { get; internal set; }
 
         /// <summary>
-        /// Gets the ObjectListView<T> that was tested
+        /// Gets the ObjectListView{T} that was tested
         /// </summary>
         public ObjectListView<T> ListView { get; internal set; }
 

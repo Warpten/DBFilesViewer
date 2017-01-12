@@ -10,9 +10,7 @@
  * 
  */
 
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
@@ -93,7 +91,7 @@ namespace BrightIdeasSoftware {
             }
 
             /// <summary>
-            /// Return the TreeListView<T> for which the renderer is being used.
+            /// Return the TreeListView{T} for which the renderer is being used.
             /// </summary>
             public TreeListView<T> TreeListView {
                 get {
@@ -114,16 +112,16 @@ namespace BrightIdeasSoftware {
             public override void Render(System.Drawing.Graphics g, System.Drawing.Rectangle r) {
                 this.DrawBackground(g, r);
 
-                Branch br = this.Branch;
+                var br = this.Branch;
 
-                Rectangle paddedRectangle = this.ApplyCellPadding(r);
+                var paddedRectangle = this.ApplyCellPadding(r);
 
-                Rectangle expandGlyphRectangle = paddedRectangle;
+                var expandGlyphRectangle = paddedRectangle;
                 expandGlyphRectangle.Offset((br.Level - 1) * PIXELS_PER_LEVEL, 0);
                 expandGlyphRectangle.Width = PIXELS_PER_LEVEL;
                 expandGlyphRectangle.Height = PIXELS_PER_LEVEL;
                 expandGlyphRectangle.Y = this.AlignVertically(paddedRectangle, expandGlyphRectangle);
-                int expandGlyphRectangleMidVertical = expandGlyphRectangle.Y + (expandGlyphRectangle.Height/2);
+                var expandGlyphRectangleMidVertical = expandGlyphRectangle.Y + (expandGlyphRectangle.Height/2);
 
                 if (this.IsShowLines)
                     this.DrawLines(g, r, this.LinePen, br, expandGlyphRectangleMidVertical);
@@ -131,7 +129,7 @@ namespace BrightIdeasSoftware {
                 if (br.CanExpand && this.IsShowGlyphs) 
                     this.DrawExpansionGlyph(g, expandGlyphRectangle, br.IsExpanded);
 
-                int indent = br.Level * PIXELS_PER_LEVEL;
+                var indent = br.Level * PIXELS_PER_LEVEL;
                 paddedRectangle.Offset(indent, 0);
                 paddedRectangle.Width -= indent;
 
@@ -169,21 +167,21 @@ namespace BrightIdeasSoftware {
             /// <param name="isExpanded"></param>
             protected virtual void DrawExpansionGlyphStyled(Graphics g, Rectangle r, bool isExpanded) {
                 if (this.UseTriangles && this.IsShowLines) {
-                    using (SolidBrush b = new SolidBrush(GetBackgroundColor())) {
-                        Rectangle r2 = r;
+                    using (var b = new SolidBrush(GetBackgroundColor())) {
+                        var r2 = r;
                         r2.Inflate(-2, -2);
                         g.FillRectangle(b, r2);
                     }
                 }
 
-                VisualStyleRenderer renderer = new VisualStyleRenderer(DecideVisualElement(isExpanded));
+                var renderer = new VisualStyleRenderer(DecideVisualElement(isExpanded));
                 renderer.DrawBackground(g, r);
             }
 
             private VisualStyleElement DecideVisualElement(bool isExpanded) {
-                string klass = this.UseTriangles ? "Explorer::TreeView" : "TREEVIEW";
-                int part = this.UseTriangles && this.IsExpansionHot ? 4 : 2;
-                int state = isExpanded ? 2 : 1;
+                var klass = this.UseTriangles ? "Explorer::TreeView" : "TREEVIEW";
+                var part = this.UseTriangles && this.IsExpansionHot ? 4 : 2;
+                var state = isExpanded ? 2 : 1;
                 return VisualStyleElement.CreateElement(klass, part, state);
             }
 
@@ -201,10 +199,10 @@ namespace BrightIdeasSoftware {
             /// <param name="r"></param>
             /// <param name="isExpanded"></param>
             protected virtual void DrawExpansionGlyphManual(Graphics g, Rectangle r, bool isExpanded) {
-                int h = 8;
-                int w = 8;
-                int x = r.X + 4;
-                int y = r.Y + (r.Height / 2) - 4;
+                var h = 8;
+                var w = 8;
+                var x = r.X + 4;
+                var y = r.Y + (r.Height / 2) - 4;
 
                 g.DrawRectangle(new Pen(SystemBrushes.ControlDark), x, y, w, h);
                 g.FillRectangle(Brushes.White, x + 1, y + 1, w - 1, h - 1);
@@ -223,19 +221,19 @@ namespace BrightIdeasSoftware {
             /// <param name="br"></param>
             /// <param name="glyphMidVertical"> </param>
             protected virtual void DrawLines(Graphics g, Rectangle r, Pen p, Branch br, int glyphMidVertical) {
-                Rectangle r2 = r;
+                var r2 = r;
                 r2.Width = PIXELS_PER_LEVEL;
 
                 // Vertical lines have to start on even points, otherwise the dotted line looks wrong.
                 // This is only needed if pen is dotted.
-                int top = r2.Top;
+                var top = r2.Top;
                 //if (p.DashStyle == DashStyle.Dot && (top & 1) == 0)
                 //    top += 1;
 
                 // Draw lines for ancestors
                 int midX;
-                IList<Branch> ancestors = br.Ancestors;
-                foreach (Branch ancestor in ancestors) {
+                var ancestors = br.Ancestors;
+                foreach (var ancestor in ancestors) {
                     if (!ancestor.IsLastChild && !ancestor.IsOnlyBranch) {
                         midX = r2.Left + r2.Width / 2;
                         g.DrawLine(p, midX, top, midX, r2.Bottom);
@@ -269,9 +267,9 @@ namespace BrightIdeasSoftware {
             /// <param name="x"></param>
             /// <param name="y"></param>
             protected override void HandleHitTest(Graphics g, OlvListViewHitTestInfo<T> hti, int x, int y) {
-                Branch br = this.Branch;
+                var br = this.Branch;
 
-                Rectangle r = this.ApplyCellPadding(this.Bounds);
+                var r = this.ApplyCellPadding(this.Bounds);
                 if (br.CanExpand) {
                     r.Offset((br.Level - 1) * PIXELS_PER_LEVEL, 0);
                     r.Width = PIXELS_PER_LEVEL;
@@ -282,7 +280,7 @@ namespace BrightIdeasSoftware {
                 }
 
                 r = this.Bounds;
-                int indent = br.Level * PIXELS_PER_LEVEL;
+                var indent = br.Level * PIXELS_PER_LEVEL;
                 r.X += indent;
                 r.Width -= indent;
 

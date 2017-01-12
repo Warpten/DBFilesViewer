@@ -39,7 +39,7 @@ namespace BrightIdeasSoftware.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BrightIdeasSoftware.Properties.Resources", typeof(Resources).Assembly);
+                    var temp = new global::System.Resources.ResourceManager("BrightIdeasSoftware.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -65,7 +65,7 @@ namespace BrightIdeasSoftware.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap ClearFiltering {
             get {
-                object obj = ResourceManager.GetObject("ClearFiltering", resourceCulture);
+                var obj = ResourceManager.GetObject("ClearFiltering", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -75,7 +75,7 @@ namespace BrightIdeasSoftware.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap ColumnFilterIndicator {
             get {
-                object obj = ResourceManager.GetObject("ColumnFilterIndicator", resourceCulture);
+                var obj = ResourceManager.GetObject("ColumnFilterIndicator", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -85,7 +85,7 @@ namespace BrightIdeasSoftware.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap Filtering {
             get {
-                object obj = ResourceManager.GetObject("Filtering", resourceCulture);
+                var obj = ResourceManager.GetObject("Filtering", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -95,7 +95,7 @@ namespace BrightIdeasSoftware.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap SortAscending {
             get {
-                object obj = ResourceManager.GetObject("SortAscending", resourceCulture);
+                var obj = ResourceManager.GetObject("SortAscending", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -105,7 +105,7 @@ namespace BrightIdeasSoftware.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap SortDescending {
             get {
-                object obj = ResourceManager.GetObject("SortDescending", resourceCulture);
+                var obj = ResourceManager.GetObject("SortDescending", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -64,7 +64,7 @@ namespace BrightIdeasSoftware {
         }
 
         /// <summary>
-        /// Gets or sets the ObjectListView<T> being grouped
+        /// Gets or sets the ObjectListView{T} being grouped
         /// </summary>
         public ObjectListView<T> ListView { get; set; }
 

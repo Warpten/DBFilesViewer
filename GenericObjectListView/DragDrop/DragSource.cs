@@ -32,17 +32,12 @@
  */
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 
 namespace BrightIdeasSoftware
 {
     /// <summary>
-    /// An IDragSource controls how drag out from the ObjectListView<T> will behave
+    /// An IDragSource controls how drag out from the ObjectListView{T} will behave
     /// </summary>
     public interface IDragSource<T>
     {
@@ -55,7 +50,7 @@ namespace BrightIdeasSoftware
         /// The returned object is later passed to the GetAllowedEffect() and EndDrag()
         /// methods.
         /// </remarks>
-        /// <param name="olv">What ObjectListView<T> is being dragged from.</param>
+        /// <param name="olv">What ObjectListView{T} is being dragged from.</param>
         /// <param name="button">Which mouse button is down?</param>
         /// <param name="item">What item was directly dragged by the user? There may be more than just this 
         /// item selected.</param>
@@ -193,7 +188,7 @@ namespace BrightIdeasSoftware
         /// <param name="dragObject"></param>
         /// <param name="effect"></param>
         public virtual void EndDrag(Object dragObject, DragDropEffects effect) {
-            OLVDataObject<T> data = dragObject as OLVDataObject<T>;
+            var data = dragObject as OLVDataObject<T>;
             if (data == null)
                 return;
 
@@ -208,7 +203,7 @@ namespace BrightIdeasSoftware
         /// <remarks>
         /// Subclasses can override this method add new formats to the data object.
         /// </remarks>
-        /// <param name="olv">The ObjectListView<T> that is the source of the drag</param>
+        /// <param name="olv">The ObjectListView{T} that is the source of the drag</param>
         /// <returns>A data object for the drag</returns>
         protected virtual object CreateDataObject(ObjectListView<T> olv) {
             return new OLVDataObject<T>(olv);

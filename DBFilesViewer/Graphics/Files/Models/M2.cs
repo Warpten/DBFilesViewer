@@ -155,7 +155,7 @@ namespace DBFilesViewer.Graphics.Files.Models
                 }
             }
 
-            Sort(RenderPasses, (e1, e2) =>
+            RenderPasses.Sort((e1, e2) =>
             {
                 //! Blend modes to shader blend modes:
                 //! {      0,        1,     2,         10,   3,   4,     5 }
@@ -188,8 +188,6 @@ namespace DBFilesViewer.Graphics.Files.Models
                 return e1.TexUnitNumber.CompareTo(e2.TexUnitNumber);
             });
         }
-
-        private static void Sort<T>(List<T> container, Comparison<T> comparer) => container.Sort(comparer);
 
         private static T[] ReadArrayOf<T>(BinaryReader reader, int offset, int count) where T : struct
         {

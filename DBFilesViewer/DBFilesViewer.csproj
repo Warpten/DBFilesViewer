@@ -167,6 +167,9 @@
     <Compile Include="UI\Controls\ModelRenderControl.Designer.cs">
       <DependentUpon>ModelRenderControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Controls\TypeSafeColumn.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\Forms\CreatureModelViewerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,9 +181,6 @@
     </Compile>
     <Compile Include="UI\Forms\ModelRenderForm.Designer.cs">
       <DependentUpon>ModelRenderForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Controls\TypeSafeColumn.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Data\IO\CASC\BLTE.cs" />
     <Compile Include="Data\IO\CASC\Encoding.cs" />

@@ -197,20 +197,20 @@ namespace BrightIdeasSoftware
             if (olv.GetItemCount() == 0)
                 return;
 
-            OLVColumn<T> column = ColumnToTint ?? olv.SelectedColumn;
+            var column = ColumnToTint ?? olv.SelectedColumn;
             if (column == null)
                 return;
 
-            Point sides = NativeMethods.GetScrolledColumnSides(olv, column.Index);
+            var sides = NativeMethods.GetScrolledColumnSides(olv, column.Index);
             if (sides.X == -1)
                 return;
 
-            Rectangle columnBounds = new Rectangle(sides.X, r.Top, sides.Y - sides.X, r.Bottom);
+            var columnBounds = new Rectangle(sides.X, r.Top, sides.Y - sides.X, r.Bottom);
 
             // Find the bottom of the last item. The tinting should extend only to there.
-            OLVListItem<T> lastItem = olv.GetLastItemInDisplayOrder();
+            var lastItem = olv.GetLastItemInDisplayOrder();
             if (lastItem != null) {
-                Rectangle lastItemBounds = lastItem.Bounds;
+                var lastItemBounds = lastItem.Bounds;
                 if (!lastItemBounds.IsEmpty && lastItemBounds.Bottom < columnBounds.Bottom)
                     columnBounds.Height = lastItemBounds.Bottom - columnBounds.Top;
             }
@@ -308,7 +308,7 @@ namespace BrightIdeasSoftware
         /// <param name="g"></param>
         /// <param name="r"></param>
         public override void Draw(ObjectListView<T> olv, Graphics g, Rectangle r) {
-            Rectangle bounds = CalculateBounds();
+            var bounds = CalculateBounds();
             if (!bounds.IsEmpty)
                 DrawFilledBorder(g, bounds);
         }
@@ -336,7 +336,7 @@ namespace BrightIdeasSoftware
         /// <param name="bounds"></param>
         protected void DrawFilledBorder(Graphics g, Rectangle bounds) {
             bounds.Inflate(BoundsPadding);
-            GraphicsPath path = GetRoundedRect(bounds, CornerRounding);
+            var path = GetRoundedRect(bounds, CornerRounding);
             if (FillGradientFrom != null && FillGradientTo != null) {
                 if (FillBrush != null)
                     FillBrush.Dispose();
@@ -355,12 +355,12 @@ namespace BrightIdeasSoftware
         /// <param name="diameter">If this is 0 or less, the rectangle will not be rounded.</param>
         /// <returns></returns>
         protected GraphicsPath GetRoundedRect(RectangleF rect, float diameter) {
-            GraphicsPath path = new GraphicsPath();
+            var path = new GraphicsPath();
 
             if (diameter <= 0.0f) {
                 path.AddRectangle(rect);
             } else {
-                RectangleF arc = new RectangleF(rect.X, rect.Y, diameter, diameter);
+                var arc = new RectangleF(rect.X, rect.Y, diameter, diameter);
                 path.AddArc(arc, 180, 90);
                 arc.X = rect.Right - diameter;
                 path.AddArc(arc, 270, 90);
@@ -397,12 +397,12 @@ namespace BrightIdeasSoftware
         /// </summary>
         /// <returns></returns>
         protected override Rectangle CalculateBounds() {
-            Rectangle bounds = RowBounds;
+            var bounds = RowBounds;
             if (ListItem == null)
                 return bounds;
 
             if (LeftColumn >= 0) {
-                Rectangle leftCellBounds = ListItem.GetSubItemBounds(LeftColumn);
+                var leftCellBounds = ListItem.GetSubItemBounds(LeftColumn);
                 if (!leftCellBounds.IsEmpty) {
                     bounds.Width = bounds.Right - leftCellBounds.Left;
                     bounds.X = leftCellBounds.Left;
@@ -410,7 +410,7 @@ namespace BrightIdeasSoftware
             }
 
             if (RightColumn >= 0) {
-                Rectangle rightCellBounds = ListItem.GetSubItemBounds(RightColumn);
+                var rightCellBounds = ListItem.GetSubItemBounds(RightColumn);
                 if (!rightCellBounds.IsEmpty) {
                     bounds.Width = rightCellBounds.Right - bounds.Left;
                 }
@@ -500,17 +500,17 @@ namespace BrightIdeasSoftware
             if (!olv.IsCellEditing) 
                 return;
 
-            Rectangle bounds = olv.CellEditor.Bounds;
+            var bounds = olv.CellEditor.Bounds;
             if (bounds.IsEmpty)
                 return;
 
             bounds.Inflate(BoundsPadding);
-            GraphicsPath path = GetRoundedRect(bounds, CornerRounding);
+            var path = GetRoundedRect(bounds, CornerRounding);
             if (FillBrush != null) {
                 if (UseLightbox) {
-                    using (Region newClip = new Region(r)) {
+                    using (var newClip = new Region(r)) {
                         newClip.Exclude(path);
-                        Region originalClip = g.Clip;
+                        var originalClip = g.Clip;
                         g.Clip = newClip;
                         g.FillRectangle(FillBrush, r);
                         g.Clip = originalClip;
@@ -544,7 +544,7 @@ namespace BrightIdeasSoftware
         }
 
         /// <summary>
-        /// Draw a tint over everything in the ObjectListView<T> except the 
+        /// Draw a tint over everything in the ObjectListView{T} except the 
         /// row under the mouse.
         /// </summary>
         /// <param name="olv"></param>
@@ -554,17 +554,17 @@ namespace BrightIdeasSoftware
             if (!r.Contains(olv.PointToClient(Cursor.Position)))
                 return;
 
-            Rectangle bounds = RowBounds;
+            var bounds = RowBounds;
             if (bounds.IsEmpty) {
                 if (olv.View == View.Tile)
                     g.FillRectangle(FillBrush, r);
                 return;
             }
 
-            using (Region newClip = new Region(r)) {
+            using (var newClip = new Region(r)) {
                 bounds.Inflate(BoundsPadding);
                 newClip.Exclude(GetRoundedRect(bounds, CornerRounding));
-                Region originalClip = g.Clip;
+                var originalClip = g.Clip;
                 g.Clip = newClip;
                 g.FillRectangle(FillBrush, r);
                 g.Clip = originalClip;
@@ -651,7 +651,7 @@ namespace BrightIdeasSoftware
         /// <summary>
         /// Draw this decoration
         /// </summary>
-        /// <param name="olv">The ObjectListView<T> being decorated</param>
+        /// <param name="olv">The ObjectListView{T} being decorated</param>
         /// <param name="g">The Graphics used for drawing</param>
         /// <param name="r">The bounds of the rendering</param>
         public virtual void Draw(ObjectListView<T> olv, Graphics g, Rectangle r) {
@@ -740,7 +740,7 @@ namespace BrightIdeasSoftware
         /// <summary>
         /// Draw this decoration
         /// </summary>
-        /// <param name="olv">The ObjectListView<T> being decorated</param>
+        /// <param name="olv">The ObjectListView{T} being decorated</param>
         /// <param name="g">The Graphics used for drawing</param>
         /// <param name="r">The bounds of the rendering</param>
         public virtual void Draw(ObjectListView<T> olv, Graphics g, Rectangle r) {

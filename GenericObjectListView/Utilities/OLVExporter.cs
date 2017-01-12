@@ -117,7 +117,7 @@ namespace BrightIdeasSoftware {
         private bool includeColumnHeaders = true;
 
         /// <summary>
-        /// Gets the ObjectListView<T> that is being used as the source of the data
+        /// Gets the ObjectListView{T} that is being used as the source of the data
         /// to be exported
         /// </summary>
         public ObjectListView<T> ListView {

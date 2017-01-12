@@ -132,7 +132,7 @@ using System.Windows.Forms;
 namespace BrightIdeasSoftware
 {
     /// <summary>
-    ///     A TreeListView<T> combines an expandable tree structure with list view columns.
+    ///     A TreeListView{T} combines an expandable tree structure with list view columns.
     /// </summary>
     /// <remarks>
     ///     <para>To support tree operations, two delegates must be provided:</para>
@@ -215,7 +215,7 @@ namespace BrightIdeasSoftware
         ///     </para>
         ///     <para>
         ///         When this delegate is called, the TreeListView
-        ///         <T>
+        ///         {T}
         ///             is not in a stable state. Don't make
         ///             calls back into the control.
         ///     </para>
@@ -239,7 +239,7 @@ namespace BrightIdeasSoftware
         ///     </para>
         ///     <para>
         ///         When this delegate is called, the TreeListView
-        ///         <T>
+        ///         {T}
         ///             is not in a stable state. Don't do anything
         ///             that will result in calls being made back into the control.
         ///     </para>
@@ -363,7 +363,7 @@ namespace BrightIdeasSoftware
 
         /// <summary>
         ///     After expanding a branch, should the TreeListView
-        ///     <T>
+        ///     {T}
         ///         attempts to show as much of the
         ///         revealed descendents as possible.
         /// </summary>
@@ -441,12 +441,12 @@ namespace BrightIdeasSoftware
 
         /// <summary>
         ///     This is the delegate that will be used to create the underlying Tree structure
-        ///     that the TreeListView<T> uses to manage the information about the tree.
+        ///     that the TreeListView{T} uses to manage the information about the tree.
         /// </summary>
         /// <remarks>
         ///     <para>The factory must not return null. </para>
         ///     <para>
-        ///         Most users of TreeListView<T> will never have to use this delegate.
+        ///         Most users of TreeListView{T} will never have to use this delegate.
         ///     </para>
         /// </remarks>
         [Browsable(false),

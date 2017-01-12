@@ -53,7 +53,7 @@ namespace BrightIdeasSoftware
         /// <summary>
         /// Draw this overlay
         /// </summary>
-        /// <param name="olv">The ObjectListView<T> that is being overlaid</param>
+        /// <param name="olv">The ObjectListView{T} that is being overlaid</param>
         /// <param name="g">The Graphics onto the given OLV</param>
         /// <param name="r">The content area of the OLV</param>
         void Draw(ObjectListView<T> olv, Graphics g, Rectangle r);
@@ -81,7 +81,7 @@ namespace BrightIdeasSoftware
         /// <summary>
         /// Draw this overlay
         /// </summary>
-        /// <param name="olv">The ObjectListView<T> that is being overlaid</param>
+        /// <param name="olv">The ObjectListView{T} that is being overlaid</param>
         /// <param name="g">The Graphics onto the given OLV</param>
         /// <param name="r">The content area of the OLV</param>
         public virtual void Draw(ObjectListView<T> olv, Graphics g, Rectangle r) {
@@ -161,7 +161,7 @@ namespace BrightIdeasSoftware
         /// <summary>
         /// Draw this overlay
         /// </summary>
-        /// <param name="olv">The ObjectListView<T> being decorated</param>
+        /// <param name="olv">The ObjectListView{T} being decorated</param>
         /// <param name="g">The Graphics used for drawing</param>
         /// <param name="r">The bounds of the rendering</param>
         public virtual void Draw(ObjectListView<T> olv, Graphics g, Rectangle r) {
@@ -246,7 +246,7 @@ namespace BrightIdeasSoftware
         /// <summary>
         /// Draw this overlay
         /// </summary>
-        /// <param name="olv">The ObjectListView<T> being decorated</param>
+        /// <param name="olv">The ObjectListView{T} being decorated</param>
         /// <param name="g">The Graphics used for drawing</param>
         /// <param name="insetRect">The bounds of the rendering</param>
         public virtual void Draw(ObjectListView<T> olv, Graphics g, Rectangle insetRect) {
@@ -289,7 +289,7 @@ namespace BrightIdeasSoftware
         /// <summary>
         /// Draw this overlay
         /// </summary>
-        /// <param name="olv">The ObjectListView<T> being decorated</param>
+        /// <param name="olv">The ObjectListView{T} being decorated</param>
         /// <param name="g">The Graphics used for drawing</param>
         /// <param name="r">The bounds of the rendering</param>
         public override void Draw(ObjectListView<T> olv, Graphics g, Rectangle r) {

@@ -1113,7 +1113,7 @@ namespace BrightIdeasSoftware
         /// Mark the given column as being selected.
         /// </summary>
         /// <param name="objectListView"></param>
-        /// <param name="value">The OLVColumn<T> or null to clear</param>
+        /// <param name="value">The OLVColumn{T} or null to clear</param>
         /// <remarks>
         /// This method works, but it prevents subitems in the given column from having
         /// back colors. 

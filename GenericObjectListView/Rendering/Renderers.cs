@@ -132,7 +132,7 @@ namespace BrightIdeasSoftware {
         bool RenderItem(DrawListViewItemEventArgs e, Graphics g, Rectangle itemBounds, T rowObject);
 
         /// <summary>
-        /// Render one cell within an ObjectListView<T> when it is in Details mode.
+        /// Render one cell within an ObjectListView{T} when it is in Details mode.
         /// </summary>
         /// <param name="e">The event</param>
         /// <param name="g">A Graphics for rendering</param>
@@ -164,7 +164,7 @@ namespace BrightIdeasSoftware {
 
     /// <summary>
     /// Renderers that implement this interface will have the filter property updated,
-    /// each time the filter on the ObjectListView<T> is updated.
+    /// each time the filter on the ObjectListView{T} is updated.
     /// </summary>
     public interface IFilterAwareRenderer<T>
     {
@@ -193,7 +193,7 @@ namespace BrightIdeasSoftware {
         }
 
         /// <summary>
-        /// Render one cell within an ObjectListView<T> when it is in Details mode.
+        /// Render one cell within an ObjectListView{T} when it is in Details mode.
         /// </summary>
         /// <param name="e">The event</param>
         /// <param name="g">A Graphics for rendering</param>
@@ -297,7 +297,7 @@ namespace BrightIdeasSoftware {
         /// <para>
         /// This setting only takes effect when the control is owner drawn.
         /// </para>
-        /// <para><see cref="ObjectListView<T>.CellPadding"/> for more details.</para>
+        /// <para><see cref="ObjectListView{T}.CellPadding"/> for more details.</para>
         /// </remarks>
         [Category("ObjectListView"),
          Description("The number of pixels that renderer will leave empty around the edge of the cell"),
@@ -1777,7 +1777,7 @@ namespace BrightIdeasSoftware {
         public Brush FillBrush { get; set; }
 
         /// <summary>
-        /// Gets or sets the filter that is filtering the ObjectListView<T> and for
+        /// Gets or sets the filter that is filtering the ObjectListView{T} and for
         /// which this renderer should highlight text
         /// </summary>
         [Browsable(false),
@@ -3293,7 +3293,7 @@ namespace BrightIdeasSoftware {
         #region Text highlighting
 
         /// <summary>
-        /// Gets or sets the filter that is filtering the ObjectListView<T> and for
+        /// Gets or sets the filter that is filtering the ObjectListView{T} and for
         /// which this renderer should highlight text
         /// </summary>
         [Browsable(false),

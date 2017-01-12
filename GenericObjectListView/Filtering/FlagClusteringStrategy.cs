@@ -27,7 +27,6 @@
  */
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -51,12 +50,12 @@ namespace BrightIdeasSoftware {
             if (!enumType.IsEnum) throw new ArgumentException("Type must be enum", "enumType");
             if (enumType.GetCustomAttributes(typeof(FlagsAttribute), false) == null) throw new ArgumentException("Type must have [Flags] attribute", "enumType");
 
-            List<long> flags = new List<long>();
-            foreach (object x in Enum.GetValues(enumType))
+            var flags = new List<long>();
+            foreach (var x in Enum.GetValues(enumType))
                 flags.Add(Convert.ToInt64(x));
 
-            List<string> flagLabels = new List<string>();
-            foreach (string x in Enum.GetNames(enumType))
+            var flagLabels = new List<string>();
+            foreach (var x in Enum.GetNames(enumType))
                 flagLabels.Add(x);
 
             SetValues(flags.ToArray(), flagLabels.ToArray());
@@ -113,10 +112,10 @@ namespace BrightIdeasSoftware {
         /// <param name="model"></param>
         /// <returns></returns>
         public object GetClusterKey(T model) {
-            List<long> flags = new List<long>();
+            var flags = new List<long>();
             try {
-                long modelValue = Convert.ToInt64(Column.GetValue(model));
-                foreach (long x in Values) {
+                var modelValue = Convert.ToInt64(Column.GetValue(model));
+                foreach (var x in Values) {
                     if ((x & modelValue) == x)
                         flags.Add(x);
                 }
@@ -138,8 +137,8 @@ namespace BrightIdeasSoftware {
         /// <param name="cluster"></param>
         /// <returns></returns>
         public override string GetClusterDisplayLabel(ICluster<T> cluster) {
-            long clusterKeyAsUlong = Convert.ToInt64(cluster.ClusterKey);
-            for (int i = 0; i < Values.Length; i++ ) {
+            var clusterKeyAsUlong = Convert.ToInt64(cluster.ClusterKey);
+            for (var i = 0; i < Values.Length; i++ ) {
                 if (clusterKeyAsUlong == Values[i])
                     return ApplyDisplayFormat(cluster, Labels[i]);
             }

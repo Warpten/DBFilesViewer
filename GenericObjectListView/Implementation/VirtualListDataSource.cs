@@ -38,7 +38,7 @@ namespace BrightIdeasSoftware
 {
     /// <summary>
     /// A VirtualListDataSource is a complete manner to provide functionality to a virtual list.
-    /// An object that implements this interface provides a VirtualObjectListView<T> with all the
+    /// An object that implements this interface provides a VirtualObjectListView{T} with all the
     /// information it needs to be fully functional.
     /// </summary>
     /// <remarks>Implementors must provide functioning implementations of at least GetObjectCount()
@@ -263,14 +263,14 @@ namespace BrightIdeasSoftware
         /// <returns></returns>
         static public int DefaultSearchText(string value, int first, int last, OLVColumn<T> column, IVirtualListDataSource<T> source) {
             if (first <= last) {
-                for (int i = first; i <= last; i++) {
-                    string data = column.GetStringValue(source.GetNthObject(i));
+                for (var i = first; i <= last; i++) {
+                    var data = column.GetStringValue(source.GetNthObject(i));
                     if (data.StartsWith(value, StringComparison.CurrentCultureIgnoreCase))
                         return i;
                 }
             } else {
-                for (int i = first; i >= last; i--) {
-                    string data = column.GetStringValue(source.GetNthObject(i));
+                for (var i = first; i >= last; i--) {
+                    var data = column.GetStringValue(source.GetNthObject(i));
                     if (data.StartsWith(value, StringComparison.CurrentCultureIgnoreCase))
                         return i;
                 }
@@ -293,7 +293,7 @@ namespace BrightIdeasSoftware
     }
 
     /// <summary>
-    /// This class mimics the behavior of VirtualObjectListView<T> v1.x.
+    /// This class mimics the behavior of VirtualObjectListView{T} v1.x.
     /// </summary>
     public class VirtualListVersion1DataSource<T> : AbstractVirtualListDataSource<T>
     {

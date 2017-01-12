@@ -101,9 +101,9 @@ namespace BrightIdeasSoftware
         public AutoCompleteCellEditor(ObjectListView<T> lv, OLVColumn<T> column) {
             DropDownStyle = ComboBoxStyle.DropDown;
 
-            Dictionary<string, bool> alreadySeen = new Dictionary<string, bool>();
-            for (int i = 0; i < Math.Min(lv.GetItemCount(), 1000); i++) {
-                string str = column.GetStringValue(lv.GetModelObject(i));
+            var alreadySeen = new Dictionary<string, bool>();
+            for (var i = 0; i < Math.Min(lv.GetItemCount(), 1000); i++) {
+                var str = column.GetStringValue(lv.GetModelObject(i));
                 if (!alreadySeen.ContainsKey(str)) {
                     Items.Add(str);
                     alreadySeen[str] = true;
@@ -130,8 +130,8 @@ namespace BrightIdeasSoftware
             DropDownStyle = ComboBoxStyle.DropDownList;
             ValueMember = "Key";
 
-            ArrayList values = new ArrayList();
-            foreach (object value in Enum.GetValues(type))
+            var values = new ArrayList();
+            foreach (var value in Enum.GetValues(type))
                 values.Add(new ComboBoxItem(value, Enum.GetName(type, value)));
 
             DataSource = values;
@@ -196,7 +196,7 @@ namespace BrightIdeasSoftware
             DropDownStyle = ComboBoxStyle.DropDownList;
             ValueMember = "Key";
 
-            ArrayList values = new ArrayList();
+            var values = new ArrayList();
             values.Add(new ComboBoxItem(false, "False"));
             values.Add(new ComboBoxItem(true, "True"));
 

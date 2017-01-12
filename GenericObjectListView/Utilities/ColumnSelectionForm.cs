@@ -17,7 +17,7 @@ namespace BrightIdeasSoftware
 {
     /// <summary>
     /// This form is an example of how an application could allows the user to select which columns 
-    /// an ObjectListView<T> will display, as well as select which order the columns are displayed in.
+    /// an ObjectListView{T} will display, as well as select which order the columns are displayed in.
     /// </summary>
     /// <remarks>
     /// <para>In Tile view, ColumnHeader.DisplayIndex does nothing. To reorder the columns you have
@@ -38,7 +38,7 @@ namespace BrightIdeasSoftware
         /// <summary>
         /// Open this form so it will edit the columns that are available in the listview's current view
         /// </summary>
-        /// <param name="olv">The ObjectListView<T> whose columns are to be altered</param>
+        /// <param name="olv">The ObjectListView{T} whose columns are to be altered</param>
         public void OpenOn(ObjectListView<T> olv)
         {
             OpenOn(olv, olv.View);
@@ -48,7 +48,7 @@ namespace BrightIdeasSoftware
         /// Open this form so it will edit the columns that are available in the given listview
         /// when the listview is showing the given type of view.
         /// </summary>
-        /// <param name="olv">The ObjectListView<T> whose columns are to be altered</param>
+        /// <param name="olv">The ObjectListView{T} whose columns are to be altered</param>
         /// <param name="view">The view that is to be altered. Must be View.Details or View.Tile</param>
         public void OpenOn(ObjectListView<T> olv, View view)
         {

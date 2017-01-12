@@ -36,7 +36,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace BrightIdeasSoftware
@@ -46,7 +45,7 @@ namespace BrightIdeasSoftware
     /// class that should be noticed by Generator class.
     /// </summary>
     /// <remarks>
-    /// All the attributes of this class match their equivilent properties on OLVColumn<T>.
+    /// All the attributes of this class match their equivilent properties on OLVColumn{T}.
     /// </remarks>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public class OLVColumnAttribute : Attribute
@@ -58,13 +57,13 @@ namespace BrightIdeasSoftware
         // So we explicitly track if those properties have been set.
 
         /// <summary>
-        /// Create a new OLVColumn<T>Attribute
+        /// Create a new OLVColumn{T}Attribute
         /// </summary>
         public OLVColumnAttribute() {
         }
 
         /// <summary>
-        /// Create a new OLVColumn<T>Attribute with the given title
+        /// Create a new OLVColumn{T}Attribute with the given title
         /// </summary>
         /// <param name="title">The title of the column</param>
         public OLVColumnAttribute(string title) {

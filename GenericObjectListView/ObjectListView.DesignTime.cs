@@ -494,7 +494,7 @@ namespace BrightIdeasSoftware.Design
             if (provider == null)
                 throw new ArgumentNullException(nameof(provider));
 
-            // Figure out which ObjectListView<T> we are working on. This should be the Instance of the context.
+            // Figure out which ObjectListView{T} we are working on. This should be the Instance of the context.
             var olv = context.Instance as IObjectListView;
             Debug.Assert(olv != null, "Instance must be an ObjectListView");
 

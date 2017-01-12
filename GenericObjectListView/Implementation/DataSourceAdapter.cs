@@ -124,7 +124,7 @@ namespace BrightIdeasSoftware
         private string dataMember = "";
 
         /// <summary>
-        /// Gets the ObjectListView<T> upon which this adaptor will operate
+        /// Gets the ObjectListView{T} upon which this adaptor will operate
         /// </summary>
         public ObjectListView<T> ListView { get; internal set; }
 

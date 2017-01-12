@@ -47,7 +47,7 @@ namespace BrightIdeasSoftware {
         }
 
         /// <summary>
-        /// Create a OLVListSubItem<T> that shows the given string and image
+        /// Create a OLVListSubItem{T} that shows the given string and image
         /// </summary>
         public OLVListSubItem(object modelValue, string text, object image) {
             ModelValue = modelValue;

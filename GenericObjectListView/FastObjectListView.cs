@@ -38,7 +38,6 @@
  */
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -47,15 +46,15 @@ using System.Windows.Forms;
 namespace BrightIdeasSoftware
 {
     /// <summary>
-    /// A FastObjectListView<T> trades function for speed.
+    /// A FastObjectListView{T} trades function for speed.
     /// </summary>
     /// <remarks>
     /// <para>On my mid-range laptop, this view builds a list of 10,000 objects in 0.1 seconds,
-    /// as opposed to a normal ObjectListView<T> which takes 10-15 seconds. Lists of up to 50,000 items should be
+    /// as opposed to a normal ObjectListView{T} which takes 10-15 seconds. Lists of up to 50,000 items should be
     /// able to be handled with sub-second response times even on low end machines.</para>
     /// <para>
-    /// A FastObjectListView<T> is implemented as a virtual list with many of the virtual modes limits (e.g. no sorting)
-    /// fixed through coding. There are some functions that simply cannot be provided. Specifically, a FastObjectListView<T> cannot:
+    /// A FastObjectListView{T} is implemented as a virtual list with many of the virtual modes limits (e.g. no sorting)
+    /// fixed through coding. There are some functions that simply cannot be provided. Specifically, a FastObjectListView{T} cannot:
     /// <list type="bullet">
     /// <item><description>use Tile view</description></item>
     /// <item><description>show groups on XP</description></item>

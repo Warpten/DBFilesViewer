@@ -154,7 +154,7 @@ namespace BrightIdeasSoftware {
             }
 
             // Try to find a creator based on the type of the value (or the column)
-            Type type = value?.GetType() ?? column.DataType;
+            var type = value?.GetType() ?? column.DataType;
             if (type != null && creatorMap.ContainsKey(type)) {
                 editor = creatorMap[type](model, column as OLVColumn<object>, value);
                 if (editor != null)

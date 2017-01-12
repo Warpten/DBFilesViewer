@@ -33,24 +33,23 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
 using System.Drawing.Design;
 using System.Windows.Forms;
 
 namespace BrightIdeasSoftware
 {
     /// <summary>
-    /// A DataTreeListView<T> is a TreeListView<T> that calculates its hierarchy based on
+    /// A DataTreeListView<T> is a TreeListView{T} that calculates its hierarchy based on
     /// information in the data source.
     /// </summary>
     /// <remarks>
-    /// <para>Like a <see cref="DataListView"/>, a DataTreeListView<T> sources all its information
+    /// <para>Like a <see cref="DataListView"/>, a DataTreeListView{T} sources all its information
     /// from a combination of <see cref="DataSource"/> and <see cref="DataMember"/>. 
     /// <see cref="DataSource"/> can be a DataTable, DataSet,
     /// or anything that implements <see cref="IList"/>. 
     /// </para>
     /// <para>
-    /// To function properly, the DataTreeListView<T> requires:
+    /// To function properly, the DataTreeListView{T} requires:
     /// <list type="bullet">
     /// <item>the table to have a column which holds a unique for the row. The name of this column must be set in <see cref="KeyAspectName"/>.</item>
     /// <item>the table to have a column which holds id of the hierarchical parent of the row. The name of this column must be set in <see cref="ParentKeyAspectName"/>.</item>

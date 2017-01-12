@@ -74,21 +74,21 @@ namespace BrightIdeasSoftware
         #region Events
 
         /// <summary>
-        /// Triggered after a ObjectListView<T> has been searched by the user typing into the list
+        /// Triggered after a ObjectListView{T} has been searched by the user typing into the list
         /// </summary>
         [Category("ObjectListView"),
         Description("This event is triggered after the control has done a search-by-typing action.")]
         public event EventHandler<AfterSearchingEventArgs> AfterSearching;
 
         /// <summary>
-        /// Triggered after a ObjectListView<T> has been sorted
+        /// Triggered after a ObjectListView{T} has been sorted
         /// </summary>
         [Category("ObjectListView"),
         Description("This event is triggered after the items in the list have been sorted.")]
         public event EventHandler<AfterSortingEventArgs<T>> AfterSorting;
 
         /// <summary>
-        /// Triggered before a ObjectListView<T> is searched by the user typing into the list
+        /// Triggered before a ObjectListView{T} is searched by the user typing into the list
         /// </summary>
         /// <remarks>
         /// Set Cancelled to true to prevent the searching from taking place.
@@ -99,7 +99,7 @@ namespace BrightIdeasSoftware
         public event EventHandler<BeforeSearchingEventArgs> BeforeSearching;
 
         /// <summary>
-        /// Triggered before a ObjectListView<T> is sorted
+        /// Triggered before a ObjectListView{T} is sorted
         /// </summary>
         /// <remarks>
         /// Set Cancelled to true to prevent the sort from taking place.
@@ -117,7 +117,7 @@ namespace BrightIdeasSoftware
         public event EventHandler<CellClickEventArgs<T>> ButtonClick;
 
         /// <summary>
-        /// This event is triggered when the user moves a drag over an ObjectListView<T> that
+        /// This event is triggered when the user moves a drag over an ObjectListView{T} that
         /// has a SimpleDropSink installed as the drop handler.
         /// </summary>
         /// <remarks>
@@ -209,7 +209,7 @@ namespace BrightIdeasSoftware
         public event ColumnRightClickEventHandler ColumnRightClick;
 
         /// <summary>
-        /// This event is triggered when the user releases a drag over an ObjectListView<T> that
+        /// This event is triggered when the user releases a drag over an ObjectListView{T} that
         /// has a SimpleDropSink installed as the drop handler.
         /// </summary>
         [Category("ObjectListView"),
@@ -287,14 +287,14 @@ namespace BrightIdeasSoftware
         public event EventHandler<ItemsAddingEventArgs<T>> ItemsAdding;
 
         /// <summary>
-        /// The contents of the ObjectListView<T> has changed.
+        /// The contents of the ObjectListView{T} has changed.
         /// </summary>
         [Category("ObjectListView"),
         Description("This event is triggered when the contents of the control have changed.")]
         public event EventHandler<ItemsChangedEventArgs> ItemsChanged;
 
         /// <summary>
-        /// The contents of the ObjectListView<T> is about to change via a SetObjects call
+        /// The contents of the ObjectListView{T} is about to change via a SetObjects call
         /// </summary>
         /// <remarks>
         /// <para>Set Cancelled to true to prevent the contents of the list changing. This does not work with virtual lists.</para>
@@ -311,7 +311,7 @@ namespace BrightIdeasSoftware
         public event EventHandler<ItemsRemovingEventArgs<T>> ItemsRemoving;
 
         /// <summary>
-        /// This event is triggered when the user moves a drag over an ObjectListView<T> that
+        /// This event is triggered when the user moves a drag over an ObjectListView{T} that
         /// has a SimpleDropSink installed as the drop handler, and when the source control
         /// for the drag was an ObjectListView.
         /// </summary>
@@ -325,7 +325,7 @@ namespace BrightIdeasSoftware
         public event EventHandler<ModelDropEventArgs<T>> ModelCanDrop;
 
         /// <summary>
-        /// This event is triggered when the user releases a drag over an ObjectListView<T> that
+        /// This event is triggered when the user releases a drag over an ObjectListView{T} that
         /// has a SimpleDropSink installed as the drop handler and when the source control
         /// for the drag was an ObjectListView.
         /// </summary>
@@ -342,7 +342,7 @@ namespace BrightIdeasSoftware
         public event EventHandler SelectionChanged;
 
         /// <summary>
-        /// This event is triggered when the contents of the ObjectListView<T> has scrolled.
+        /// This event is triggered when the contents of the ObjectListView{T} has scrolled.
         /// </summary>
         [Category("ObjectListView"),
         Description("This event is triggered when the contents of the ObjectListView<T> has scrolled.")]
@@ -763,7 +763,7 @@ namespace BrightIdeasSoftware
         /// <para>During the CellEditStarting event, setting this to true will prevent the cell from being edited.</para>
         /// <para>During the CellEditFinishing event, if this value is already true, this indicates that the user has
         /// cancelled the edit operation and that the handler should perform cleanup only. Setting this to true,
-        /// will prevent the ObjectListView<T> from trying to write the new value into the model object.</para>
+        /// will prevent the ObjectListView{T} from trying to write the new value into the model object.</para>
         /// </remarks>
         public bool Cancel;
 
@@ -818,7 +818,7 @@ namespace BrightIdeasSoftware
         /// when the cell edit operation finishes. Defaults to true
         /// </summary>
         /// <remarks>If the control is expensive to create, you might want to cache it and reuse for
-        /// for various cells. If so, you don't want ObjectListView<T> to dispose of the control automatically</remarks>
+        /// for various cells. If so, you don't want ObjectListView{T} to dispose of the control automatically</remarks>
         public bool AutoDispose { get; set; } = true;
     }
 
@@ -1185,7 +1185,7 @@ namespace BrightIdeasSoftware
     public class CellEventArgs<T> : EventArgs
     {
         /// <summary>
-        /// Gets the ObjectListView<T> that is the source of the event
+        /// Gets the ObjectListView{T} that is the source of the event
         /// </summary>
         public ObjectListView<T> ListView { get; internal set; }
 
@@ -1279,7 +1279,7 @@ namespace BrightIdeasSoftware
     }
 
     /// <summary>
-    /// Tells the world that the frozen-ness of the ObjectListView<T> has changed.
+    /// Tells the world that the frozen-ness of the ObjectListView{T} has changed.
     /// </summary>
     public class FreezeEventArgs : EventArgs
     {
@@ -1367,7 +1367,7 @@ namespace BrightIdeasSoftware
         //TODO: Unified with CellEventArgs
 
         /// <summary>
-        /// Gets the ObjectListView<T> that is the source of the event
+        /// Gets the ObjectListView{T} that is the source of the event
         /// </summary>
         public ObjectListView<T> ListView { get; internal set; }
 
@@ -1405,7 +1405,7 @@ namespace BrightIdeasSoftware
         public OLVListSubItem<T> SubItem { get; internal set; }
 
         /// <summary>
-        /// Gets the ObjectListView<T> that is the source of the event
+        /// Gets the ObjectListView{T} that is the source of the event
         /// </summary>
         public string Url { get; internal set; }
 
@@ -1422,7 +1422,7 @@ namespace BrightIdeasSoftware
     public class IsHyperlinkEventArgs<T> : EventArgs
     {
         /// <summary>
-        /// Gets the ObjectListView<T> that is the source of the event
+        /// Gets the ObjectListView{T} that is the source of the event
         /// </summary>
         public ObjectListView<T> ListView { get; internal set; }
 
@@ -1462,7 +1462,7 @@ namespace BrightIdeasSoftware
         //TODO: Unified with CellEventArgs
 
         /// <summary>
-        /// Gets the ObjectListView<T> that is the source of the event
+        /// Gets the ObjectListView{T} that is the source of the event
         /// </summary>
         public ObjectListView<T> ListView { get; internal set; }
 

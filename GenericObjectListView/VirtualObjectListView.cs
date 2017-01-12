@@ -325,7 +325,7 @@ namespace BrightIdeasSoftware
         /// When you change the VirtualListSize property, it always scrolls so
         /// that the focused item is the top item. This is annoying since it makes
         /// the virtual list seem to flicker as the control scrolls to show the focused
-        /// item and then scrolls back to where ObjectListView<T> wants it to be.
+        /// item and then scrolls back to where ObjectListView{T} wants it to be.
         /// </remarks>
         [Browsable(false),
          DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]

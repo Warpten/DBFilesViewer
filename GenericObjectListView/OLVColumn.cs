@@ -31,7 +31,6 @@
  */
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -254,7 +253,7 @@ namespace BrightIdeasSoftware {
         /// <para>This is always treated as true when the control is NOT owner drawn.</para>
         /// <para>
         /// When this is false (the default) and the control is owner drawn, 
-        /// ObjectListView<T> will try to calculate the width of the cell's
+        /// ObjectListView{T} will try to calculate the width of the cell's
         /// actual contents, and then size the editing control to be just the right width. If this is true,
         /// the whole width of the cell will be used, regardless of the cell's contents.
         /// </para>
@@ -312,7 +311,7 @@ namespace BrightIdeasSoftware {
         /// </summary>
         /// <remarks>
         /// Setting this on column 0 has no effect. Column 0 check box is controlled
-        /// by the CheckBoxes property on the ObjectListView<T> itself.
+        /// by the CheckBoxes property on the ObjectListView{T} itself.
         /// </remarks>
         [Category("ObjectListView"),
          Description("Should values in this column be treated as a checkbox, rather than a string?"),
@@ -483,7 +482,7 @@ namespace BrightIdeasSoftware {
         /// Gets this.GroupWithItemCountFormat or a reasonable default
         /// </summary>
         /// <remarks>
-        /// If GroupWithItemCountFormat is not set, its value will be taken from the ObjectListView<T> if possible.
+        /// If GroupWithItemCountFormat is not set, its value will be taken from the ObjectListView{T} if possible.
         /// </remarks>
         [Browsable(false)]
         public string GroupWithItemCountFormatOrDefault {
@@ -563,7 +562,7 @@ namespace BrightIdeasSoftware {
         /// <summary>
         /// Gets or sets the style that will be used to draw the header for this column
         /// </summary>
-        /// <remarks>This is only uses when the owning ObjectListView<T> has HeaderUsesThemes set to false.</remarks>
+        /// <remarks>This is only uses when the owning ObjectListView{T} has HeaderUsesThemes set to false.</remarks>
         [Category("ObjectListView"),
          Description("What style will be used to draw the header of this column"),
          DefaultValue(null)]
@@ -696,7 +695,7 @@ namespace BrightIdeasSoftware {
         /// checkedness of a cell changes.
         /// </para>
         /// <para>
-        /// This property's behaviour on a TreeListView<T> is probably best describes as undefined 
+        /// This property's behaviour on a TreeListView{T} is probably best describes as undefined 
         /// and should be avoided.
         /// </para>
         /// <para>
@@ -1455,7 +1454,7 @@ namespace BrightIdeasSoftware {
             get {
                 if (dataType == null) {
                     var olv = ListView as ObjectListView<T>;
-                    object value = olv?.GetFirstNonNullValue(this);
+                    var value = olv?.GetFirstNonNullValue(this);
                     if (value != null)
                         return value.GetType(); // THINK: Should we cache this?
                 }
