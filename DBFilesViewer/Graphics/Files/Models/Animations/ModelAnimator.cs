@@ -152,7 +152,7 @@ namespace DBFilesViewer.Graphics.Files.Models.Animations
         {
             animatedColor = 1.0f;
 
-            if (alphaAnimIndex >= 0 && alphaAnimIndex < Colors.Length)
+            if (alphaAnimIndex >= 0 && alphaAnimIndex < Transparencies.Length)
                 animatedColor = Transparencies[alphaAnimIndex].Transparency;
         }
     }
