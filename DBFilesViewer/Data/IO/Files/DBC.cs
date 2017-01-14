@@ -137,7 +137,7 @@ namespace DBFilesViewer.Data.IO.Files
                     var refFieldsEnumerator = referringFields.GetEnumerator();
                     while (refFieldsEnumerator.MoveNext())
                     {
-                        var referringValue = refFieldsEnumerator.Current.GetValue(refEnumerator.Value) as IObjectType<int>;
+                        var referringValue = refFieldsEnumerator.Current.GetValue(refEnumerator.Value) as IObjectType<uint>;
                         if (referringValue?.Key != key)
                             continue;
 

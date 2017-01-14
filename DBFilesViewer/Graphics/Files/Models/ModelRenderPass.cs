@@ -19,8 +19,8 @@ namespace DBFilesViewer.Graphics.Files.Models
 
         public uint OpCount { get; set; }
         public M2VertexShaderType VertexShaderType { get; set; }
-        public M2HullShaderType HullShaderType { get; set; }
-        public M2DomainShaderType DomainShaderType { get; set; }
         public M2PixelShaderType PixelShaderType { get; set; }
+
+        public ShaderProgram Program { get; set; }
     }
 }

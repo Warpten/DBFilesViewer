@@ -66,7 +66,7 @@ namespace DBFilesViewer.UI.Controls
             // TODO Move this to designer time
             _recordInspectListView.BeginUpdate();
             _recordInspectListView.Reset();
-            _recordInspectListView.AllColumns.Add(new OLVColumn<int>  {
+            _recordInspectListView.AllColumns.Add(new OLVColumn<uint>  {
                 AspectGetter = rowObject => rowObject.ToString(),
                 FillsFreeSpace = true
             });
@@ -78,7 +78,7 @@ namespace DBFilesViewer.UI.Controls
 
             #region Setup filters
             foreach (var column in _fileSummaryListView.AllColumns)
-                _columnComboBox.Items.Add(new FieldNameComboBox<T> { Column = column as OLVColumn<KeyValuePair<int, T>> });
+                _columnComboBox.Items.Add(new FieldNameComboBox<T> { Column = column as OLVColumn<KeyValuePair<uint, T>> });
 
             Generator<Filter<T>>.GenerateColumns(_filterListView);
             #endregion
@@ -117,16 +117,16 @@ namespace DBFilesViewer.UI.Controls
         }
 
         #region Creation helpers
-        private OLVColumn<KeyValuePair<int, T>> GenerateKeyColumn(FieldInfo indexField)
+        private OLVColumn<KeyValuePair<uint, T>> GenerateKeyColumn(FieldInfo indexField)
         {
-            var argumentExpression = Expression.Parameter(typeof(KeyValuePair<int, T>), "rowObject");
+            var argumentExpression = Expression.Parameter(typeof(KeyValuePair<uint, T>), "rowObject");
             var dictionaryValueExpression = Expression.MakeMemberAccess(
-                argumentExpression, typeof(KeyValuePair<int, T>).GetProperty("Key"));
+                argumentExpression, typeof(KeyValuePair<uint, T>).GetProperty("Key"));
 
-            return new OLVColumn<KeyValuePair<int, T>>
+            return new OLVColumn<KeyValuePair<uint, T>>
             {
                 Text = !Store.HasIndexTable && indexField != null ? indexField.Name : "ID",
-                AspectGetter = Expression.Lambda<Func<KeyValuePair<int, T>, object>>(Expression.Convert(dictionaryValueExpression, typeof(object)),
+                AspectGetter = Expression.Lambda<Func<KeyValuePair<uint, T>, object>>(Expression.Convert(dictionaryValueExpression, typeof(object)),
                     argumentExpression).Compile(),
                 Tag = !Store.HasIndexTable && indexField != null ? indexField : null,
                 IsVisible = true
@@ -363,7 +363,7 @@ namespace DBFilesViewer.UI.Controls
         {
             var argumentExpression = Expression.Parameter(typeof (KeyValuePair<int, T>));
 
-            var memberType = typeof(KeyValuePair<int, T>);
+            var memberType = typeof(KeyValuePair<uint, T>);
             Expression memberAccessExpr = argumentExpression;
             foreach (var fieldGetter in fieldGetters)
             {
@@ -483,7 +483,7 @@ namespace DBFilesViewer.UI.Controls
     /// <typeparam name="U"></typeparam>
     public class FieldNameComboBox<U>
     {
-        public OLVColumn<KeyValuePair<int, U>> Column { private get; set; }
+        public OLVColumn<KeyValuePair<uint, U>> Column { private get; set; }
         public TypeSafeColumn<U> SafeColumn => Column as TypeSafeColumn<U>;
 
         public override string ToString() => Column.Text;

@@ -104,7 +104,7 @@ namespace DBFilesViewer.Graphics.Files.Models.Animations
             #endregion
 
             #region Animate textures
-            time = (uint)(now - _animationStartTime);
+            time = (uint) (now - _animationStartTime);
             foreach (var textureAnim in Textures)
                 textureAnim.UpdateMatrix(0, time);
 
@@ -140,15 +140,20 @@ namespace DBFilesViewer.Graphics.Files.Models.Animations
             return true;
         }
 
-        public void GetColor(int colorAnimIndex, int alphaAnimIndex, out Vector4 animatedColor)
+        public void GetColor(int colorAnimIndex, out Vector4 animatedColor)
         {
             animatedColor = Vector4.One;
 
             if (colorAnimIndex >= 0 && colorAnimIndex < Colors.Length)
                 animatedColor = Colors[colorAnimIndex].Color;
+        }
 
-            if (alphaAnimIndex >= 0 && alphaAnimIndex < Transparencies.Length)
-                animatedColor.W *= Transparencies[alphaAnimIndex].Transparency;
+        public void GetTransparency(int alphaAnimIndex, out float animatedColor)
+        {
+            animatedColor = 1.0f;
+
+            if (alphaAnimIndex >= 0 && alphaAnimIndex < Colors.Length)
+                animatedColor = Transparencies[alphaAnimIndex].Transparency;
         }
     }
 }

@@ -693,6 +693,226 @@ namespace DBFilesViewer.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] M2PixelPortrait_PS_Combiners_Mod {
+            get {
+                object obj = ResourceManager.GetObject("M2PixelPortrait_PS_Combiners_Mod", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] M2PixelPortrait_PS_Combiners_Mod_Add {
+            get {
+                object obj = ResourceManager.GetObject("M2PixelPortrait_PS_Combiners_Mod_Add", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] M2PixelPortrait_PS_Combiners_Mod_Add_Alpha {
+            get {
+                object obj = ResourceManager.GetObject("M2PixelPortrait_PS_Combiners_Mod_Add_Alpha", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] M2PixelPortrait_PS_Combiners_Mod_AddAlpha {
+            get {
+                object obj = ResourceManager.GetObject("M2PixelPortrait_PS_Combiners_Mod_AddAlpha", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] M2PixelPortrait_PS_Combiners_Mod_AddAlpha_Alpha {
+            get {
+                object obj = ResourceManager.GetObject("M2PixelPortrait_PS_Combiners_Mod_AddAlpha_Alpha", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] M2PixelPortrait_PS_Combiners_Mod_AddNA {
+            get {
+                object obj = ResourceManager.GetObject("M2PixelPortrait_PS_Combiners_Mod_AddNA", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] M2PixelPortrait_PS_Combiners_Mod_Mod {
+            get {
+                object obj = ResourceManager.GetObject("M2PixelPortrait_PS_Combiners_Mod_Mod", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] M2PixelPortrait_PS_Combiners_Mod_Mod2x {
+            get {
+                object obj = ResourceManager.GetObject("M2PixelPortrait_PS_Combiners_Mod_Mod2x", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] M2PixelPortrait_PS_Combiners_Mod_Mod2xNA {
+            get {
+                object obj = ResourceManager.GetObject("M2PixelPortrait_PS_Combiners_Mod_Mod2xNA", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] M2PixelPortrait_PS_Combiners_Mod_Opaque {
+            get {
+                object obj = ResourceManager.GetObject("M2PixelPortrait_PS_Combiners_Mod_Opaque", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] M2PixelPortrait_PS_Combiners_Opaque {
+            get {
+                object obj = ResourceManager.GetObject("M2PixelPortrait_PS_Combiners_Opaque", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] M2PixelPortrait_PS_Combiners_Opaque_AddAlpha {
+            get {
+                object obj = ResourceManager.GetObject("M2PixelPortrait_PS_Combiners_Opaque_AddAlpha", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] M2PixelPortrait_PS_Combiners_Opaque_AddAlpha_Alpha {
+            get {
+                object obj = ResourceManager.GetObject("M2PixelPortrait_PS_Combiners_Opaque_AddAlpha_Alpha", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] M2PixelPortrait_PS_Combiners_Opaque_AddAlpha_Wgt {
+            get {
+                object obj = ResourceManager.GetObject("M2PixelPortrait_PS_Combiners_Opaque_AddAlpha_Wgt", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] M2PixelPortrait_PS_Combiners_Opaque_Alpha {
+            get {
+                object obj = ResourceManager.GetObject("M2PixelPortrait_PS_Combiners_Opaque_Alpha", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] M2PixelPortrait_PS_Combiners_Opaque_Alpha_Alpha {
+            get {
+                object obj = ResourceManager.GetObject("M2PixelPortrait_PS_Combiners_Opaque_Alpha_Alpha", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] M2PixelPortrait_PS_Combiners_Opaque_Mod {
+            get {
+                object obj = ResourceManager.GetObject("M2PixelPortrait_PS_Combiners_Opaque_Mod", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] M2PixelPortrait_PS_Combiners_Opaque_Mod2x {
+            get {
+                object obj = ResourceManager.GetObject("M2PixelPortrait_PS_Combiners_Opaque_Mod2x", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] M2PixelPortrait_PS_Combiners_Opaque_Mod2xNA {
+            get {
+                object obj = ResourceManager.GetObject("M2PixelPortrait_PS_Combiners_Opaque_Mod2xNA", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] M2PixelPortrait_PS_Combiners_Opaque_Mod2xNA_Alpha {
+            get {
+                object obj = ResourceManager.GetObject("M2PixelPortrait_PS_Combiners_Opaque_Mod2xNA_Alpha", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] M2PixelPortrait_PS_Combiners_Opaque_ModNA_Alpha {
+            get {
+                object obj = ResourceManager.GetObject("M2PixelPortrait_PS_Combiners_Opaque_ModNA_Alpha", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] M2PixelPortrait_PS_Combiners_Opaque_Opaque {
+            get {
+                object obj = ResourceManager.GetObject("M2PixelPortrait_PS_Combiners_Opaque_Opaque", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] M2PixelPortrait1 {
             get {
                 object obj = ResourceManager.GetObject("M2PixelPortrait1", resourceCulture);

@@ -21,7 +21,7 @@ namespace DBFilesViewer.Graphics.Files.Models
 
         #region Rendering data
         public ushort[] Indices { get; private set; } = new ushort[0];
-        public ModelSubMeshInfo[] SubMeshes { get; private set; }
+        // public ModelSubMeshInfo[] SubMeshes { get; private set; }
 
         public bool HasBlendPass { get; private set; }
         public bool HasOpaquePass { get; private set; }
@@ -83,13 +83,13 @@ namespace DBFilesViewer.Graphics.Files.Models
                 var skinSubMeshes = ReadArrayOf<M2SubMesh>(skinReader, mSkin.ofsSubmeshes, mSkin.nSubmeshes);
 
                 Indices = triangles.Select(t => indexLookup[t]).ToArray();
-                SubMeshes = skinSubMeshes.Select(submesh => new ModelSubMeshInfo
-                {
-                    BoundingSphere =
-                        new BoundingSphere(submesh.CenterBoundingBox, submesh.Radius),
-                    NumIndices = submesh.NumTriangles,
-                    StartIndex = submesh.StartTriangle + (((submesh.Level & 1) != 0) ? (ushort.MaxValue + 1) : 0)
-                }).ToArray();
+                // SubMeshes = skinSubMeshes.Select(submesh => new ModelSubMeshInfo
+                // {
+                //     BoundingSphere =
+                //         new BoundingSphere(submesh.CenterBoundingBox, submesh.Radius),
+                //     NumIndices = submesh.NumTriangles,
+                //     StartIndex = submesh.StartTriangle + (((submesh.Level & 1) != 0) ? (ushort.MaxValue + 1) : 0)
+                // }).ToArray();
 
                 foreach (var texUnit in ReadArrayOf<M2TexUnit>(skinReader, mSkin.ofsTexUnits, mSkin.nTexUnits))
                 {
@@ -142,7 +142,7 @@ namespace DBFilesViewer.Graphics.Files.Models
                         TextureIndices = texIndices,
                         IndexCount = mesh.NumTriangles,
                         RenderFlag = flags,
-                        BlendMode = BlendModes[blendMode],
+                        BlendMode = /*BlendModes[*/blendMode/*]*/,
                         StartIndex = startTriangle,
                         OpCount = texUnit.OpCount,
                         VertexShaderType = ModelShaders.GetVertexShaderType(texUnit.ShaderId, texUnit.OpCount),
@@ -349,7 +349,6 @@ namespace DBFilesViewer.Graphics.Files.Models
 
             BoneLookupTable = ReadArrayOf(Reader, ref header.BoneLookupTable);
             TextureLookupTable = ReadArrayOf(Reader, ref header.TextureLookupTable);
-            // TexUnitLookupTable = ReadArrayOf(Reader, ref header.TexUnitLookupTable);
             TransparencyLookupTable = ReadArrayOf(Reader, ref header.TransparencyLookupTable);
             TextureTransformsLookupTable = ReadArrayOf(Reader, ref header.TextureTransformsLookupTable);
             BoundingBox = header.BoundingBox;
@@ -395,7 +394,6 @@ namespace DBFilesViewer.Graphics.Files.Models
         public M2Material[] Materials { get; private set; }
         public ushort[] BoneLookupTable { get; set; }
         public ushort[] TextureLookupTable { get; set; }
-        // public ushort[] TexUnitLookupTable { get; set; }
         public ushort[] TransparencyLookupTable { get; set; }
         public short[] TextureTransformsLookupTable { get; set; }
         public BoundingBox BoundingBox { get; private set; }

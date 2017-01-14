@@ -82,6 +82,8 @@ namespace DBFilesViewer.Graphics.Files.Models
     public class ModelShaders
     {
         readonly List<PixelShader> mPixelShaders = new List<PixelShader>();
+        readonly List<PixelShader> mPixelShaders_Portrait = new List<PixelShader>();
+
         readonly List<VertexShader> mVertexShaders_Instanced = new List<VertexShader>();
         readonly List<VertexShader> mVertexShaders_Single = new List<VertexShader>();
 
@@ -229,6 +231,7 @@ namespace DBFilesViewer.Graphics.Files.Models
         public void Initialize(DeviceContext ctx)
         {
             InitializePixelShaders(ctx);
+            InitializePixelShaders_Portrait(ctx);
             InitializeVertexShaders_Instanced(ctx);
             InitializeVertexShaders_Single(ctx);
         }
@@ -271,6 +274,46 @@ namespace DBFilesViewer.Graphics.Files.Models
             mPixelShaders.Add(null);//new PixelShader(ctx.Device, Resources.Shaders.M2Pixel_PS_Guild_Opaque));
             mPixelShaders.Add(null);//new PixelShader(ctx.Device, Resources.Shaders.M2Pixel_PS_Combiners_Mod_Depth));
             mPixelShaders.Add(null);//new PixelShader(ctx.Device, Resources.Shaders.M2Pixel_PS_Illum));
+        }
+
+        private void InitializePixelShaders_Portrait(DeviceContext ctx)
+        {
+            // enum order
+            mPixelShaders_Portrait.Add(new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Opaque));
+            mPixelShaders_Portrait.Add(new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Mod));
+            mPixelShaders_Portrait.Add(new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Opaque_Mod));
+            mPixelShaders_Portrait.Add(new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Opaque_Mod2x));
+            mPixelShaders_Portrait.Add(new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Opaque_Mod2xNA));
+            mPixelShaders_Portrait.Add(new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Opaque_Opaque));
+            mPixelShaders_Portrait.Add(new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Mod_Mod));
+            mPixelShaders_Portrait.Add(new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Mod_Mod2x));
+            mPixelShaders_Portrait.Add(new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Mod_Add));
+            mPixelShaders_Portrait.Add(new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Mod_Mod2xNA));
+            mPixelShaders_Portrait.Add(new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Mod_AddNA));
+            mPixelShaders_Portrait.Add(new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Mod_Opaque));
+            mPixelShaders_Portrait.Add(new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Opaque_Mod2xNA_Alpha));
+            mPixelShaders_Portrait.Add(new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Opaque_AddAlpha));
+            mPixelShaders_Portrait.Add(new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Opaque_AddAlpha_Alpha));
+            mPixelShaders_Portrait.Add(null);//PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Opaque_Mod2xNA_Alpha_Add));
+            mPixelShaders_Portrait.Add(new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Mod_AddAlpha));
+            mPixelShaders_Portrait.Add(new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Mod_AddAlpha_Alpha));
+            mPixelShaders_Portrait.Add(new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Opaque_Alpha_Alpha));
+            mPixelShaders_Portrait.Add(null);//PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Opaque_Mod2xNA_Alpha_3s));
+            mPixelShaders_Portrait.Add(new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Opaque_AddAlpha_Wgt));
+            mPixelShaders_Portrait.Add(new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Mod_Add_Alpha));
+            mPixelShaders_Portrait.Add(new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Opaque_ModNA_Alpha));
+            mPixelShaders_Portrait.Add(null);//PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Mod_AddAlpha_Wgt));
+            mPixelShaders_Portrait.Add(null);//PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Opaque_Mod_Add_Wgt));
+            mPixelShaders_Portrait.Add(null);//PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Opaque_Mod2xNA_Alpha_UnshAlpha));
+            mPixelShaders_Portrait.Add(null);//PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Mod_Dual_Crossfade));
+            mPixelShaders_Portrait.Add(null);//PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Opaque_Mod2xNA_Alpha_Alpha));
+            mPixelShaders_Portrait.Add(null);//PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Mod_Masked_Dual_Crossfade));
+            mPixelShaders_Portrait.Add(new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Opaque_Alpha));
+            mPixelShaders_Portrait.Add(null);//new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Guild));
+            mPixelShaders_Portrait.Add(null);//new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Guild_NoBorder));
+            mPixelShaders_Portrait.Add(null);//new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Guild_Opaque));
+            mPixelShaders_Portrait.Add(null);//new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Combiners_Mod_Depth));
+            mPixelShaders_Portrait.Add(null);//new PixelShader(ctx.Device, Resources.Shaders.M2PixelPortrait_PS_Illum));
         }
 
         private void InitializeVertexShaders_Instanced(DeviceContext ctx)
@@ -347,6 +390,18 @@ namespace DBFilesViewer.Graphics.Files.Models
             }
 
             return mPixelShaders[(int)M2PixelShaderType.PS_Combiners_Opaque];
+        }
+
+        public PixelShader GetPixelShader_Portrait(M2PixelShaderType PixelShaderType)
+        {
+            var pixelShaderType = (int)PixelShaderType;
+            if (pixelShaderType < mPixelShaders_Portrait.Count)
+            {
+                var ps = mPixelShaders_Portrait[pixelShaderType];
+                if (ps != null) return ps;
+            }
+
+            return mPixelShaders_Portrait[(int)M2PixelShaderType.PS_Combiners_Opaque];
         }
     }
 }

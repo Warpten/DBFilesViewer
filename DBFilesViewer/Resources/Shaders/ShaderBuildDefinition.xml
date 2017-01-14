@@ -158,8 +158,125 @@
       </ShaderPermutation>
     </Permutations>
   </ShaderDefinition>
-  
+
   <ShaderDefinition>
+    <SourceName>Resources\Shaders\M2PixelPortrait.hlsl</SourceName>
+    <Profile>ps_4_0</Profile>
+    <Permutations>
+      <ShaderPermutation>
+        <EntryPoint>main_PS_Combiners_Opaque</EntryPoint>
+        <TargetFile>Resources\Shaders\M2PixelPortrait_PS_Combiners_Opaque.dxc</TargetFile>
+        <Definitions/>
+      </ShaderPermutation>
+      <ShaderPermutation>
+        <EntryPoint>main_PS_Combiners_Mod</EntryPoint>
+        <TargetFile>Resources\Shaders\M2PixelPortrait_PS_Combiners_Mod.dxc</TargetFile>
+        <Definitions/>
+      </ShaderPermutation>
+      <ShaderPermutation>
+        <EntryPoint>main_PS_Combiners_Opaque_Alpha</EntryPoint>
+        <TargetFile>Resources\Shaders\M2PixelPortrait_PS_Combiners_Opaque_Alpha.dxc</TargetFile>
+        <Definitions/>
+      </ShaderPermutation>
+      <ShaderPermutation>
+        <EntryPoint>main_PS_Combiners_Opaque_Mod</EntryPoint>
+        <TargetFile>Resources\Shaders\M2PixelPortrait_PS_Combiners_Opaque_Mod.dxc</TargetFile>
+        <Definitions/>
+      </ShaderPermutation>
+      <ShaderPermutation>
+        <EntryPoint>main_PS_Combiners_Opaque_Mod2x</EntryPoint>
+        <TargetFile>Resources\Shaders\M2PixelPortrait_PS_Combiners_Opaque_Mod2x.dxc</TargetFile>
+        <Definitions/>
+      </ShaderPermutation>
+      <ShaderPermutation>
+        <EntryPoint>main_PS_Combiners_Opaque_Mod2xNA</EntryPoint>
+        <TargetFile>Resources\Shaders\M2PixelPortrait_PS_Combiners_Opaque_Mod2xNA.dxc</TargetFile>
+        <Definitions/>
+      </ShaderPermutation>
+      <ShaderPermutation>
+        <EntryPoint>main_PS_Combiners_Opaque_Opaque</EntryPoint>
+        <TargetFile>Resources\Shaders\M2PixelPortrait_PS_Combiners_Opaque_Opaque.dxc</TargetFile>
+        <Definitions/>
+      </ShaderPermutation>
+      <ShaderPermutation>
+        <EntryPoint>main_PS_Combiners_Mod_Mod</EntryPoint>
+        <TargetFile>Resources\Shaders\M2PixelPortrait_PS_Combiners_Mod_Mod.dxc</TargetFile>
+        <Definitions/>
+      </ShaderPermutation>
+      <ShaderPermutation>
+        <EntryPoint>main_PS_Combiners_Mod_Mod2x</EntryPoint>
+        <TargetFile>Resources\Shaders\M2PixelPortrait_PS_Combiners_Mod_Mod2x.dxc</TargetFile>
+        <Definitions/>
+      </ShaderPermutation>
+      <ShaderPermutation>
+        <EntryPoint>main_PS_Combiners_Mod_Add</EntryPoint>
+        <TargetFile>Resources\Shaders\M2PixelPortrait_PS_Combiners_Mod_Add.dxc</TargetFile>
+        <Definitions/>
+      </ShaderPermutation>
+      <ShaderPermutation>
+        <EntryPoint>main_PS_Combiners_Mod_Mod2xNA</EntryPoint>
+        <TargetFile>Resources\Shaders\M2PixelPortrait_PS_Combiners_Mod_Mod2xNA.dxc</TargetFile>
+        <Definitions/>
+      </ShaderPermutation>
+      <ShaderPermutation>
+        <EntryPoint>main_PS_Combiners_Mod_AddNA</EntryPoint>
+        <TargetFile>Resources\Shaders\M2PixelPortrait_PS_Combiners_Mod_AddNA.dxc</TargetFile>
+        <Definitions/>
+      </ShaderPermutation>
+      <ShaderPermutation>
+        <EntryPoint>main_PS_Combiners_Mod_Opaque</EntryPoint>
+        <TargetFile>Resources\Shaders\M2PixelPortrait_PS_Combiners_Mod_Opaque.dxc</TargetFile>
+        <Definitions/>
+      </ShaderPermutation>
+      <ShaderPermutation>
+        <EntryPoint>main_PS_Combiners_Opaque_AddAlpha</EntryPoint>
+        <TargetFile>Resources\Shaders\M2PixelPortrait_PS_Combiners_Opaque_AddAlpha.dxc</TargetFile>
+        <Definitions/>
+      </ShaderPermutation>
+      <ShaderPermutation>
+        <EntryPoint>main_PS_Combiners_Opaque_Alpha_Alpha</EntryPoint>
+        <TargetFile>Resources\Shaders\M2PixelPortrait_PS_Combiners_Opaque_Alpha_Alpha.dxc</TargetFile>
+        <Definitions/>
+      </ShaderPermutation>
+      <ShaderPermutation>
+        <EntryPoint>main_PS_Combiners_Opaque_AddAlpha_Alpha</EntryPoint>
+        <TargetFile>Resources\Shaders\M2PixelPortrait_PS_Combiners_Opaque_AddAlpha_Alpha.dxc</TargetFile>
+        <Definitions/>
+      </ShaderPermutation>
+      <ShaderPermutation>
+        <EntryPoint>main_PS_Combiners_Mod_AddAlpha</EntryPoint>
+        <TargetFile>Resources\Shaders\M2PixelPortrait_PS_Combiners_Mod_AddAlpha.dxc</TargetFile>
+        <Definitions/>
+      </ShaderPermutation>
+      <ShaderPermutation>
+        <EntryPoint>main_PS_Combiners_Mod_Add_Alpha</EntryPoint>
+        <TargetFile>Resources\Shaders\M2PixelPortrait_PS_Combiners_Mod_Add_Alpha.dxc</TargetFile>
+        <Definitions/>
+      </ShaderPermutation>
+      <ShaderPermutation>
+        <EntryPoint>main_PS_Combiners_Mod_AddAlpha_Alpha</EntryPoint>
+        <TargetFile>Resources\Shaders\M2PixelPortrait_PS_Combiners_Mod_AddAlpha_Alpha.dxc</TargetFile>
+        <Definitions/>
+      </ShaderPermutation>
+      <ShaderPermutation>
+        <EntryPoint>main_PS_Combiners_Opaque_Mod2xNA_Alpha</EntryPoint>
+        <TargetFile>Resources\Shaders\M2PixelPortrait_PS_Combiners_Opaque_Mod2xNA_Alpha.dxc</TargetFile>
+        <Definitions/>
+      </ShaderPermutation>
+      <ShaderPermutation>
+        <EntryPoint>main_PS_Combiners_Opaque_ModNA_Alpha</EntryPoint>
+        <TargetFile>Resources\Shaders\M2PixelPortrait_PS_Combiners_Opaque_ModNA_Alpha.dxc</TargetFile>
+        <Definitions/>
+      </ShaderPermutation>
+      <ShaderPermutation>
+        <EntryPoint>main_PS_Combiners_Opaque_AddAlpha_Wgt</EntryPoint>
+        <TargetFile>Resources\Shaders\M2PixelPortrait_PS_Combiners_Opaque_AddAlpha_Wgt.dxc</TargetFile>
+        <Definitions/>
+      </ShaderPermutation>
+    </Permutations>
+  </ShaderDefinition>
+
+  <!--<ShaderDefinition>
     <SourceName>Resources\Shaders\M2PixelPortrait.hlsl</SourceName>
     <Profile>ps_4_0</Profile>
     <Permutations>
@@ -189,7 +306,7 @@
         <Definitions/>
       </ShaderPermutation>
     </Permutations>
-  </ShaderDefinition>
+  </ShaderDefinition>-->
 
   <ShaderDefinition>
     <SourceName>Resources\Shaders\M2VertexInstanced.hlsl</SourceName>

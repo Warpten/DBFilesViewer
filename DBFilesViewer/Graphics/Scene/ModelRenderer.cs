@@ -48,13 +48,8 @@ namespace DBFilesViewer.Graphics.Scene
         private ConstantBuffer<Matrix> BonesAnimationMatrices { get; set; }
         private ConstantBuffer<PerModelPassBuffer> PerPassBuffer { get; set; }
 
-        private BlendState[] _blendStates = new BlendState[14];
+        private BlendState[] _blendStates = new BlendState[8];
 
-        private ShaderProgram _noBlendProgram;
-        private ShaderProgram _blendProgram;
-        private ShaderProgram _blendMaskProgram;
-        private ShaderProgram _2PassProgram;
-        private ShaderProgram _3PassProgram;
         private RasterState gNoCullState;
         private RasterState gCullState;
 
@@ -86,7 +81,7 @@ namespace DBFilesViewer.Graphics.Scene
             _modelRenderData = new PerModelPassBuffer
             {
                 uvAnimMatrix1 = Matrix.Identity,
-                modelPassParams = Vector4.Zero,
+                modelPassParams = new Vector4(0.0f, 0.0f, 1.0f, 0.0f),
                 animatedColor = Vector4.One,
                 modelPosition = Matrix.Identity
             };
@@ -167,61 +162,96 @@ namespace DBFilesViewer.Graphics.Scene
                 _mesh.UpdateRasterizerState(cullingDisabled ? gNoCullState : gCullState);
                 _mesh.UpdateBlendState(_blendStates[renderPass.BlendMode]);
 
-                var oldProgram = _mesh.Program;
-                ShaderProgram newProgram;
-
-                switch (renderPass.BlendMode)
+                if (renderPass.Program == null)
                 {
-                    case 0:
-                        newProgram = _noBlendProgram;
-                        break;
-                    case 1:
-                        newProgram = _blendMaskProgram;
-                        break;
-                    default:
-                        switch (renderPass.TextureIndices.Count)
-                        {
-                            case 2: newProgram = _2PassProgram; break;
-                            case 3: newProgram = _3PassProgram; break;
-                            default: newProgram = _blendProgram; break;
-                        }
-                        break;
+                    renderPass.Program = new ShaderProgram(_drawContext);
+                    renderPass.Program.SetPixelShader(_drawContext.ModelShaders.GetPixelShader_Portrait(renderPass.PixelShaderType));
+                    renderPass.Program.SetVertexShader(Shaders.M2VertexPortrait);
                 }
 
-                if (newProgram != oldProgram)
-                {
-                    _mesh.Program = newProgram;
-                    _mesh.Program.Bind();
-                }
+                _mesh.Program = renderPass.Program;
+                _mesh.Program.Bind();
 
                 // Light coefficient: 0 if not lit.
                 _modelRenderData.modelPassParams.X = (renderPass.RenderFlag & 0x01) != 0 ? 0.0f : 1.0f;
                 // Fog coefficient: 0 if no fog.
                 _modelRenderData.modelPassParams.Y = (renderPass.RenderFlag & 0x02) != 0 ? 0.0f : 1.0f;
+                _modelRenderData.modelPassParams.Z = (renderPass.BlendMode == 1) ? 1.0f : 0.0f;
 
                 _mesh.StartVertex = 0;
                 _mesh.StartIndex = renderPass.StartIndex;
                 _mesh.IndexCount = renderPass.IndexCount;
 
+                #region Animation
                 if (_animator != null)
                 {
                     _animator.GetTextureAnimationMatrix(renderPass.TexAnimIndex + 0, ref _modelRenderData.uvAnimMatrix1);
-                    _animator.GetTextureAnimationMatrix(renderPass.TexAnimIndex + 1, ref _modelRenderData.uvAnimMatrix2);
-                    _animator.GetTextureAnimationMatrix(renderPass.TexAnimIndex + 2, ref _modelRenderData.uvAnimMatrix3);
-                    _animator.GetTextureAnimationMatrix(renderPass.TexAnimIndex + 3, ref _modelRenderData.uvAnimMatrix4);
+                    _animator.GetTransparency(renderPass.AlphaAnimIndex, out _modelRenderData.transparency1);
 
-                    _animator.GetColor(renderPass.ColorAnimIndex, renderPass.AlphaAnimIndex, out _modelRenderData.animatedColor);
+                    if (renderPass.OpCount > 1)
+                    {
+                        _animator.GetTextureAnimationMatrix(renderPass.TexAnimIndex + 1, ref _modelRenderData.uvAnimMatrix2);
+                        _animator.GetTransparency(renderPass.AlphaAnimIndex + 1, out _modelRenderData.transparency2);
+                    }
+                    else
+                    {
+                        _modelRenderData.uvAnimMatrix2 = Matrix.Identity;
+                        _modelRenderData.transparency2 = 1.0f;
+                    }
+
+                    if (renderPass.OpCount > 2)
+                    {
+                        _animator.GetTextureAnimationMatrix(renderPass.TexAnimIndex + 2,
+                            ref _modelRenderData.uvAnimMatrix3);
+                        _animator.GetTransparency(renderPass.AlphaAnimIndex + 2, out _modelRenderData.transparency3);
+                    }
+                    else
+                    {
+                        _modelRenderData.uvAnimMatrix3 = Matrix.Identity;
+                        _modelRenderData.transparency3 = 1.0f;
+                    }
+
+                    if (renderPass.OpCount > 3)
+                    {
+                        _animator.GetTextureAnimationMatrix(renderPass.TexAnimIndex + 3, ref _modelRenderData.uvAnimMatrix4);
+                        _animator.GetTransparency(renderPass.AlphaAnimIndex + 3, out _modelRenderData.transparency4);
+                    }
+                    else
+                    {
+                        _modelRenderData.uvAnimMatrix4 = Matrix.Identity;
+                        _modelRenderData.transparency4 = 1.0f;
+                    }
+
+                    _animator.GetColor(renderPass.ColorAnimIndex, out _modelRenderData.animatedColor);
                 }
+                #endregion
+
+                // batch->textureWeight is the M2Batch animated texture weight track value (if present);
+                // if batch->opCount is > 1, only the first textureWeight value is used
+                //
+                // For Blend_AlphaKey blending, the alphaRef value starts at a baseline, and is multiplied
+                // by the M2Element->alpha.This multiplication prevents inappropriate pixel discards during
+                // things like fades for distance culling. See the M2Element alpha section above for details
+                // on what can modify M2Element alpha.
+                // 
+                // For all other blending modes (i.e. !(Blend_AlphaKey)), the alphaRef value is constant.
+                if (renderPass.BlendMode != 1)
+                    _modelRenderData.alphaRef = 1.0f / 255.0f;
+                else
+                    _modelRenderData.alphaRef = 128.0f / 255.0f  * _modelRenderData.transparency1;
 
                 PerPassBuffer.UpdateData(_modelRenderData);
                 for (var i = 0; i < renderPass.OpCount && i < 4 && i < renderPass.TextureIndices.Count; ++i)
                 {
+                    // TODO: Properly select sampler
+
                     Texture tex;
                     _textureCache.TryGetValue(renderPass.TextureIndices[i], out tex);
                     _mesh.Program.SetPixelTexture(i, tex);
                 }
 
                 _mesh.Draw();
+                //System.Threading.Thread.Sleep(100);
             }
 
             foreach (var attachment in Attachments)
@@ -254,10 +284,10 @@ namespace DBFilesViewer.Graphics.Scene
             _mesh.AddElement("TEXCOORD", 0, 2);
             _mesh.AddElement("TEXCOORD", 1, 2);
 
-            // all combinations are set in this one each time
+            // Random dummy program
             var program = new ShaderProgram(_drawContext);
-            // program.SetVertexShader(DBFilesViewer.Resources.Shaders.M2VertexPortrait);
-            // program.SetPixelShader(DBFilesViewer.Resources.Shaders.M2PixelPortrait);
+            program.SetVertexShader(Shaders.M2VertexPortrait);
+            program.SetPixelShader(Shaders.M2PixelPortrait);
 
             _mesh.Program = program;
 
@@ -275,6 +305,74 @@ namespace DBFilesViewer.Graphics.Scene
 
             _blendStates[0] = new BlendState(_drawContext)
             {
+                BlendEnabled = false
+            };
+
+            _blendStates[1] = new BlendState(_drawContext)
+            {
+                BlendEnabled = true,
+                SourceBlend = BlendOption.One,
+                DestinationBlend = BlendOption.Zero,
+                SourceAlphaBlend = BlendOption.One,
+                DestinationAlphaBlend = BlendOption.Zero
+            };
+
+            _blendStates[2] = new BlendState(_drawContext)
+            {
+                BlendEnabled = true,
+                SourceBlend = BlendOption.SourceAlpha,
+                DestinationBlend = BlendOption.InverseSourceAlpha,
+                SourceAlphaBlend = BlendOption.SourceAlpha,
+                DestinationAlphaBlend = BlendOption.InverseSourceAlpha
+            };
+
+            _blendStates[3] = new BlendState(_drawContext)
+            {
+                BlendEnabled = true,
+                SourceBlend = BlendOption.SourceColor,
+                DestinationBlend = BlendOption.DestinationColor,
+                SourceAlphaBlend = BlendOption.SourceAlpha,
+                DestinationAlphaBlend = BlendOption.DestinationAlpha
+            };
+
+            _blendStates[4] = new BlendState(_drawContext)
+            {
+                BlendEnabled = true,
+                SourceBlend = BlendOption.SourceAlpha,
+                DestinationBlend = BlendOption.One,
+                SourceAlphaBlend = BlendOption.SourceAlpha,
+                DestinationAlphaBlend = BlendOption.One
+            };
+
+            _blendStates[5] = new BlendState(_drawContext)
+            {
+                BlendEnabled = true,
+                SourceBlend = BlendOption.SourceAlpha,
+                DestinationBlend = BlendOption.InverseSourceAlpha,
+                SourceAlphaBlend = BlendOption.SourceAlpha,
+                DestinationAlphaBlend = BlendOption.InverseSourceAlpha
+            };
+
+            _blendStates[6] = new BlendState(_drawContext)
+            {
+                BlendEnabled = true,
+                SourceBlend = BlendOption.DestinationColor,
+                DestinationBlend = BlendOption.SourceColor,
+                SourceAlphaBlend = BlendOption.DestinationAlpha,
+                DestinationAlphaBlend = BlendOption.SourceAlpha
+            };
+
+            _blendStates[7] = new BlendState(_drawContext)
+            {
+                BlendEnabled = true,
+                SourceBlend = BlendOption.SourceColor,
+                DestinationBlend = BlendOption.DestinationColor,
+                SourceAlphaBlend = BlendOption.DestinationAlpha,
+                DestinationAlphaBlend = BlendOption.SourceAlpha
+            };
+
+            /*_blendStates[0] = new BlendState(_drawContext)
+            {
                 BlendEnabled = false,
                 SourceBlend = BlendOption.One,
                 DestinationBlend = BlendOption.Zero,
@@ -286,7 +384,7 @@ namespace DBFilesViewer.Graphics.Scene
             // only has alpha testing
             _blendStates[1] = new BlendState(_drawContext)
             {
-                BlendEnabled = false,
+                BlendEnabled = true,
                 SourceBlend = BlendOption.One,
                 DestinationBlend = BlendOption.Zero,
                 SourceAlphaBlend = BlendOption.One,
@@ -299,7 +397,7 @@ namespace DBFilesViewer.Graphics.Scene
                 BlendEnabled = true,
                 SourceBlend = BlendOption.SourceAlpha,
                 DestinationBlend = BlendOption.InverseSourceAlpha,
-                SourceAlphaBlend = BlendOption.SourceAlpha,
+                SourceAlphaBlend = BlendOption.One,
                 DestinationAlphaBlend = BlendOption.InverseSourceAlpha,
                 Tag = "Blend_Alpha"
             };
@@ -412,26 +510,8 @@ namespace DBFilesViewer.Graphics.Scene
                 SourceAlphaBlend = BlendOption.One,
                 DestinationAlphaBlend = BlendOption.InverseSourceAlpha,
                 Tag = "Blend_BlendAdd"
-            };
+            };*/
             #endregion
-
-            _noBlendProgram = program;
-
-            _blendProgram = new ShaderProgram(_drawContext);
-            _blendProgram.SetPixelShader(Shaders.M2PixelPortraitBlend);
-            _blendProgram.SetVertexShader(Shaders.M2VertexPortrait);
-
-            _blendMaskProgram = new ShaderProgram(_drawContext);
-            _blendMaskProgram.SetPixelShader(Shaders.M2PixelPortraitBlendAlpha);
-            _blendMaskProgram.SetVertexShader(Shaders.M2VertexPortrait);
-
-            _2PassProgram = new ShaderProgram(_drawContext);
-            _2PassProgram.SetVertexShader(Shaders.M2VertexPortrait);
-            _2PassProgram.SetPixelShader(Shaders.M2PixelPortrait2Pass);
-
-            _3PassProgram = new ShaderProgram(_drawContext);
-            _3PassProgram.SetVertexShader(Shaders.M2VertexPortrait);
-            _3PassProgram.SetPixelShader(Shaders.M2PixelPortrait3Pass);
 
             gNoCullState = new RasterState(_drawContext) { CullEnabled = false };
             gCullState = new RasterState(_drawContext) { CullEnabled = true };
@@ -451,21 +531,6 @@ namespace DBFilesViewer.Graphics.Scene
             _mesh.Dispose();
             _mesh = null;
 
-            _noBlendProgram?.Dispose();
-            _noBlendProgram = null;
-
-            _blendProgram?.Dispose();
-            _blendProgram = null;
-
-            _blendMaskProgram?.Dispose();
-            _blendMaskProgram = null;
-
-            _3PassProgram?.Dispose();
-            _3PassProgram = null;
-
-            _2PassProgram?.Dispose();
-            _2PassProgram = null;
-
             gNoCullState?.Dispose();
             gNoCullState = null;
 
@@ -480,7 +545,7 @@ namespace DBFilesViewer.Graphics.Scene
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        private struct PerModelPassBuffer
+        private unsafe struct PerModelPassBuffer
         {
             public Matrix uvAnimMatrix1;
             public Matrix uvAnimMatrix2;
@@ -489,9 +554,15 @@ namespace DBFilesViewer.Graphics.Scene
 
             public Vector4 modelPassParams;
             public Vector4 animatedColor;
+            public float transparency1;
+            public float transparency2;
+            public float transparency3;
+            public float transparency4;
 
             // Used for attachments mostly
             public Matrix modelPosition;
+            public float alphaRef;
+            private fixed float _padding [3];
         }
 
         public void UpdatePlacementMatrix(Matrix position)

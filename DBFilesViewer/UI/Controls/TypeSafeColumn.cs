@@ -11,7 +11,7 @@ namespace DBFilesViewer.UI.Controls
     /// Designed specifically for this usage - You will need to adapt for usage in other projects.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public sealed class TypeSafeColumn<T> : OLVColumn<KeyValuePair<int, T>>
+    public sealed class TypeSafeColumn<T> : OLVColumn<KeyValuePair<uint, T>>
     {
         public TypeSafeColumn()
         {
