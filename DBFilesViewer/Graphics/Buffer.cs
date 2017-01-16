@@ -63,6 +63,9 @@ namespace DBFilesViewer.Graphics
 
         public void UpdateData(T[] data)
         {
+            if (data.Length == 0)
+                return;
+
             Resize(data.Length * SizeCache<T>.Size, data);
         }
 

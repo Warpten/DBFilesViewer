@@ -129,6 +129,7 @@
     <Compile Include="Graphics\Buffer.cs" />
     <Compile Include="Graphics\ConstantBuffer.cs" />
     <Compile Include="Graphics\DepthState.cs" />
+    <Compile Include="Graphics\Files\BlendMode.cs" />
     <Compile Include="Graphics\Files\Models\Animations\AnimatedTexture.cs" />
     <Compile Include="Graphics\Files\Models\Animations\AnimationBlock.cs" />
     <Compile Include="Graphics\Files\Models\Animations\AnimatedBone.cs" />
@@ -268,6 +269,7 @@
     <Compile Include="UI\Forms\TexturePreviewForm.Designer.cs">
       <DependentUpon>TexturePreviewForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\BitSet.cs" />
     <Compile Include="Utils\Streams\BigEndianBitConverter.cs" />
     <Compile Include="Utils\ByteArrayComparer.cs" />
     <Compile Include="Utils\Streams\EndianBinaryReader.cs" />

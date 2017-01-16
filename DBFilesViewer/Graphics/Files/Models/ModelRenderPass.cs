@@ -14,7 +14,7 @@ namespace DBFilesViewer.Graphics.Files.Models
         public int ColorAnimIndex { get; set; }
         public int AlphaAnimIndex { get; set; }
 
-        public uint RenderFlag { get; set; }
+        public M2MaterialRenderFlags RenderFlag { get; set; }
         public uint BlendMode { get; set; }
 
         public uint OpCount { get; set; }

@@ -15,6 +15,8 @@ namespace DBFilesViewer.Utils
         /// <summary> The size of the Type </summary>
         public static readonly int Size;
 
+        public static readonly int BitSize;
+
         public static readonly Type Type;
 
         /// <summary> True if this type requires the Marshaler to map variables. (No direct pointer dereferencing) </summary>
@@ -39,6 +41,8 @@ namespace DBFilesViewer.Utils
             {
                 Size = GetSizeOf(Type);
             }
+
+            BitSize = Size * 8;
 
             TypeRequiresMarshal = GetRequiresMarshal(Type);
 
@@ -66,12 +70,11 @@ namespace DBFilesViewer.Utils
                 // Try letting the marshaler handle getting the size.
                 // It can *sometimes* do it correctly
                 // If it can't, fall back to our own methods.
-                var o = Activator.CreateInstance(t);
-                return Marshal.SizeOf(o);
+                return Marshal.SizeOf(t);
             }
             catch (Exception)
             {
-                int totalSize = 0;
+                var totalSize = 0;
                 var fields = t.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
                 foreach (var field in fields)

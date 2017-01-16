@@ -46,7 +46,7 @@ namespace DBFilesViewer.Graphics.Files.Models.Animations
             _animationID = ModelRenderer.Model.MD20.SequenceLookups[animationIndex];
             _animation = ModelRenderer.Model.MD20.Sequences[_animationID];
 
-            while ((_animation.Value.Flags & 0x40) != 0)
+            while (_animation.Value.Flags.IsAlias)
             {
                 // This animation is an alias.
                 // Skip to the next animation until we find one that is not aliased.
@@ -75,7 +75,7 @@ namespace DBFilesViewer.Graphics.Files.Models.Animations
             #region Animate bones
             var time = (uint) (now - _animationStartTime);
             if (time >= _animation.Value.Duration &&
-                ((_animation.Value.Flags & 0x20) == 0 || _animation.Value.NextAnimation >= 0)) // If looped or next animation exists
+                (!_animation.Value.Flags.Looped || _animation.Value.NextAnimation >= 0)) // If looped or next animation exists
             {
                 if (_animationCompleted)
                 {
@@ -130,7 +130,7 @@ namespace DBFilesViewer.Graphics.Files.Models.Animations
             return true;    
         }
 
-        public bool GetTextureAnimationMatrix(int texAnimIndex, ref Matrix uvAnim)
+        public bool GetTextureAnimationMatrix(int texAnimIndex, out Matrix uvAnim)
         {
             uvAnim = Matrix.Identity;
             if (texAnimIndex < 0 || texAnimIndex >= Textures.Length)

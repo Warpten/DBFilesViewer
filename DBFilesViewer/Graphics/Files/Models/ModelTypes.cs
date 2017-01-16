@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using DBFilesViewer.Graphics.Files.Models.Animations;
+using DBFilesViewer.Utils;
 using SharpDX;
 
 namespace DBFilesViewer.Graphics.Files.Models
@@ -10,6 +11,21 @@ namespace DBFilesViewer.Graphics.Files.Models
         public uint Offset;
     }
 
+    public struct M2HeaderFlags
+    {
+        private BitSet<uint> _value;
+
+        public bool TiltX => _value[0];
+        public bool TiltY => _value[1];
+        public bool UnkBit1 => _value[2];
+        public bool HasBlendMaps => _value[3];
+        public bool UnkBit2 => _value[4];
+        public bool LoadPhysData => _value[5];
+        public bool UnkBit3 => _value[6];
+        public bool UnkBit4 => _value[7];
+        public bool UnkBit5_Camera => _value[8];
+    }
+
     #region Structures in files
     [StructLayout(LayoutKind.Sequential)]
     public struct M2Header
@@ -18,10 +34,10 @@ namespace DBFilesViewer.Graphics.Files.Models
 
         public M2Array<char> Name;
 
-        public uint GlobalFlags;
+        public M2HeaderFlags GlobalFlags;
         
         public M2Array<uint> GlobalLoops;
-        public M2Array<M2Sequence> Sequences;
+        public M2Array<AnimationSequence> Sequences;
         public M2Array<short> SequenceLookup;
         public M2Array<M2Bone> Bones;
         public M2Array<ushort> KeyBoneLookup;
@@ -90,8 +106,16 @@ namespace DBFilesViewer.Graphics.Files.Models
     public struct M2Texture
     {
         public uint Type;
-        public uint Flags;
+        public M2TextureFlags Flags;
         public M2Array<char> Name;
+    }
+
+    public struct M2TextureFlags
+    {
+        private BitSet<uint> _value;
+
+        public bool WrapX => _value[0];
+        public bool WrapY => _value[1];
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -118,32 +142,27 @@ namespace DBFilesViewer.Graphics.Files.Models
     [StructLayout(LayoutKind.Sequential)]
     public struct M2Skin
     {
-        public readonly int Magic;
-        public readonly int nIndices;
-        public readonly int ofsIndices;
-        public readonly int nTriangles;
-        public readonly int ofsTriangles;
-        public readonly int nProperties;
-        public readonly int ofsProperties;
-        public readonly int nSubmeshes;
-        public readonly int ofsSubmeshes;
-        public readonly int nTexUnits;
-        public readonly int ofsTexUnits;
-        public readonly int bones;
-        public readonly int nShadowBatches;
-        public readonly int ofsShadowBatches;
+        public int Magic;
+        public M2Array<ushort> Indices;
+        public M2Array<ushort> Triangles;
+        public M2Array<char /* ? */> Properties; 
+        public M2Array<M2SkinSection> SubMeshes; 
+        public M2Array<M2Batch> TexUnits;
+        public int bones;
+        public int nShadowBatches;
+        public int ofsShadowBatches;
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct M2SubMesh
+    public struct M2SkinSection
     {
         public ushort MeshPartId;
         public ushort Level;
         public ushort StartVertex;
-        public ushort nVertices;
+        public ushort VerticeCount;
         public ushort StartTriangle;
         public ushort NumTriangles;
-        public ushort nBones;
+        public ushort BoneCount;
         public ushort StartBone;
         private ushort unk2;
         public ushort RootBone;
@@ -153,10 +172,10 @@ namespace DBFilesViewer.Graphics.Files.Models
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct M2TexUnit
+    public struct M2Batch
     {
         public ushort Flags;
-        public short ShaderId;
+        public ushort ShaderId;
         public ushort SubmeshIndex;
         public ushort submeshIndex2;
         public short ColorIndex;
@@ -172,7 +191,7 @@ namespace DBFilesViewer.Graphics.Files.Models
     [StructLayout(LayoutKind.Sequential)]
     public struct M2Material
     {
-        public ushort RenderFlags;
+        public M2MaterialRenderFlags RenderFlags; // ushort
         public ushort BlendingMode;
     }
 
@@ -187,13 +206,13 @@ namespace DBFilesViewer.Graphics.Files.Models
         public Vector2 TexCoord2;
     }
 
-    public struct M2Sequence
+    public struct AnimationSequence
     {
         public ushort AnimationID;
         public ushort SubAnimID;
         public uint Duration; // Milliseconds
         public float Speed; // Speed at which the character moves.
-        public uint Flags;
+        public AnimationFlags Flags;
         public ushort Probability;
         private ushort __padding;
         public uint MinimumRepetitions;
@@ -216,28 +235,29 @@ namespace DBFilesViewer.Graphics.Files.Models
     #endregion
 
     #region Structures fully constructed
-    public struct AnimationSequence
+    public struct AnimationFlags
     {
-        public ushort AnimationID;
-        public ushort SubAnimID;
-        public uint Duration; // Milliseconds
-        public float Speed; // Speed at which the character moves.
-        public uint Flags;
-        public float Probability;
-        public uint MinimumRepetitions;
-        public uint MaximumRepetitions;
-        public uint BlendTime;
-        public BoundingBox Bounds;
-        public float BoundingRadius;
-        public short NextAnimation;
-        public short NextAlias;
+        private BitSet<uint> _value;
+
+        public bool Looped => _value[5];
+        public bool IsAlias => _value[6];
     }
 
     public struct ModelTexture
     {
         public uint Type { get; set; }
-        public uint Flags { get; set; }
+        public M2TextureFlags Flags { get; set; }
         public string Name { get; set; }
+    }
+
+    public struct M2MaterialRenderFlags
+    {
+        private BitSet<ushort> _value;
+
+        public bool Unlit => _value[0];
+        public bool Unfogged => _value[1];
+        public bool CullingDisabled => _value[2];
+        public bool UnkFlag => _value[3];
     }
     #endregion
 }

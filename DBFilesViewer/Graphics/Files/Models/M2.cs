@@ -68,7 +68,7 @@ namespace DBFilesViewer.Graphics.Files.Models
             return MD20.Textures.Length <= textureIndex ? null : MD20.Textures[textureIndex].Name;
         }
 
-        private static readonly uint[] BlendModes = { 0, 1, 2, 10, 3, 4, 5 };
+        // private static readonly uint[] BlendModes = { 0, 1, 2, 10, 3, 4, 5 };
         private void LoadSkin(uint skinFileDataID)
         {
             using (var skinReader = new BinaryReader(Manager.OpenFile(skinFileDataID)))
@@ -77,10 +77,10 @@ namespace DBFilesViewer.Graphics.Files.Models
                 if (mSkin.Magic != 0x4e494b53)
                     return;
 
-                var indexLookup = ReadArrayOf<ushort>(skinReader, mSkin.ofsIndices, mSkin.nIndices);
-                var triangles = ReadArrayOf<ushort>(skinReader, mSkin.ofsTriangles, mSkin.nTriangles);
+                var indexLookup = ReadArrayOf(skinReader, ref mSkin.Indices);
+                var triangles = ReadArrayOf(skinReader, ref mSkin.Triangles);
 
-                var skinSubMeshes = ReadArrayOf<M2SubMesh>(skinReader, mSkin.ofsSubmeshes, mSkin.nSubmeshes);
+                var skinSubMeshes = ReadArrayOf(skinReader, ref mSkin.SubMeshes);
 
                 Indices = triangles.Select(t => indexLookup[t]).ToArray();
                 // SubMeshes = skinSubMeshes.Select(submesh => new ModelSubMeshInfo
@@ -91,15 +91,13 @@ namespace DBFilesViewer.Graphics.Files.Models
                 //     StartIndex = submesh.StartTriangle + (((submesh.Level & 1) != 0) ? (ushort.MaxValue + 1) : 0)
                 // }).ToArray();
 
-                foreach (var texUnit in ReadArrayOf<M2TexUnit>(skinReader, mSkin.ofsTexUnits, mSkin.nTexUnits))
+                foreach (var texUnit in ReadArrayOf(skinReader, ref mSkin.TexUnits))
                 {
                     var mesh = skinSubMeshes[texUnit.SubmeshIndex];
 
                     // UV Animation
-                    int uvIndex;
-                    if (texUnit.TextureAnimIndex >= MD20.TextureTransformsLookupTable.Length || MD20.TextureTransformsLookupTable[texUnit.TextureAnimIndex] < 0)
-                        uvIndex = -1;
-                    else
+                    var uvIndex = -1;
+                    if (texUnit.TextureAnimIndex < MD20.TextureTransformsLookupTable.Length && MD20.TextureTransformsLookupTable[texUnit.TextureAnimIndex] >= 0)
                         uvIndex = MD20.TextureTransformsLookupTable[texUnit.TextureAnimIndex];
 
                     var startTriangle = (int)mesh.StartTriangle;
@@ -107,21 +105,8 @@ namespace DBFilesViewer.Graphics.Files.Models
                         startTriangle += ushort.MaxValue + 1;
 
                     var texIndices = new List<int>(texUnit.OpCount);
-                    switch (texUnit.OpCount)
-                    {
-                        case 2:
-                            texIndices.Add(MD20.TextureLookupTable[texUnit.Texture]);
-                            texIndices.Add(MD20.TextureLookupTable[texUnit.Texture + 1]);
-                            break;
-                        case 3:
-                            texIndices.Add(MD20.TextureLookupTable[texUnit.Texture]);
-                            texIndices.Add(MD20.TextureLookupTable[texUnit.Texture + 1]);
-                            texIndices.Add(MD20.TextureLookupTable[texUnit.Texture + 2]);
-                            break;
-                        default:
-                            texIndices.Add(MD20.TextureLookupTable[texUnit.Texture]);
-                            break;
-                    }
+                    for (var i = 0; i < texUnit.OpCount; ++i)
+                        texIndices.Add(MD20.TextureLookupTable[texUnit.Texture + i]);
 
                     var flags = MD20.Materials[texUnit.RenderFlags].RenderFlags;
                     var blendMode = (uint)MD20.Materials[texUnit.RenderFlags].BlendingMode;
@@ -129,12 +114,15 @@ namespace DBFilesViewer.Graphics.Files.Models
                     if (MD20.BlendMapOverrides != null && texUnit.ShaderId < MD20.BlendMapOverrides.Length)
                         blendMode = (uint)MD20.BlendMapOverrides[texUnit.ShaderId];
 
-                    blendMode %= (uint)BlendModes.Length;
+                    blendMode %= 8; // (uint)BlendModes.Length;
 
                     if (blendMode != 0 && blendMode != 1)
                         HasBlendPass = true;
                     else
                         HasOpaquePass = true;
+
+                    if (texUnit.ShaderId == 0x8000)
+                        continue;
 
                     RenderPasses.Add(new ModelRenderPass
                     {
@@ -142,7 +130,7 @@ namespace DBFilesViewer.Graphics.Files.Models
                         TextureIndices = texIndices,
                         IndexCount = mesh.NumTriangles,
                         RenderFlag = flags,
-                        BlendMode = /*BlendModes[*/blendMode/*]*/,
+                        BlendMode = blendMode,
                         StartIndex = startTriangle,
                         OpCount = texUnit.OpCount,
                         VertexShaderType = ModelShaders.GetVertexShaderType(texUnit.ShaderId, texUnit.OpCount),
@@ -189,13 +177,13 @@ namespace DBFilesViewer.Graphics.Files.Models
             });
         }
 
-        private static T[] ReadArrayOf<T>(BinaryReader reader, int offset, int count) where T : struct
+        private static T[] ReadArrayOf<T>(BinaryReader reader, ref M2Array<T> arr) where T : struct
         {
-            if (count == 0)
+            if (arr.Count == 0)
                 return new T[0];
 
-            reader.BaseStream.Position = offset;
-            return reader.ReadArray<T>(count);
+            reader.BaseStream.Position = arr.Offset;
+            return reader.ReadArray<T>(arr.Count);
         }
     }
     
@@ -281,11 +269,10 @@ namespace DBFilesViewer.Graphics.Files.Models
                 return false;
 
             var header = Reader.ReadStruct<M2Header>();
-            if ((header.GlobalFlags & 0x08) != 0)
+            if (header.GlobalFlags.HasBlendMaps)
             {
                 var nBlendMaps = Reader.ReadInt32();
-                var ofsBlendMaps = Reader.ReadInt32();
-                Reader.BaseStream.Position = ofsBlendMaps;
+                Reader.BaseStream.Position = Reader.ReadInt32();
                 BlendMapOverrides = Reader.ReadArray<short>(nBlendMaps);
             }
 
@@ -296,22 +283,7 @@ namespace DBFilesViewer.Graphics.Files.Models
             }
 
             GlobalLoops = ReadArrayOf(Reader, ref header.GlobalLoops);
-            Sequences = ReadArrayOf(Reader, ref header.Sequences).Select(seq => new AnimationSequence
-            {
-                AnimationID = seq.AnimationID,
-                BlendTime = seq.BlendTime,
-                BoundingRadius = seq.BoundingRadius,
-                Bounds = seq.Bounds,
-                Duration = seq.Duration,
-                Flags = seq.Flags,
-                MaximumRepetitions = seq.MaximumRepetitions,
-                MinimumRepetitions = seq.MinimumRepetitions,
-                NextAlias = seq.NextAlias,
-                NextAnimation = seq.NextAnimation,
-                SubAnimID = seq.SubAnimID,
-                Probability = (float)seq.Probability / 0x7FFF,
-                Speed = seq.Speed
-            }).ToArray();
+            Sequences = ReadArrayOf(Reader, ref header.Sequences);
             SequenceLookups = ReadArrayOf(Reader, ref header.SequenceLookup);
 
             var boneIndex = 0;

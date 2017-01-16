@@ -17,12 +17,15 @@ cbuffer PerModelPassBuffer : register(b2)
     row_major float4x4 uvAnimation3;
     row_major float4x4 uvAnimation4;
 
-    float4 modelPassParams; // x = unlit, y = unfogged, z = alphakey, w unused padding
+    float unlit;
+    float unfogged;
+    float alphaKey;
+    float alphaRef;
+
     float4 animatedColor; // animatedColor
-    float4 transparency; // transparency for each op
+    float4 transparency; // transparency for each value
 
     row_major float4x4 modelPosition;
-    float4 alphaRef; // x value, yzw unused
 }
 
 struct VertexInput
