@@ -283,7 +283,7 @@ namespace DBFilesViewer.Graphics.Scene
             // Random dummy program
             var program = new ShaderProgram(_drawContext);
             program.SetVertexShader(Shaders.M2VertexPortrait);
-            program.SetPixelShader(Shaders.M2PixelPortrait);
+            // program.SetPixelShader(Shaders.M2PixelPortrait);
 
             _mesh.Program = program;
 

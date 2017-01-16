@@ -157,6 +157,11 @@
     <Compile Include="Graphics\VertexBuffer.cs" />
     <Compile Include="Graphics\VertexElement.cs" />
     <Compile Include="Graphics\ViewFrustrum.cs" />
+    <Compile Include="Resources\Shaders.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Shaders.resx</DependentUpon>
+    </Compile>
     <Compile Include="UI\Controls\BitEnumEditor.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -191,11 +196,6 @@
     <Compile Include="Data\IO\CASC\JenkinsHash.cs" />
     <Compile Include="Data\IO\CASC\TokenConfig.cs" />
     <Compile Include="Data\IO\CASC\KeyValueConfig.cs" />
-    <Compile Include="Resources\Shaders.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Shaders.resx</DependentUpon>
-    </Compile>
     <Compile Include="Graphics\Scene\DxtHelper.cs" />
     <Compile Include="Graphics\Scene\TextureLoader.cs" />
     <Compile Include="Graphics\Scene\TextureManager.cs" />
@@ -320,8 +320,8 @@
     <Compile Include="Utils\UnsafeNativeMethods.cs" />
     <EmbeddedResource Include="Resources\Shaders.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Shaders.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Shaders.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Controls\ModelRenderControl.resx">
       <DependentUpon>ModelRenderControl.cs</DependentUpon>
@@ -377,7 +377,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Data\Structures\WorldSafeLocsEntry.cs" />
-    <None Include="Resources\Shaders\BoundingBoxPixel1.dxc" />
     <None Include="Resources\Shaders\BoundingBoxVertex1.dxc" />
     <None Include="Resources\Shaders\M2Pixel2PassOld1.dxc" />
     <None Include="Resources\Shaders\M2Pixel3PassOld1.dxc" />

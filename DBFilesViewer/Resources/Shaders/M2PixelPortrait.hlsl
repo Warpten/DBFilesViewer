@@ -5,6 +5,8 @@ Texture2D texture2 : register(t1);
 Texture2D texture3 : register(t2);
 
 SamplerState sampler1 : register(s0);
+SamplerState sampler2 : register(s1);
+SamplerState sampler3 : register(s2);
 
 struct PixelInput
 {
