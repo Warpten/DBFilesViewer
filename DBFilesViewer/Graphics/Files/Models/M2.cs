@@ -121,9 +121,6 @@ namespace DBFilesViewer.Graphics.Files.Models
                     else
                         HasOpaquePass = true;
 
-                    if (texUnit.ShaderId == 0x8000)
-                        continue;
-
                     RenderPasses.Add(new ModelRenderPass
                     {
                         MeshID = mesh.MeshPartId,

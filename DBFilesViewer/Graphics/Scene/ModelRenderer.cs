@@ -35,28 +35,28 @@ namespace DBFilesViewer.Graphics.Scene
         public event Action<List<ModelRenderPass>> OnFilterMeshes;
 
         #region Rendering data
+        private Dictionary<int, Texture> _textureCache = new Dictionary<int, Texture>();
+
         private ModelAnimator _animator;
-        private Matrix[] _animationMatrices;
 
         public VertexBuffer<M2Vertex> VertexBuffer { get; }
         public IndexBuffer IndexBuffer { get; }
 
-        private Dictionary<int, Texture> _textureCache = new Dictionary<int, Texture>();
-
         private Mesh<M2Vertex> _mesh;
 
-        private Sampler Sampler { get; set; }
+        private Matrix[] _animationMatrices;
         private ConstantBuffer<Matrix> BonesAnimationMatrices { get; set; }
-        private ConstantBuffer<PerModelPassBuffer> PerPassBuffer { get; set; }
+
+        private Sampler _samplerWrapU, _samplerWrapV, _samplerWrapUV, _samplerClamp;
 
         private BlendState[] _blendStates = new BlendState[8];
 
-        private RasterState gNoCullState;
-        private RasterState gCullState;
+        private RasterState _noCullState, _cullState;
 
         private GxContext _drawContext;
 
         private PerModelPassBuffer _modelRenderData;
+        private ConstantBuffer<PerModelPassBuffer> PerPassBuffer { get; set; }
         #endregion
 
         public ModelRenderer(uint fileDataID, GxContext context)
@@ -138,8 +138,6 @@ namespace DBFilesViewer.Graphics.Scene
             _mesh.InitLayout(_mesh.Program);
             _mesh.BlendState = null;
             _mesh.BeginDraw();
-            _mesh.Program.SetPixelSampler(0, Sampler);
-
             _mesh.UpdateIndexBuffer(IndexBuffer);
             _mesh.UpdateVertexBuffer(VertexBuffer);
 
@@ -160,7 +158,7 @@ namespace DBFilesViewer.Graphics.Scene
                     continue;
 
                 // var cullingDisabled = (renderPass.RenderFlag & 0x04) != 0;
-                _mesh.UpdateRasterizerState(renderPass.RenderFlag.CullingDisabled ? gNoCullState : gCullState);
+                _mesh.UpdateRasterizerState(renderPass.RenderFlag.CullingDisabled ? _noCullState : _cullState);
                 _mesh.UpdateBlendState(_blendStates[renderPass.BlendMode]);
 
                 if (renderPass.Program == null)
@@ -240,7 +238,15 @@ namespace DBFilesViewer.Graphics.Scene
                 PerPassBuffer.UpdateData(_modelRenderData);
                 for (var i = 0; i < renderPass.OpCount && i < 4 && i < renderPass.TextureIndices.Count; ++i)
                 {
-                    // TODO: Properly select sampler
+                    var texFlags = Model.MD20.Textures[renderPass.TextureIndices[i]].Flags;
+                    if (texFlags.WrapBoth)
+                        _mesh.Program.SetPixelSampler(i, _samplerWrapUV);
+                    else if (texFlags.WrapU)
+                        _mesh.Program.SetPixelSampler(i, _samplerWrapU);
+                    else if (texFlags.WrapV)
+                        _mesh.Program.SetPixelSampler(i, _samplerWrapV);
+                    else
+                        _mesh.Program.SetPixelSampler(i, _samplerClamp);
 
                     Texture tex;
                     _textureCache.TryGetValue(renderPass.TextureIndices[i], out tex);
@@ -281,18 +287,41 @@ namespace DBFilesViewer.Graphics.Scene
             _mesh.AddElement("TEXCOORD", 1, 2);
 
             // Random dummy program
-            var program = new ShaderProgram(_drawContext);
-            program.SetVertexShader(Shaders.M2VertexPortrait);
-            // program.SetPixelShader(Shaders.M2PixelPortrait);
 
-            _mesh.Program = program;
+            _samplerWrapU = new Sampler(_drawContext)
+            {
+                AddressU = TextureAddressMode.Wrap,
+                AddressV = TextureAddressMode.Clamp,
+                AddressW = TextureAddressMode.Clamp,
+                Filter = Filter.Anisotropic,
+                MaximumAnisotropy = 16
+            };
 
-            Sampler = new Sampler(_drawContext)
+            _samplerWrapV = new Sampler(_drawContext)
+            {
+                AddressU = TextureAddressMode.Clamp,
+                AddressV = TextureAddressMode.Wrap,
+                AddressW = TextureAddressMode.Clamp,
+                Filter = Filter.Anisotropic,
+                MaximumAnisotropy = 16
+            };
+
+            _samplerWrapUV = new Sampler(_drawContext)
             {
                 AddressU = TextureAddressMode.Wrap,
                 AddressV = TextureAddressMode.Wrap,
                 AddressW = TextureAddressMode.Clamp,
-                Filter = Filter.MinMagMipLinear
+                Filter = Filter.Anisotropic,
+                MaximumAnisotropy = 16
+            };
+
+            _samplerClamp = new Sampler(_drawContext)
+            {
+                AddressU = TextureAddressMode.Clamp,
+                AddressV = TextureAddressMode.Clamp,
+                AddressW = TextureAddressMode.Clamp,
+                Filter = Filter.Anisotropic,
+                MaximumAnisotropy = 16
             };
 
             #region Blend states
@@ -510,14 +539,23 @@ namespace DBFilesViewer.Graphics.Scene
             };/**/
             #endregion
 
-            gNoCullState = new RasterState(_drawContext) { CullEnabled = false };
-            gCullState = new RasterState(_drawContext) { CullEnabled = true };
+            _noCullState = new RasterState(_drawContext) { CullEnabled = false };
+            _cullState = new RasterState(_drawContext) { CullEnabled = true };
         }
 
         public void Dispose()
         {
-            Sampler?.Dispose();
-            Sampler = null;
+            _samplerWrapU?.Dispose();
+            _samplerWrapU = null;
+
+            _samplerWrapV?.Dispose();
+            _samplerWrapV = null;
+
+            _samplerWrapUV?.Dispose();
+            _samplerWrapUV = null;
+
+            _samplerClamp?.Dispose();
+            _samplerClamp = null;
 
             PerPassBuffer?.Dispose();
             PerPassBuffer = null;
@@ -528,11 +566,11 @@ namespace DBFilesViewer.Graphics.Scene
             _mesh.Dispose();
             _mesh = null;
 
-            gNoCullState?.Dispose();
-            gNoCullState = null;
+            _noCullState?.Dispose();
+            _noCullState = null;
 
-            gCullState?.Dispose();
-            gCullState = null;
+            _cullState?.Dispose();
+            _cullState = null;
 
             for (var i = 0; i < _blendStates.Length; ++i)
             {

@@ -2,11 +2,9 @@
 
 Texture2D texture1 : register(t0);
 Texture2D texture2 : register(t1);
-Texture2D texture3 : register(t2);
 
 SamplerState sampler1 : register(s0);
 SamplerState sampler2 : register(s1);
-SamplerState sampler3 : register(s2);
 
 struct PixelInput
 {
@@ -94,7 +92,7 @@ float4 main_PS_Combiners_Opaque_Alpha(PixelInput input) : SV_Target
     float4 tex1 = texture1.Sample(sampler1, input.texCoord1);
     tex1.a *= transparency.x;
 
-    float4 tex2 = texture2.Sample(sampler1, input.texCoord2);
+    float4 tex2 = texture2.Sample(sampler2, input.texCoord2);
     tex2.a *= transparency.y;
 
     float4 combinedColor = float4(1, 1, 1, 1);
@@ -114,7 +112,7 @@ float4 main_PS_Combiners_Opaque_Mod(PixelInput input) : SV_Target
     float4 tex1 = texture1.Sample(sampler1, input.texCoord1);
     tex1.a *= transparency.x;
 
-    float4 tex2 = texture2.Sample(sampler1, input.texCoord2);
+    float4 tex2 = texture2.Sample(sampler2, input.texCoord2);
     tex2.a *= transparency.y;
 
     float4 finalColor;
@@ -129,7 +127,7 @@ float4 main_PS_Combiners_Opaque_Mod2x(PixelInput input) : SV_Target
     float4 tex1 = texture1.Sample(sampler1, input.texCoord1);
     tex1.a *= transparency.x;
 
-    float4 tex2 = texture2.Sample(sampler1, input.texCoord2);
+    float4 tex2 = texture2.Sample(sampler2, input.texCoord2);
     tex2.a *= transparency.y;
 
     float4 finalColor;
@@ -144,7 +142,7 @@ float4 main_PS_Combiners_Opaque_Mod2xNA(PixelInput input) : SV_Target
     float4 tex1 = texture1.Sample(sampler1, input.texCoord1);
     tex1.a *= transparency.x;
 
-    float4 tex2 = texture2.Sample(sampler1, input.texCoord2);
+    float4 tex2 = texture2.Sample(sampler2, input.texCoord2);
     tex2.a *= transparency.y;
 
     float4 finalColor;
@@ -159,7 +157,7 @@ float4 main_PS_Combiners_Opaque_Opaque(PixelInput input) : SV_Target
     float4 tex1 = texture1.Sample(sampler1, input.texCoord1);
     tex1.a *= transparency.x;
 
-    float4 tex2 = texture2.Sample(sampler1, input.texCoord2);
+    float4 tex2 = texture2.Sample(sampler2, input.texCoord2);
     tex2.a *= transparency.y;
 
     float4 finalColor;
@@ -174,7 +172,7 @@ float4 main_PS_Combiners_Mod_Mod(PixelInput input) : SV_Target
     float4 tex1 = texture1.Sample(sampler1, input.texCoord1);
     tex1.a *= transparency.x;
 
-    float4 tex2 = texture2.Sample(sampler1, input.texCoord2);
+    float4 tex2 = texture2.Sample(sampler2, input.texCoord2);
     tex2.a *= transparency.y;
 
     float4 finalColor;
@@ -188,7 +186,7 @@ float4 main_PS_Combiners_Mod_Mod2x(PixelInput input) : SV_Target
     float4 tex1 = texture1.Sample(sampler1, input.texCoord1);
     tex1.a *= transparency.x;
 
-    float4 tex2 = texture2.Sample(sampler1, input.texCoord2);
+    float4 tex2 = texture2.Sample(sampler2, input.texCoord2);
     tex2.a *= transparency.y;
 
     float4 finalColor;
@@ -202,7 +200,7 @@ float4 main_PS_Combiners_Mod_Add(PixelInput input) : SV_Target
     float4 tex1 = texture1.Sample(sampler1, input.texCoord1);
     tex1.a *= transparency.x;
 
-    float4 tex2 = texture2.Sample(sampler1, input.texCoord2);
+    float4 tex2 = texture2.Sample(sampler2, input.texCoord2);
     tex2.a *= transparency.y;
 
     float4 finalColor;
@@ -216,7 +214,7 @@ float4 main_PS_Combiners_Mod_Mod2xNA(PixelInput input) : SV_Target
     float4 tex1 = texture1.Sample(sampler1, input.texCoord1);
     tex1.a *= transparency.x;
 
-    float4 tex2 = texture2.Sample(sampler1, input.texCoord2);
+    float4 tex2 = texture2.Sample(sampler2, input.texCoord2);
     tex2.a *= transparency.y;
 
     float4 finalColor;
@@ -231,7 +229,7 @@ float4 main_PS_Combiners_Mod_AddNA(PixelInput input) : SV_Target
     float4 tex1 = texture1.Sample(sampler1, input.texCoord1);
     tex1.a *= transparency.x;
 
-    float4 tex2 = texture2.Sample(sampler1, input.texCoord2);
+    float4 tex2 = texture2.Sample(sampler2, input.texCoord2);
     tex2.a *= transparency.y;
 
     float4 finalColor;
@@ -246,7 +244,7 @@ float4 main_PS_Combiners_Mod_Opaque(PixelInput input) : SV_Target
     float4 tex1 = texture1.Sample(sampler1, input.texCoord1);
     tex1.a *= transparency.x;
 
-    float4 tex2 = texture2.Sample(sampler1, input.texCoord2);
+    float4 tex2 = texture2.Sample(sampler2, input.texCoord2);
     tex2.a *= transparency.y;
 
     float4 finalColor;
@@ -261,7 +259,7 @@ float4 main_PS_Combiners_Opaque_AddAlpha(PixelInput input) : SV_Target
     float4 tex1 = texture1.Sample(sampler1, input.texCoord1);
     tex1.a *= transparency.x;
 
-    float4 tex2 = texture2.Sample(sampler1, input.texCoord2);
+    float4 tex2 = texture2.Sample(sampler2, input.texCoord2);
     tex2.a *= transparency.y;
 
     float4 finalColor;
@@ -276,7 +274,7 @@ float4 main_PS_Combiners_Opaque_Alpha_Alpha(PixelInput input) : SV_Target
     float4 tex1 = texture1.Sample(sampler1, input.texCoord1);
     tex1.a *= transparency.x;
 
-    float4 tex2 = texture2.Sample(sampler1, input.texCoord2);
+    float4 tex2 = texture2.Sample(sampler2, input.texCoord2);
     tex2.a *= transparency.y;
 
     float4 finalColor;
@@ -292,7 +290,7 @@ float4 main_PS_Combiners_Opaque_AddAlpha_Alpha(PixelInput input) : SV_Target
     float4 tex1 = texture1.Sample(sampler1, input.texCoord1);
     tex1.a *= transparency.x;
 
-    float4 tex2 = texture2.Sample(sampler1, input.texCoord2);
+    float4 tex2 = texture2.Sample(sampler2, input.texCoord2);
     tex2.a *= transparency.y;
 
     float4 finalColor;
@@ -307,7 +305,7 @@ float4 main_PS_Combiners_Mod_AddAlpha(PixelInput input) : SV_Target
     float4 tex1 = texture1.Sample(sampler1, input.texCoord1);
     tex1.a *= transparency.x;
 
-    float4 tex2 = texture2.Sample(sampler1, input.texCoord2);
+    float4 tex2 = texture2.Sample(sampler2, input.texCoord2);
     tex2.a *= transparency.y;
 
     float4 finalColor;
@@ -323,7 +321,7 @@ float4 main_PS_Combiners_Mod_Add_Alpha(PixelInput input) : SV_Target
     float4 tex1 = texture1.Sample(sampler1, input.texCoord1);
     tex1.a *= transparency.x;
 
-    float4 tex2 = texture2.Sample(sampler1, input.texCoord2);
+    float4 tex2 = texture2.Sample(sampler2, input.texCoord2);
     tex2.a *= transparency.y;
 
     float4 combinedColor;
@@ -338,7 +336,7 @@ float4 main_PS_Combiners_Mod_AddAlpha_Alpha(PixelInput input) : SV_Target
     float4 tex1 = texture1.Sample(sampler1, input.texCoord1);
     tex1.a *= transparency.x;
 
-    float4 tex2 = texture2.Sample(sampler1, input.texCoord2);
+    float4 tex2 = texture2.Sample(sampler2, input.texCoord2);
     tex2.a *= transparency.y;
 
     float addMapBrightness = (0.300000012 * tex2.r) + (0.589999974 * tex2.g) + (0.109999999 * tex2.b);
@@ -356,7 +354,7 @@ float4 main_PS_Combiners_Opaque_Mod2xNA_Alpha(PixelInput input) : SV_Target
     float4 tex1 = texture1.Sample(sampler1, input.texCoord1);
     tex1.a *= transparency.x;
 
-    float4 tex2 = texture2.Sample(sampler1, input.texCoord2);
+    float4 tex2 = texture2.Sample(sampler2, input.texCoord2);
     tex2.a *= transparency.y;
 
     float4 finalColor;
@@ -372,7 +370,7 @@ float4 main_PS_Combiners_Opaque_ModNA_Alpha(PixelInput input) : SV_Target
     float4 tex1 = texture1.Sample(sampler1, input.texCoord1);
     tex1.a *= transparency.x;
 
-    float4 tex2 = texture2.Sample(sampler1, input.texCoord2);
+    float4 tex2 = texture2.Sample(sampler2, input.texCoord2);
     tex2.a *= transparency.y;
 
     float4 combinedColor;
@@ -388,7 +386,7 @@ float4 main_PS_Combiners_Opaque_AddAlpha_Wgt(PixelInput input) : SV_Target
     float4 tex1 = texture1.Sample(sampler1, input.texCoord1);
     tex1.a *= transparency.x;
 
-    float4 tex2 = texture2.Sample(sampler1, input.texCoord2);
+    float4 tex2 = texture2.Sample(sampler2, input.texCoord2);
     tex2.a *= transparency.y;
 
     float4 combinedColor;

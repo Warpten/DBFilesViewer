@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using DBFilesViewer.Graphics.Files.Models.Animations;
+using DBFilesViewer.Resources;
 
 namespace DBFilesViewer.Graphics.Files.Models
 {

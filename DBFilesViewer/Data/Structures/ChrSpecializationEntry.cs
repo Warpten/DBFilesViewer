@@ -13,7 +13,6 @@ namespace DBFilesViewer.Data.Structures
         public string Name;
         public string Name2;
         public string Description;
-        public string BackgroundImage;
         public ushort SpellIconID;
         public Classes ClassID;
         public byte OrderIndex;

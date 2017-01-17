@@ -104,7 +104,7 @@ namespace DBFilesViewer.Graphics.Files.Models.Animations
             #endregion
 
             #region Animate textures
-            time = (uint) (now - _animationStartTime);
+            time = (uint) (Environment.TickCount - _animationStartTime);
             foreach (var textureAnim in Textures)
                 textureAnim.UpdateMatrix(0, time);
 

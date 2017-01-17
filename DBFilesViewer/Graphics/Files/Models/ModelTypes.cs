@@ -114,8 +114,11 @@ namespace DBFilesViewer.Graphics.Files.Models
     {
         private BitSet<uint> _value;
 
-        public bool WrapX => _value[0];
-        public bool WrapY => _value[1];
+        public uint Value => _value.Value;
+
+        public bool WrapU => _value[0];
+        public bool WrapV => _value[1];
+        public bool WrapBoth => WrapU && WrapV;
     }
 
     [StructLayout(LayoutKind.Sequential)]
