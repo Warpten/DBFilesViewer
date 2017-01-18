@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using DBFilesViewer.Data.IO.Files;
+using DBFilesViewer.Graphics.Files.Terrain;
+using DBFilesViewer.UI.Forms;
 
 namespace DBFilesViewer.Data.Structures.Types
 {
@@ -40,32 +44,82 @@ namespace DBFilesViewer.Data.Structures.Types
 
         public ToolStripButton Button { get; } = new ToolStripButton { AutoSize = true };
 
-        public delegate Form OpenFormDelegate(uint recordKey);
+        //! TODO This is not ideal in the least bit, but i don't want
+        //! reflection
+        public Func<object> TagGetter { get; set; }
 
         /// <summary>
-        /// This delegate is called when the button is clicked - it expects
-        /// a form to be returned.
+        /// Called when the associated button is clicked.
+        /// 
+        /// To access the key of the record currently viewed in the details tab,
+        /// see Button.Tag.
         /// </summary>
-        /// <remarks>
-        /// Should you want it to return void, you will need to implement another type of button,
-        /// until the C# committee decides to implement generic attributes. Which is really never
-        /// gonna happen.
-        /// </remarks>
-        public OpenFormDelegate OpenForm { get; set; }
+        public event EventHandler Click
+        {
+            add { Button.Click += value; }
+            remove { Button.Click -= value; }
+        }
     }
 
     /// <summary>
-    /// A specialization of <see cref="OptionalButtonAttribute"/> designed to open
-    /// models.
+    /// A specialization of <see cref="OptionalButtonAttribute"/> designed to open models.
     /// </summary>
-    public sealed class ViewModelButtonAttribute : OptionalButtonAttribute
+    public sealed class ViewCreatureModelButtonAttribute : OptionalButtonAttribute
     {
-        public ViewModelButtonAttribute(Type delegateType, string delegateName, params Type[] args)
+        public ViewCreatureModelButtonAttribute()
         {
             ImageOnly = false;
             Text = "Model viewer";
 
-            OpenForm = (OpenFormDelegate)Delegate.CreateDelegate(typeof(OpenFormDelegate), delegateType.GetMethod(delegateName, args));
+            Click += (sender, args) =>
+            {
+                var renderForm = new CreatureModelViewerForm();
+                renderForm.OnAnimationsLoaded += animations => {
+                    renderForm.SetAnimationSource(animations);
+                };
+                renderForm.LoadModel((uint)TagGetter());
+                renderForm.ShowDialog();
+            };
+        }
+    }
+
+    /// <summary>
+    /// A specialization of <see cref="OptionalButtonAttribute"/> designed to open models.
+    /// </summary>
+    public sealed class ViewItemModelButtonAttribute : OptionalButtonAttribute
+    {
+        public ViewItemModelButtonAttribute()
+        {
+            ImageOnly = false;
+            Text = "Model viewer";
+
+            Click += (sender, args) =>
+            {
+                var renderForm = new ItemModelViewerForm();
+                renderForm.LoadModel((uint)TagGetter());
+                renderForm.ShowDialog();
+            };
+        }
+    }
+
+    /// <summary>
+    /// A specialization of <see cref="OptionalButtonAttribute"/> designed to open
+    /// ADTs.
+    /// </summary>
+    public sealed class ViewTerrainButtonAttribute : OptionalButtonAttribute
+    {
+        public ViewTerrainButtonAttribute()
+        {
+            ImageOnly = false;
+            Text = "Terrain viewer";
+
+            Click += (sender, args) =>
+            {
+                Task.Factory.StartNew(() =>
+                {
+                    var terrain = new Terrain(DBC.Get<MapEntry>()[(uint)TagGetter()].Directory);
+                });
+            };
         }
     }
 }

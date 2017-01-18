@@ -9,12 +9,12 @@ namespace DBFilesViewer.Data.IO.Files.Models
 {
     public class ChunkData<T> where T : BinaryReader
     {
-        public ChunkData(T stream, uint chunkSize = 0)
+        public ChunkData(T stream, bool reverseHeaders = true, uint chunkSize = 0)
         {
-            FromStream(stream, chunkSize);
+            FromStream(stream, reverseHeaders, chunkSize);
         }
         
-        private void FromStream(T reader, uint chunkSize = 0)
+        private void FromStream(T reader, bool reverseHeaders, uint chunkSize = 0)
         {
             Stream = reader;
             Chunks = new List<Chunk<T>>();
@@ -28,7 +28,7 @@ namespace DBFilesViewer.Data.IO.Files.Models
             var calcOffset = 0u;
             while ((calcOffset + baseOffset) < maxRead && (calcOffset < maxRead))
             {
-                var header = new ChunkHeader(reader);
+                var header = new ChunkHeader(reader, reverseHeaders);
                 calcOffset += 8; // Add 8 bytes as we read header name + size
                 Chunks.Add(new Chunk<T>(header.Name, header.Size, calcOffset + baseOffset, reader));
                 calcOffset += header.Size; // Move past the chunk
@@ -79,24 +79,26 @@ namespace DBFilesViewer.Data.IO.Files.Models
         public uint Size { get; private set; }
         public string Name { get; private set; }
 
-        public ChunkHeader(char[] header, uint size)
+        public ChunkHeader(char[] header, uint size, bool reverse = true)
         {
-            // Array.Reverse(header);
+            if (reverse)
+                Array.Reverse(header);
             Name = new string(header, 0, 4);
             Size = size;
         }
 
-        public ChunkHeader(BinaryReader br)
+        public ChunkHeader(BinaryReader br, bool reverse = true)
         {
-            Read(br);
+            Read(br, reverse);
         }
 
         public override string ToString() => Name;
 
-        public void Read(BinaryReader br)
+        public void Read(BinaryReader br, bool reverse = true)
         {
             var header = br.ReadChars(4);
-            // Array.Reverse(header);
+            if (reverse)
+                Array.Reverse(header);
             Name = new string(header, 0, 4);
             Size = br.ReadUInt32();
         }

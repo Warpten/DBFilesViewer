@@ -5,6 +5,7 @@ using DBFilesViewer.Data.Structures.Types;
 namespace DBFilesViewer.Data.Structures
 {
     [DBFileName("Map")]
+    [ViewTerrainButton]
     public sealed class MapEntry
     {
         public string Directory;

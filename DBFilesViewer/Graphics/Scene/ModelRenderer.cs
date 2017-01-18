@@ -35,7 +35,7 @@ namespace DBFilesViewer.Graphics.Scene
         public event Action<List<ModelRenderPass>> OnFilterMeshes;
 
         #region Rendering data
-        private Dictionary<int, Texture> _textureCache = new Dictionary<int, Texture>();
+        private Dictionary<int, WeakReference<Texture>> _textureCache = new Dictionary<int, WeakReference<Texture>>();
 
         private ModelAnimator _animator;
 
@@ -53,7 +53,7 @@ namespace DBFilesViewer.Graphics.Scene
 
         private RasterState _noCullState, _cullState;
 
-        private GxContext _drawContext;
+        private GxContext Context;
 
         private PerModelPassBuffer _modelRenderData;
         private ConstantBuffer<PerModelPassBuffer> PerPassBuffer { get; set; }
@@ -63,10 +63,10 @@ namespace DBFilesViewer.Graphics.Scene
         {
             Model = new M2(Manager.OpenFile(fileDataID));
 
-            _drawContext = context;
+            Context = context;
 
-            VertexBuffer = new VertexBuffer<M2Vertex>(_drawContext);
-            IndexBuffer = new IndexBuffer(_drawContext);
+            VertexBuffer = new VertexBuffer<M2Vertex>(Context);
+            IndexBuffer = new IndexBuffer(Context);
 
             VertexBuffer.UpdateData(Model.MD20.Vertices);
             IndexBuffer.UpdateData(Model.Indices);
@@ -75,10 +75,10 @@ namespace DBFilesViewer.Graphics.Scene
             for (var i = 0; i < _animationMatrices.Length; ++i)
                 _animationMatrices[i] = Matrix.Identity;
 
-            BonesAnimationMatrices = new ConstantBuffer<Matrix>(_drawContext);
+            BonesAnimationMatrices = new ConstantBuffer<Matrix>(Context);
             BonesAnimationMatrices.UpdateData(_animationMatrices);
 
-            PerPassBuffer = new ConstantBuffer<PerModelPassBuffer>(_drawContext);
+            PerPassBuffer = new ConstantBuffer<PerModelPassBuffer>(Context);
             _modelRenderData = new PerModelPassBuffer
             {
                 uvAnimMatrix1 = Matrix.Identity,
@@ -124,13 +124,16 @@ namespace DBFilesViewer.Graphics.Scene
                         tex = OnLoadTexture(Model.MD20.Textures[renderPass.TextureIndices[i]].Type);
 
                     if (tex == null)
-                        tex = _drawContext.TextureManager.GetTexture(Model.GetTextureName(renderPass.TextureIndices[i]));
+                        tex = Context.TextureManager.GetTexture(Model.GetTextureName(renderPass.TextureIndices[i]));
 
-                    _textureCache[renderPass.TextureIndices[i]] = tex;
+                    _textureCache[renderPass.TextureIndices[i]] = new WeakReference<Texture>(tex);
                 }
             }
 
             VertexBuffer.UpdateData(Model.MD20.Vertices);
+            _mesh.Program = new ShaderProgram(Context);
+            _mesh.Program.SetVertexShader(Shaders.M2VertexPortrait);
+
         }
 
         public void Render(BillboardParameters billboard)
@@ -163,8 +166,8 @@ namespace DBFilesViewer.Graphics.Scene
 
                 if (renderPass.Program == null)
                 {
-                    renderPass.Program = new ShaderProgram(_drawContext);
-                    renderPass.Program.SetPixelShader(_drawContext.ModelShaders.GetPortraitPixelShader(renderPass.PixelShaderType));
+                    renderPass.Program = new ShaderProgram(Context);
+                    renderPass.Program.SetPixelShader(Context.ModelShaders.GetPortraitPixelShader(renderPass.PixelShaderType));
                     renderPass.Program.SetVertexShader(Shaders.M2VertexPortrait);
                 }
 
@@ -249,8 +252,10 @@ namespace DBFilesViewer.Graphics.Scene
                         _mesh.Program.SetPixelSampler(i, _samplerClamp);
 
                     Texture tex;
-                    _textureCache.TryGetValue(renderPass.TextureIndices[i], out tex);
-                    _mesh.Program.SetPixelTexture(i, tex);
+                    WeakReference<Texture> texRef;
+                    _textureCache.TryGetValue(renderPass.TextureIndices[i], out texRef);
+                    if (texRef.TryGetTarget(out tex))
+                        _mesh.Program.SetPixelTexture(i, tex);
                 }
 
                 _mesh.Draw();
@@ -265,7 +270,7 @@ namespace DBFilesViewer.Graphics.Scene
         /// </summary>
         private void Initialize()
         {
-            _mesh = new Mesh<M2Vertex>(_drawContext)
+            _mesh = new Mesh<M2Vertex>(Context)
             {
                 Stride = SizeCache<M2Vertex>.Size,
                 DepthState = { DepthEnabled = true }
@@ -288,7 +293,7 @@ namespace DBFilesViewer.Graphics.Scene
 
             // Random dummy program
 
-            _samplerWrapU = new Sampler(_drawContext)
+            _samplerWrapU = new Sampler(Context)
             {
                 AddressU = TextureAddressMode.Wrap,
                 AddressV = TextureAddressMode.Clamp,
@@ -297,7 +302,7 @@ namespace DBFilesViewer.Graphics.Scene
                 MaximumAnisotropy = 16
             };
 
-            _samplerWrapV = new Sampler(_drawContext)
+            _samplerWrapV = new Sampler(Context)
             {
                 AddressU = TextureAddressMode.Clamp,
                 AddressV = TextureAddressMode.Wrap,
@@ -306,7 +311,7 @@ namespace DBFilesViewer.Graphics.Scene
                 MaximumAnisotropy = 16
             };
 
-            _samplerWrapUV = new Sampler(_drawContext)
+            _samplerWrapUV = new Sampler(Context)
             {
                 AddressU = TextureAddressMode.Wrap,
                 AddressV = TextureAddressMode.Wrap,
@@ -315,7 +320,7 @@ namespace DBFilesViewer.Graphics.Scene
                 MaximumAnisotropy = 16
             };
 
-            _samplerClamp = new Sampler(_drawContext)
+            _samplerClamp = new Sampler(Context)
             {
                 AddressU = TextureAddressMode.Clamp,
                 AddressV = TextureAddressMode.Clamp,
@@ -326,15 +331,15 @@ namespace DBFilesViewer.Graphics.Scene
 
             #region Blend states
             for (var i = 0; i < _blendStates.Length; ++i)
-                _blendStates[i] = new BlendState(_drawContext);
+                _blendStates[i] = new BlendState(Context);
 
             // Blend states with key assigned through enum check out with the wiki
-            _blendStates[(int)BlendMode.Opaque] = new BlendState(_drawContext)
+            _blendStates[(int)BlendMode.Opaque] = new BlendState(Context)
             {
                 BlendEnabled = false
             };
 
-            _blendStates[(int)BlendMode.AlphaKey] = new BlendState(_drawContext)
+            _blendStates[(int)BlendMode.AlphaKey] = new BlendState(Context)
             {
                 BlendEnabled = true,
                 SourceBlend = BlendOption.One,
@@ -343,7 +348,7 @@ namespace DBFilesViewer.Graphics.Scene
                 DestinationAlphaBlend = BlendOption.Zero
             };
 
-            _blendStates[(int)BlendMode.Alpha] = new BlendState(_drawContext)
+            _blendStates[(int)BlendMode.Alpha] = new BlendState(Context)
             {
                 BlendEnabled = true,
                 SourceBlend = BlendOption.SourceAlpha,
@@ -352,7 +357,7 @@ namespace DBFilesViewer.Graphics.Scene
                 DestinationAlphaBlend = BlendOption.InverseSourceAlpha
             };
 
-            _blendStates[3] = new BlendState(_drawContext)
+            _blendStates[3] = new BlendState(Context)
             {
                 BlendEnabled = true,
                 SourceBlend = BlendOption.SourceColor,
@@ -361,7 +366,7 @@ namespace DBFilesViewer.Graphics.Scene
                 DestinationAlphaBlend = BlendOption.DestinationAlpha
             };
 
-            _blendStates[4] = new BlendState(_drawContext)
+            _blendStates[4] = new BlendState(Context)
             {
                 BlendEnabled = true,
                 SourceBlend = BlendOption.SourceAlpha,
@@ -370,7 +375,7 @@ namespace DBFilesViewer.Graphics.Scene
                 DestinationAlphaBlend = BlendOption.One
             };
 
-            _blendStates[5] = new BlendState(_drawContext)
+            _blendStates[5] = new BlendState(Context)
             {
                 BlendEnabled = true,
                 SourceBlend = BlendOption.SourceAlpha,
@@ -379,7 +384,7 @@ namespace DBFilesViewer.Graphics.Scene
                 DestinationAlphaBlend = BlendOption.InverseSourceAlpha
             };
 
-            _blendStates[6] = new BlendState(_drawContext)
+            _blendStates[6] = new BlendState(Context)
             {
                 BlendEnabled = true,
                 SourceBlend = BlendOption.DestinationColor,
@@ -388,7 +393,7 @@ namespace DBFilesViewer.Graphics.Scene
                 DestinationAlphaBlend = BlendOption.SourceAlpha
             };
 
-            _blendStates[7] = new BlendState(_drawContext)
+            _blendStates[7] = new BlendState(Context)
             {
                 BlendEnabled = true,
                 SourceBlend = BlendOption.SourceColor,
@@ -539,8 +544,8 @@ namespace DBFilesViewer.Graphics.Scene
             };/**/
             #endregion
 
-            _noCullState = new RasterState(_drawContext) { CullEnabled = false };
-            _cullState = new RasterState(_drawContext) { CullEnabled = true };
+            _noCullState = new RasterState(Context) { CullEnabled = false };
+            _cullState = new RasterState(Context) { CullEnabled = true };
         }
 
         public void Dispose()

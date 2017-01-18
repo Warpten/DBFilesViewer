@@ -94,11 +94,8 @@ namespace DBFilesViewer.UI.Controls
                 var buttonAttributes = typeof (T).GetCustomAttributes<OptionalButtonAttribute>();
                 foreach (var buttonAttr in buttonAttributes)
                 {
-                    var button = buttonAttr.Button;
-                    button.Click += (o, _) => {
-                        buttonAttr.OpenForm?.Invoke(_recordInspectListView.SelectedObject).ShowDialog();
-                    };
-                    (propControl as ToolStrip).Items.Add(button);
+                    buttonAttr.TagGetter = () => _recordInspectListView.SelectedObject;
+                    (propControl as ToolStrip).Items.Add(buttonAttr.Button);
                 }
 
                 // Add static button about references

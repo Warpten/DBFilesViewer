@@ -8,7 +8,7 @@ using DBFilesViewer.Utils;
 namespace DBFilesViewer.Data.Structures
 {
     [DBFileName("CreatureDisplayInfo")]
-    [ViewModelButton(typeof(CreatureDisplayInfoEntry), "OpenModelViewer", typeof(uint))]
+    [ViewCreatureModelButton]
     public sealed class CreatureDisplayInfoEntry
     {
         public ForeignKey<CreatureDisplayInfoExtraEntry> ExtendedDisplayInfo;
@@ -33,16 +33,5 @@ namespace DBFilesViewer.Data.Structures
         public byte Flags;
         public Genders Gender;
         public sbyte Unk700; // Always -1
-
-        public static Form OpenModelViewer(uint key)
-        {
-            var renderForm = new CreatureModelViewerForm();
-            renderForm.OnAnimationsLoaded += animations =>
-            {
-                renderForm.SetAnimationSource(animations);
-            };
-            renderForm.LoadModel(key);
-            return renderForm;
-        }
     }
 }

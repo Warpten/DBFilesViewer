@@ -36,7 +36,7 @@ namespace DBFilesViewer.Graphics.Files.Models
             if (!MD20.Read())
                 fileStream.Position = 0;
 
-            var chunkedData = new ChunkData<M2>(this);
+            var chunkedData = new ChunkData<M2>(this, false); // Don't even ask me
 
             foreach (var chunkInfo in chunkedData.Chunks)
             {

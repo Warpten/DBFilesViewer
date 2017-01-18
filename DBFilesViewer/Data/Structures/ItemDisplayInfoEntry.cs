@@ -7,7 +7,7 @@ using DBFilesViewer.UI.Forms;
 namespace DBFilesViewer.Data.Structures
 {
     [DBFileName("ItemDisplayInfo")]
-    [ViewModelButton(typeof(ItemDisplayInfoEntry), "OpenModelViewer", typeof(uint))]
+    [ViewItemModelButton]
     public sealed class ItemDisplayInfoEntry
     {
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
@@ -30,12 +30,5 @@ namespace DBFilesViewer.Data.Structures
         public int UnkInt6;
         public int UnkInt7;
         public int UnkInt8;
-
-        public static Form OpenModelViewer(uint recordKey)
-        {
-            var renderForm = new ItemModelViewerForm();
-            renderForm.LoadModel(recordKey);
-            return renderForm;
-        }
     }
 }
